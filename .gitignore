@@ -1,0 +1,6 @@
+node_modules/
+.codex-runtime/
+debug.log
+*.log
+test-results/
+pwtmp/

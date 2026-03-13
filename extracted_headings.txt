@@ -1,0 +1,819 @@
+Coworkit
+@font-face {
+      font-family: 'Neue Haas Display';
+      src: url('./fonts/68f7902f3ad55798b28ec367_NeueHaasGroteskDisplay-65Medium-Web.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Denim Ink';
+      src: url('./fonts/68f790096a55f24186e77254_DenimINK-Medium.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    .wm-hero-shell {
+      --wm-hero-black: #050505;
+      --wm-hero-white: #fff;
+      --wm-hero-yellow: #fef073;
+      --wm-hero-brown: #312821;
+      --wm-hero-nav-offset: clamp(4.75rem, 4.2rem + 1.2vw, 5.5rem);
+      position: relative;
+      z-index: 2;
+      margin-top: var(--wm-hero-nav-offset);
+    }
+
+    .wm-hero-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .wm-hero-section {
+      width: 100%;
+      min-height: calc(95svh - var(--wm-hero-nav-offset));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      padding: 0;
+    }
+
+    .wm-home-hero-main {
+      width: 100%;
+      min-height: calc(95svh - var(--wm-hero-nav-offset));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      padding: clamp(2rem, 1.4rem + 2vw, 3.5rem) 0 clamp(2rem, 1.25rem + 1.5vw, 3rem);
+    }
+
+    .wm-hero-container {
+      width: 97%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .wm-hero-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-left: -24px;
+      margin-right: -24px;
+    }
+
+    .wm-hero-col {
+      flex: 1 1 100%;
+      display: flex;
+      flex-direction: column;
+      padding-left: 24px;
+      padding-right: 24px;
+      position: relative;
+    }
+
+    .wm-hero-title-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--wm-hero-white);
+    }
+
+    .wm-hero-main-title {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .wm-hero-title {
+      margin: 0 0 0.075em;
+      font-family: 'Neue Haas Display', Arial, sans-serif;
+      font-size: clamp(3.75rem, 2.179rem + 7.857vw, 100vw);
+      line-height: 0.82;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--wm-hero-white);
+    }
+
+    .wm-hero-main-span {
+      display: none;
+    }
+
+    .wm-hero-superscript {
+      margin: 0 0 0 0.6em;
+      font-family: 'Denim Ink', Arial, sans-serif;
+      font-size: clamp(1.125rem, 0.875rem + 1.25vw, 100vw);
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      color: var(--wm-hero-white);
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      white-space: nowrap;
+    }
+
+    .wm-hero-split-mask {
+      position: relative;
+      display: block;
+      overflow: clip;
+      padding-bottom: 0.2em;
+      margin-bottom: -0.2em;
+    }
+
+    .wm-hero-split-line {
+      position: relative;
+      display: block;
+    }
+
+    .wm-hero-body {
+      max-width: 50em;
+    }
+
+    .wm-hero-copy {
+      margin: 0;
+      font-family: 'Denim Ink', Arial, sans-serif;
+      font-size: clamp(1.125rem, 0.875rem + 1.25vw, 100vw);
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-align: center;
+      color: var(--wm-hero-white);
+    }
+
+    .wm-hero-copy .wm-hero-split-mask {
+      text-align: center;
+    }
+
+    .wm-hero-spacer {
+      height: clamp(1.5rem, 1.125rem + 1vw, 2rem);
+    }
+
+    .wm-hero-button {
+      padding: clamp(0.875rem, 0.839rem + 0.179vw, 100vw) clamp(1.313rem, 1.188rem + 0.625vw, 100vw);
+      gap: 0.5rem;
+      border: 0.12em solid var(--wm-hero-black);
+      border-radius: 50rem;
+      background-color: var(--wm-hero-white);
+      box-shadow: 0 0.25em 0 0 var(--wm-hero-black);
+      font-family: 'Denim Ink', Arial, sans-serif;
+      color: var(--wm-hero-black);
+      font-size: clamp(0.813rem, 0.777rem + 0.179vw, 100vw);
+      line-height: 1.3em;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      text-decoration: none;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .wm-hero-button:hover {
+      transform: translateY(0.1em);
+      box-shadow: 0 0.15em 0 0 var(--wm-hero-black);
+    }
+
+    .wm-hero-button-text {
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .wm-hero-button-icon {
+      width: 1.15em;
+      height: 1.15em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .wm-hero-button-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .wm-hero-bg-dark {
+      position: absolute;
+      inset: 0;
+      background-color: var(--wm-hero-brown);
+    }
+
+    .wm-hero-bg-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .wm-hero-bg-image.wm-desktop {
+      opacity: 0.55;
+      filter: brightness(0.9);
+    }
+
+    .wm-mask-section {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 5vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .wm-hero-image-mask {
+      background-color: var(--wm-hero-white);
+      height: 0.4em;
+      will-change: transform;
+    }
+
+    .wm-hero-image-mask.is-1 {
+      height: 8%;
+    }
+
+    .wm-hero-image-mask.is-2 {
+      height: 13%;
+    }
+
+    .wm-hero-image-mask.is-3 {
+      height: 18%;
+    }
+
+    .wm-mobile {
+      display: none;
+    }
+
+    @media screen and (max-width: 991px) {
+      .wm-hero-body {
+        max-width: 35em;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .wm-hero-shell {
+        --wm-hero-nav-offset: 4.6rem;
+      }
+
+      .wm-home-hero-main {
+        padding-top: 1.5rem;
+      }
+
+      .wm-hero-body {
+        max-width: 30em;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .wm-hero-main-span {
+        display: block;
+      }
+
+      .wm-hero-superscript {
+        display: none;
+      }
+
+      .wm-desktop {
+        display: none;
+      }
+
+      .wm-mobile {
+        display: block;
+      }
+    }
+
+    .wm-loader {
+      z-index: 9999999;
+      background-color: #fef073;
+      pointer-events: none;
+      justify-content: flex-start;
+      align-items: flex-end;
+      width: 100%;
+      height: 100%;
+      padding: 2em;
+      display: flex;
+      position: fixed;
+      inset: 0%;
+      overflow: hidden;
+    }
+
+    .wm-loader .wm-bar {
+      background-color: #000;
+      width: .5rem;
+      height: 0;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
+    .wm-loader .wm-title-wrap {
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .wm-loader .wm-title {
+      font-family: 'Neue Haas Display', Arial, Helvetica, sans-serif;
+      font-size: 12.25vh;
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: #000;
+      margin: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .wm-loader .wm-word-mask {
+      position: relative;
+      display: inline-block;
+      overflow: clip;
+    }
+
+    .wm-loader .wm-word {
+      position: relative;
+      display: inline-block;
+      transform: translateY(100%);
+    }
+
+    @media screen and (max-width: 991px) {
+      .wm-loader .wm-title {
+        font-size: 13vw;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .wm-loader {
+        padding-left: 1em;
+      }
+
+      .wm-loader .wm-title {
+        font-size: 12vw;
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      .wm-loader .wm-title {
+        font-size: 11vw;
+      }
+    }
+
+    html.wm-loading {
+      background: #fef073;
+    }
+
+    html.wm-loading body {
+      visibility: hidden;
+    }
+(function () {
+      var classGuard = new MutationObserver(function () {
+        if (!document.documentElement.classList.contains('wm-loading')) {
+          document.documentElement.classList.add('wm-loading');
+        }
+      });
+      classGuard.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+      var BG = '#fef073';
+      var EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
+
+      var loader = document.createElement('div');
+      loader.id = 'wmLoader';
+      loader.style.cssText = [
+        'position:fixed', 'inset:0', 'z-index:9999999',
+        'background:' + BG, 'width:100vw', 'height:100vh',
+        'overflow:hidden', 'pointer-events:none'
+      ].join(';');
+
+      var bar = document.createElement('div');
+      bar.style.cssText = 'background:#000;width:0.35rem;height:0;position:absolute;bottom:0;right:0;z-index:5;';
+      loader.appendChild(bar);
+
+      var maskTop = document.createElement('div');
+      maskTop.style.cssText = [
+        'position:absolute', 'top:0', 'left:0', 'right:0',
+        'background:' + BG, 'z-index:3',
+        'height:100vh'
+      ].join(';');
+      loader.appendChild(maskTop);
+
+      var maskBtm = document.createElement('div');
+      maskBtm.style.cssText = [
+        'position:absolute', 'bottom:0', 'left:0', 'right:0',
+        'background:' + BG, 'z-index:3',
+        'height:0'
+      ].join(';');
+      loader.appendChild(maskBtm);
+
+      var wrapper = document.createElement('div');
+      wrapper.style.cssText = [
+        'position:absolute', 'top:0', 'left:2em', 'right:2em',
+        'z-index:2', 'will-change:transform',
+        'transform:translateY(100vh)'
+      ].join(';');
+
+      var lineEls = [];
+      ['CONTENT +', 'SOCIAL MEDIA +', 'PAID MEDIA'].forEach(function (txt) {
+        var mask = document.createElement('div');
+        mask.style.cssText = 'display:block;overflow:hidden;';
+
+        var p = document.createElement('div');
+        p.textContent = txt;
+        p.style.cssText = [
+          'display:block',
+          'font-family:"Neue Haas Display","Neue Haas Grotesk Display Web",Arial,Helvetica,sans-serif',
+          'font-size:5.2vw',
+          'font-weight:700',
+          'line-height:0.92',
+          'letter-spacing:-0.03em',
+          'color:#000',
+          'text-transform:uppercase',
+          'white-space:nowrap',
+          'margin:0',
+          'transform:translateY(110%)',
+          'will-change:transform'
+        ].join(';');
+
+        mask.appendChild(p);
+        wrapper.appendChild(mask);
+        lineEls.push(p);
+      });
+
+      loader.appendChild(wrapper);
+
+      var done = false;
+      function ensureLoader() {
+        if (done) return;
+        if (!document.getElementById('wmLoader')) document.documentElement.appendChild(loader);
+      }
+
+      document.documentElement.appendChild(loader);
+      var guardInterval = setInterval(ensureLoader, 50);
+
+      var TRAVEL = 480;
+      var RL_DUR = 480;
+      var EL_DUR = 260;
+      var STAG = 60;
+      var EL_TOTAL = EL_DUR + 2 * STAG;
+      var RL_TOTAL = RL_DUR + 2 * STAG;
+      var HOLD = 200;
+      var EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
+      var EASE_IN = 'cubic-bezier(0.55, 0, 1, 0.45)';
+
+      function revealLines() {
+        lineEls.forEach(function (el, i) {
+          el.animate(
+            [{ transform: 'translateY(110%)' }, { transform: 'translateY(0%)' }],
+            { duration: RL_DUR, delay: i * STAG, easing: EASE_OUT, fill: 'forwards' }
+          );
+        });
+      }
+
+      function exitLinesUp() {
+        lineEls.forEach(function (el, i) {
+          el.animate(
+            [{ transform: 'translateY(0%)' }, { transform: 'translateY(-110%)' }],
+            { duration: EL_DUR, delay: i * STAG, easing: EASE_IN, fill: 'forwards' }
+          );
+        });
+      }
+
+      setTimeout(function () {
+        var VH = window.innerHeight;
+        var ZONE = VH / 3;
+        var fsize = window.innerWidth * 0.052;
+        var lh = fsize * 0.92;
+        var H = lh * 3;
+
+        var yBelow = VH + 20;
+        var yBottom = Math.max(2 * ZONE + (ZONE - H) / 2, 2 * ZONE);
+        var yCenter = Math.max(ZONE + (ZONE - H) / 2, ZONE);
+        var yTop = Math.max((ZONE - H) / 2, 0);
+        var yAbove = -(H + 20);
+
+        function tx(y) {
+          return 'translateY(' + y.toFixed(1) + 'px)';
+        }
+
+        wrapper.animate(
+          [{ transform: tx(yBelow) }, { transform: tx(yBottom) }],
+          { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+        );
+        maskTop.animate(
+          [{ height: VH + 'px' }, { height: (2 * ZONE) + 'px' }],
+          { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+        );
+        revealLines();
+
+        var t1 = TRAVEL + RL_TOTAL + HOLD;
+
+        setTimeout(function () {
+          exitLinesUp();
+
+          setTimeout(function () {
+            wrapper.animate(
+              [{ transform: tx(yBottom) }, { transform: tx(yCenter) }],
+              { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+            );
+            maskTop.animate(
+              [{ height: (2 * ZONE) + 'px' }, { height: ZONE + 'px' }],
+              { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+            );
+            maskBtm.animate(
+              [{ height: '0px' }, { height: ZONE + 'px' }],
+              { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+            );
+            setTimeout(revealLines, TRAVEL);
+          }, EL_TOTAL);
+
+          var t2 = EL_TOTAL + TRAVEL + RL_TOTAL + HOLD;
+
+          setTimeout(function () {
+            exitLinesUp();
+
+            setTimeout(function () {
+              wrapper.animate(
+                [{ transform: tx(yCenter) }, { transform: tx(yTop) }],
+                { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+              );
+              maskTop.animate(
+                [{ height: ZONE + 'px' }, { height: '0px' }],
+                { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+              );
+              maskBtm.animate(
+                [{ height: ZONE + 'px' }, { height: (2 * ZONE) + 'px' }],
+                { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+              );
+              setTimeout(revealLines, TRAVEL);
+            }, EL_TOTAL);
+
+            var t3 = EL_TOTAL + TRAVEL + RL_TOTAL + HOLD;
+
+            setTimeout(function () {
+              exitLinesUp();
+
+              setTimeout(function () {
+                wrapper.animate(
+                  [{ transform: tx(yTop) }, { transform: tx(yAbove) }],
+                  { duration: TRAVEL, easing: EASE, fill: 'forwards' }
+                );
+                loader.animate(
+                  [{ transform: 'translateY(0)' }, { transform: 'translateY(-100%)' }],
+                  { duration: TRAVEL + 100, easing: EASE, fill: 'forwards' }
+                );
+                setTimeout(function () {
+                  done = true;
+                  classGuard.disconnect();
+                  clearInterval(guardInterval);
+                  loader.style.display = 'none';
+                  document.documentElement.style.background = '';
+                  document.documentElement.classList.remove('wm-loading');
+                }, TRAVEL + 200);
+              }, EL_TOTAL);
+            }, t3);
+          }, t2);
+        }, t1);
+
+        var totalMs = 900 + t1 +
+          2 * (EL_TOTAL + TRAVEL + RL_TOTAL + HOLD) +
+          EL_TOTAL + TRAVEL + 300;
+
+        bar.animate(
+          [{ height: '0' }, { height: '100vh' }],
+          { duration: totalMs, easing: 'linear', fill: 'forwards' }
+        );
+      }, 900);
+    })();
+Open main menu
+Sign Up
+Get Demo
+Home
+About Us
+Features
+Pricing
+Add-Ons
+Contact
+Sign Up
+Get Demo
+What
+Matters
+Agency
+(AGENCY)
+We ideate, create, and distribute content for
+Australia's leading Hospitality Groups.
+Get in touch
+The Core Challenges Facing Co-Working Spaces
+Despite rapid growth, most co-working spaces
+                    still struggle with outdated manual systems. Here are the four biggest obstacles holding back your
+                    operations:
+See our plans
+Scattered Lead & Member
+                      Communication
+Double Bookings & Manual Errors
+Delayed & Missed
+                      Payments
+Ineffective Member Communication
+Control
+One Platform.
+Total Control.
+Coworkit offers
+                a
+                seamlessly connected platform that centralizes every aspect of co-working space management. From lead
+                capture to payment collection, the system is designed to automate operations, reduce manual errors,
+                and
+                give you full visibility into your business. Whether it’s managing bookings, generating invoices,
+                handling CRM, or overseeing multiple locations — everything works together in one intuitive ecosystem,
+                tailored for efficiency and growth.
+Command
+Full Dashboard Power
+Right at Your Desk
+The desktop
+              dashboard provides complete operational control for co-working owners and administrators. It includes a
+              powerful CRM to manage leads and members, real-time desk and room booking, billing and invoicing
+              automation, smart floor planning, advanced reporting, and financial tracking tools. You can customize
+              subscription plans, set permissions for team members, and send announcements — all from one central hub,
+              purpose-built for scaling professional workspaces.
+Mobility
+On-the-Go Tools for Members & Staff
+The mobile app
+              brings convenience to your fingertips, designed specifically for members and front-desk staff. Users can
+              easily book meeting rooms, view and pay their invoices, register guests, manage incoming mail, raise
+              support tickets, and chat with management in real-time. This streamlined mobile experience keeps your
+              community connected and empowered, even when they’re on the move.
+Run Every Location.
+Monitor Every Metric.
+Lead from Anywhere.
+Coworkit
+          empowers C-suite leaders with a real-time command center, giving complete visibility across all locations.
+          Monitor bookings, payments, occupancy, and team activity — all from one smart dashboard, accessible anytime,
+          anywhere.
+Designed for
+          decision-makers, the system delivers the insights you need to scale operations, boost profitability, and
+          stay
+          in control — whether you're at headquarters or on the move.
+Create Unit Teams
+To Promote Your Brand
+Pioneering
+Creative
+Excellence
+Promote viral advertising
+              new text
+Promote viral advertising
+Promote viral advertising
+Promote viral advertising new text Promote viral advertising new text Promote viral advertising new
+            textPromote viral advertising new text
+Speak, Command, Achieve with CYA Voice
+What If With CYA Voice, Everything You Say Gets Done?
+CYA Voice is a next-gen AI assistant designed for seamless voice interactions, intelligent task
+            management,
+            multilingual support, and personalized user experiences.
+Learn
+              More
+Get
+              Demo
+? CYA Virtual Assistant
+Elevate your Workspace Efficiency With CYA Dynamic Reporting
+Show me the count of active users for each Salesforce account
+CYA is Pressing Your Report
+This
+              prompt instructs CYA to retrieve and display a report listing each Salesforce account alongside the
+              corresponding number of active users associated with it.
+Payment Gateways
+25+ Payment Gateways
+Enhance your experience with powerful add-ons tailored to elevate your performance.
+Show more
+Add-ons integration
+300+ Add-Ons
+Enhance your experience with powerful add-ons tailored to elevate your performance.
+Show more 300 +
+              add-ons
+Flutterwave
+Google
+Zapier
+Hubspot
+300+more
+Zendesk
+Meet
+Mercado Pago
+100+ Integrations
+Enhance
+            your experience with powerful add-ons tailored to elevate your performance.
+Show
+            more 100+ integrations
+Our Best Clients
+Support Multiple Languages
+Break free from traditional
+            boundaries.
+            Work from anywhere, at the comfort of your own studio apartment. Perfect for Nomads and Travellers.
+Supported
+Languages
+Hola
+Hola
+Hola
+Hola
+Mwaramutse
+Mwaramutse
+Ciao
+Ciao
+Hola
+??????
+Komusta
+Komusta
+??????
+Bonjour
+Komusta
+??????
+Chan xa
+                  wil
+Chan xa
+                  wil
+Bonjour
+Hallo
+??????
+Hallo
+Mwaramutse
+Hallo
+Chan xa
+                  wil
+Witam
+??????
+Hallo
+Hallo
+Witam
+????????
+Chan xa
+                  wil
+Zdravo
+??????
+Hallo
+Hello
+Pro Plus
+Exclusive
+Price Plans
+Exclusive Price Plans
+Monthly
+Yearly
+Startup
+Tier
+For growing co-working spaces seeking comprehensive management tools with the
+                      flexibility to scale
+150.00
+/month
+Full access to Level 1 features
+Add-Ons: AI and Level 2 features
+1.42$ per additional user per month.
+Monthly
+Yearly
+Professional
+Tier
+For mid-sized co-working spaces requiring advanced management capabilities and
+                      scalability.
+350.00
+/month
+Full access to Level 1 features
+Add-Ons: AI and Level 2 features.
+1.24$ per additional user per month.
+we has the full types of potential for your start-up
+            business.
+Quick Links
+About Us
+Our Services
+Community
+Testimonials
+Company
+About Us
+Contact Us
+Career Tips
+Career
+Join the Coworkit
+            Community
+Join
+              Us
+(self.__next_f = self.__next_f || []).push([0])
+self.__next_f.push([1, "1:\"$Sreact.fragment\"\n2:I[5976,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmfix4\"],\"default\"]\n3:I[9534,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmfix4\"],\"default\"]\n4:I[8761,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chun"])
+self.__next_f.push([1, "ks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmfix4\"],\"GlassCircleAnimBg\"]\n5:I[5244,[],\"\"]\n6:I[3866,[],\"\"]\n7:I[8173,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmfix4\"],\"\"]\n8:I[7970,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmfix4\"],\"Image\"]\n9:I[7033,[],\"ClientPageRoot\"]\na:I[8222,[\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"612\",\""])
+self.__next_f.push([1, "static/chunks/612-58195f967a4f3018.js\",\"228\",\"static/chunks/228-c2358ef8f37a4cac.js\",\"974\",\"static/chunks/app/page-7829a1db070960a1.js?v=wmfix4\"],\"default\"]\nd:I[6213,[],\"OutletBoundary\"]\nf:I[6213,[],\"MetadataBoundary\"]\n11:I[6213,[],\"ViewportBoundary\"]\n13:I[4835,[],\"\"]\n:HL[\"./_next/static/css/89da6031e7ae37fb.css\",\"style\"]\n:HL[\"./_next/static/css/ba3a27aa20d5d66a.css\",\"style\"]\n"])
+self.__next_f.push([1, "0:{\"P\":null,\"b\":\"Z8YS3dMpVEw_MPozAsavV\",\"p\":\"\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"./_next/static/css/89da6031e7ae37fb.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"./_next/static/css/ba3a27aa20d5d66a.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"className\":\"__className_6f93a2\",\"children\":[[\"$\",\"$L2\",null,{}],[\"$\",\"$L3\",null,{}],[\"$\",\"$L4\",null,{}],[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[],[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}],[\"$\",\"footer\",null,{\"className\":\" bg-[#FFFFFF29] relative mt-[15vh] p-8 py-[10vh] rounded-t-[36px]\",\"style\":{\"backdropFilter\":\"blur(130px)\",\"boxShadow\":\"0px -8px 247.3px 0px #29ADE41A\"},\"children\":[\"$\",\"div\",null,{\"className\":\" max-w-[1300px] m-auto relative z-10\",\"children\":[\"$\",\"div\",null,{\"className\":\"grid gap-6 grid-cols-1 lg:grid-cols-[30%_30%_35%] justify-between\",\"children\":[[\"$\",\"div\",null,{\"className\":\"w-3/4 mx-auto sm:mx-[initial] flex md:block text-center md:text-left items-center md:items-start flex-col\",\"children\":[[\"$\",\"$L7\",null,{\"href\":\"/\",\"children\":[\"$\",\"$L8\",null,{\"src\":\"./images/coworkit-logo.webp\",\"className\":\"w-[130px] h-[26px]\",\"alt\":\"Coworkit Logo\",\"width\":99,\"height\":26,\"priority\":true}]}],[\"$\",\"div\",null,{\"className\":\"mt-3 font-normal text-sm text-[#343C6A]\",\"children\":\"we has the full types of potential for your start-up business.\"}]]}],[\"$\",\"div\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"grid grid-cols-2 text-sm font-normal\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium \",\"children\":\"Quick Links\"}],[\"$\",\"ul\",null,{\"className\":\"\",\"children\":[[\"$\",\"li\",\"0\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"About Us\"}]}],[\"$\",\"li\",\"1\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Our Services\"}]}],[\"$\",\"li\",\"2\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Community\"}]}],[\"$\",\"li\",\"3\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Testimonials\"}]}],[\"$\",\"li\",\"4\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"FAQ\"}]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"flex justify-end md:block\",\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium \",\"children\":\"Company\"}],[\"$\",\"ul\",null,{\"className\":\"\",\"children\":[[\"$\",\"li\",\"0\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"About Us\"}]}],[\"$\",\"li\",\"1\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Contact Us\"}]}],[\"$\",\"li\",\"2\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Career Tips\"}]}],[\"$\",\"li\",\"3\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Career\"}]}]]}],[\"$\",\"div\",null,{}]]}]}]]}]}],[\"$\",\"div\",null,{\"className\":\"\",\"children\":[[\"$\",\"p\",null,{\"className\":\"text-[32px] font-normal text-[#00274D] leading-[32px] text-center md:text-left\",\"children\":\"Join the Coworkit Community\"}],[\"$\",\"div\",null,{\"className\":\"border my-10 w-full rounded-full border-global flex relative md:h-[56px] items-center text-[#00274D]\",\"children\":[[\"$\",\"input\",null,{\"type\":\"text\",\"placeholder\":\"Enter Your Gmail\",\"className\":\"border-none outline-none focus:!outline-0 focus:outline-none focus:border-none focus:ring-0 bg-transparent w-full pl-5\"}],[\"$\",\"button\",null,{\"className\":\" bg-[linear-gradient(133deg,_white,_#26ADE3)] px-14 py-3 md:py-5 text-sm md:text-[18px] font-normal rounded-full flex-shrink-0 absolute right-0\",\"children\":\"Join Us\"}]]}],[\"$\",\"div\",null,{\"className\":\"flex gap-2 justify-center md:justify-start\",\"children\":[[\"$\",\"div\",null,{\"className\":\"rounded-full bg-global text-white p-1\",\"children\":[\"$\",\"svg\",null,{\"stroke\":\"currentColor\",\"fill\":\"currentColor\",\"strokeWidth\":\"0\",\"viewBox\":\"0 0 448 512\",\"className\":\"$undefined\",\"children\":[\"$undefined\",[[\"$\",\"path\",\"0\",{\"d\":\"M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z\",\"children\":[]}]]],\"style\":{\"color\":\"$undefined\"},\"height\":21.09,\"width\":21.09,\"xmlns\":\"http://www.w3.org/2000/svg\"}]}],[\"$\",\"div\",null,{\"className\":\"rounded-full bg-global text-white p-1\",\"children\":[\"$\",\"svg\",null,{\"stroke\":\"currentColor\",\"fill\":\"currentColor\",\"strokeWidth\":\"0\",\"viewBox\":\"0 0 448 512\",\"className\":\"$undefined\",\"children\":[\"$undefined\",[[\"$\",\"path\",\"0\",{\"d\":\"M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z\",\"children\":[]}]]],\"style\":{\"color\":\"$undefined\"},\"height\":21.09,\"width\":21.09,\"xmlns\":\"http://www.w3.org/2000/svg\"}]}],[\"$\",\"div\",null,{\"className\":\"rounded-full bg-global text-white p-1\",\"children\":[\"$\",\"svg\",null,{\"stroke\":\"currentColor\",\"fill\":\"currentColor\",\"strokeWidth\":\"0\",\"viewBox\":\"0 0 320 512\",\"className\":\"$undefined\",\"children\":[\"$undefined\",[[\"$\",\"path\",\"0\",{\"d\":\"M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z\",\"children\":[]}]]],\"style\":{\"color\":\"$undefined\"},\"height\":21.09,\"width\":21.09,\"xmlns\":\"http://www.w3.org/2000/svg\"}]}]]}]]}]]}]}]}]]}]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L9\",null,{\"Component\":\"$a\",\"searchParams\":{},\"params\":{},\"promises\":[\"$@b\",\"$@c\"]}],null,[\"$\",\"$Ld\",null,{\"children\":\"$Le\"}]]}],{},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"hIetuGGSnMy_BApD0Jgb2\",{\"children\":[[\"$\",\"$Lf\",null,{\"children\":\"$L10\"}],[\"$\",\"$L11\",null,{\"children\":\"$L12\"}],null]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$13\",\"$undefined\"],\"s\":false,\"S\":true}\n"])
+self.__next_f.push([1, "b:{}\nc:{}\n"])
+self.__next_f.push([1, "12:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n10:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"Coworkit\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Best Coworking System\"}],[\"$\",\"link\",\"3\",{\"rel\":\"icon\",\"href\":\"./images/Coworkit-logo-small.png\"}]]\n"])
+self.__next_f.push([1, "e:null\n"])
