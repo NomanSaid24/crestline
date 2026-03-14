@@ -326,6 +326,24 @@
       }
     }
 
+    #featureSection #featureDashboard,
+    #featureSection #featureMobile {
+      display: block;
+      border-radius: 28px;
+      background-color: #fff;
+      box-shadow: 0 20px 48px rgba(10, 43, 88, 0.14);
+      object-fit: cover;
+    }
+
+    #featureSection #featureDashboard {
+      border-radius: 24px;
+    }
+
+    #featureSection #featureMobile {
+      border-radius: 30px;
+      box-shadow: 0 18px 42px rgba(10, 43, 88, 0.16);
+    }
+
   </style>
   <style>
     /* === WhatMatters Loader === */
@@ -413,6 +431,153 @@
 
     html.wm-loading body {
       visibility: hidden;
+    }
+  </style>
+  <style>
+    body.process-modal-open {
+      overflow: hidden;
+    }
+
+    .process-step-trigger {
+      cursor: pointer;
+    }
+
+    .process-step-trigger img {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #cubeanim5Para .process-step-trigger {
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    #cubeanim5Para .process-step-trigger:hover,
+    #cubeanim5Para .process-step-trigger:focus-visible {
+      color: #0b5e3b;
+      transform: translateX(-2px);
+      outline: none;
+    }
+
+    .process-step-modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(15, 23, 42, 0.58);
+      backdrop-filter: blur(7px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1000001;
+    }
+
+    .process-step-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .process-step-modal__panel {
+      width: min(720px, 92vw);
+      background: #ffffff;
+      border: 8px solid #00b14c;
+      border-radius: 18px;
+      box-shadow: 0 28px 80px rgba(2, 12, 27, 0.28);
+      padding: 24px 24px 28px;
+      position: relative;
+      transform: translateY(28px) scale(0.97);
+      transition: transform 0.32s ease;
+    }
+
+    .process-step-modal.is-open .process-step-modal__panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .process-step-modal__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(0, 177, 76, 0.12);
+      color: #006b2b;
+      font-size: 26px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .process-step-modal__close:hover,
+    .process-step-modal__close:focus-visible {
+      background: rgba(0, 177, 76, 0.2);
+      transform: scale(1.04);
+      outline: none;
+    }
+
+    .process-step-modal__media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+      margin: 8px 0 12px;
+    }
+
+    .process-step-modal__media img {
+      width: auto;
+      max-width: min(320px, 100%);
+      max-height: 260px;
+      object-fit: contain;
+    }
+
+    .process-step-modal__title {
+      margin: 0 0 10px;
+      color: #00274d;
+      font-size: 29px;
+      line-height: 1.15;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+
+    .process-step-modal__copy {
+      margin: 0;
+      color: #111827;
+      font-size: 18px;
+      line-height: 1.7;
+      text-align: left;
+    }
+
+    @media (max-width: 767px) {
+      .process-step-modal {
+        padding: 16px;
+      }
+
+      .process-step-modal__panel {
+        padding: 18px 18px 22px;
+        border-width: 6px;
+        border-radius: 16px;
+      }
+
+      .process-step-modal__media {
+        min-height: 200px;
+      }
+
+      .process-step-modal__title {
+        font-size: 24px;
+      }
+
+      .process-step-modal__copy {
+        font-size: 15px;
+        line-height: 1.65;
+      }
     }
   </style>
 </head>
@@ -836,10 +1001,10 @@
           </div>
         </section>
         <div class="wm-hero-bg-dark"></div>
-        <img class="wm-hero-bg-image wm-desktop" src="/bg-hero.png"
+        <img class="wm-hero-bg-image wm-desktop" src="/bg-hero.png?v=hero20260314b"
           alt="Premium corporate promotional textile manufacturer backdrop" data-wm-image-parallax
           sizes="(max-width: 1536px) 100vw, 1536px" loading="eager">
-        <img class="wm-hero-bg-image wm-mobile" src="/bg-hero.png"
+        <img class="wm-hero-bg-image wm-mobile" src="/bg-hero.png?v=hero20260314b"
           alt="Premium corporate promotional textile manufacturer backdrop" data-wm-image-parallax sizes="100vw"
           loading="eager">
         <div class="wm-mask-section">
@@ -921,8 +1086,8 @@
               <div class="w-full lg:w-1/4 flex flex-col justify-center items-end">
                 <div class="w-11/12 py-2 hidden lg:block">
                   <p id="cubeanim5Para" class="text-xs space-y-1" style="opacity: 0;"><span
-                      class="block">Step 1</span><span class="block">Step 2</span><span class="block">Step
-                      3</span><span class="block">Step 4</span></p>
+                      class="block">Product Brief</span><span class="block">Sample Review</span><span
+                      class="block">Custom Branding</span><span class="block">Final Delivery</span></p>
                 </div>
               </div>
             </div>
@@ -930,6 +1095,19 @@
         </div>
       </div>
     </section>
+    <div id="processStepModal" class="process-step-modal" aria-hidden="true">
+      <div class="process-step-modal__panel" role="dialog" aria-modal="true" aria-labelledby="processStepModalTitle">
+        <button type="button" class="process-step-modal__close" data-process-modal-close
+          aria-label="Close process details">&times;</button>
+        <div class="process-step-modal__media">
+          <img data-process-modal-image src="/images/process-cards/step1.png" alt="Product brief process step">
+        </div>
+        <h3 id="processStepModalTitle" class="process-step-modal__title" data-process-modal-title>Product Brief</h3>
+        <p class="process-step-modal__copy" data-process-modal-copy>Share the product you need along with fabric
+          specifications, GSM, pantone references, and print or embroidery details. We review the brief, quote pricing,
+          and outline an estimated shipment schedule.</p>
+      </div>
+    </div>
     <section class="pt-32 z-[initial]" id="featureSection">
       <div class="flex justify-between p-4 max-h-[1190px] md:max-h-[initial] max-w-[1328px] m-auto relative z-[30]">
         <div class="px-4 sm:pl-8 slides scale-[1] xs:scale-[0.69] md:scale-100 origin-top-left " style="scale:1"
@@ -1102,14 +1280,14 @@
                 </g>
               </svg>
               <div class="assets absolute w-full top-0 left-0 flex items-center justify-center h-full z-10"><img
-                  id="featureDashboard" alt="feature dashboard" loading="lazy" width="423" height="267" decoding="async"
-                  data-nimg="1" class="absolute top-[36%] w-2/3 featureDashboard"
+                  id="featureDashboard" alt="Crestline custom manufacturing preview" loading="lazy" width="2752"
+                  height="1536" decoding="async" data-nimg="1" class="absolute top-[36%] w-2/3 featureDashboard"
                   style="color: transparent; opacity: 0; visibility: hidden;"
-                  src="/images/c-suite-ui/featureDashboard.webp"><img id="featureMobile" alt="feature mobile"
-                  loading="lazy" width="222" height="470" decoding="async" data-nimg="1"
+                  src="/images/section3-part2.png"><img id="featureMobile" alt="Crestline responsible production preview"
+                  loading="lazy" width="704" height="1490" decoding="async" data-nimg="1"
                   class="absolute top-[16%] w-auto right-[22%] h-[84%] featureMobile"
                   style="color: transparent; opacity: 0; visibility: hidden;"
-                  src="/images/c-suite-ui/featureMobile.webp">
+                  src="/images/section3-part3.png">
               </div>
               <div
                 class="grid grid-cols-6 grid-rows-6 gap-[12px] w-full max-w-[550px] h-full max-h-[550px] relative z-30">
@@ -5029,7 +5207,7 @@
         <div
           class="w-3/4 mx-auto sm:mx-[initial] flex md:block text-center md:text-left items-center md:items-start flex-col">
           <a href="/"><img alt="Crestline Logo" width="99" height="26" decoding="async" data-nimg="1"
-              class="w-[130px] h-[26px]" style="color:transparent" src="/images/branding/crestline-logo.png"></a>
+              class="w-[85px] h-[65px]" style="color:transparent" src="/images/branding/crestline-logo.png"></a>
           <div class="mt-3 font-normal text-sm text-[#343C6A]">we has the full types of potential for your start-up
             business.</div>
         </div>
@@ -5095,13 +5273,708 @@
   </footer>
   <script src="/_next/static/chunks/webpack-2f253dca8e70be4f.js" async=""></script>
   <script>(self.__next_f = self.__next_f || []).push([0])</script>
-  <script>self.__next_f.push([1, "1:\"$Sreact.fragment\"\n2:I[5976,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero7\"],\"default\"]\n3:I[9534,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero7\"],\"default\"]\n4:I[8761,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chun"])</script>
-  <script>self.__next_f.push([1, "ks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero7\"],\"GlassCircleAnimBg\"]\n5:I[5244,[],\"\"]\n6:I[3866,[],\"\"]\n7:I[8173,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero7\"],\"\"]\n8:I[7970,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero7\"],\"Image\"]\n9:I[7033,[],\"ClientPageRoot\"]\na:I[8222,[\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"612\",\""])</script>
-  <script>self.__next_f.push([1, "static/chunks/612-58195f967a4f3018.js\",\"228\",\"static/chunks/228-c2358ef8f37a4cac.js\",\"974\",\"static/chunks/app/page-7829a1db070960a1.js?v=wmhero7\"],\"default\"]\nd:I[6213,[],\"OutletBoundary\"]\nf:I[6213,[],\"MetadataBoundary\"]\n11:I[6213,[],\"ViewportBoundary\"]\n13:I[4835,[],\"\"]\n:HL[\"/_next/static/css/89da6031e7ae37fb.css\",\"style\"]\n:HL[\"/_next/static/css/ba3a27aa20d5d66a.css\",\"style\"]\n"])</script>
+  <script>self.__next_f.push([1, "1:\"$Sreact.fragment\"\n2:I[5976,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero8\"],\"default\"]\n3:I[9534,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero8\"],\"default\"]\n4:I[8761,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chun"])</script>
+  <script>self.__next_f.push([1, "ks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero8\"],\"GlassCircleAnimBg\"]\n5:I[5244,[],\"\"]\n6:I[3866,[],\"\"]\n7:I[8173,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero8\"],\"\"]\n8:I[7970,[\"711\",\"static/chunks/8e1d74a4-462b80d999708529.js\",\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"314\",\"static/chunks/63a56fe9-a55898ee25fe6c46.js\",\"850\",\"static/chunks/4302fef9-d73d952bd0f63ac5.js\",\"118\",\"static/chunks/eef55f7d-8181fc51e4ed3bca.js\",\"111\",\"static/chunks/bff72ad5-22f6244b160a2c6d.js\",\"545\",\"static/chunks/c16f53c3-1c504e39ee399142.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"173\",\"static/chunks/173-ddc0bb569a63dd43.js\",\"229\",\"static/chunks/229-a27fe875fc824408.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"19\",\"static/chunks/19-e981acbffda70b2b.js\",\"177\",\"static/chunks/app/layout-37399b81bbb5a321.js?v=wmhero8\"],\"Image\"]\n9:I[7033,[],\"ClientPageRoot\"]\na:I[8222,[\"592\",\"static/chunks/c15bf2b0-2e5094ff64f4d456.js\",\"181\",\"static/chunks/181-ae2cda053c187c13.js\",\"970\",\"static/chunks/970-d526a45588942d47.js\",\"478\",\"static/chunks/478-f0260501d6589411.js\",\"415\",\"static/chunks/415-43cd6fce5b4cfe4e.js\",\"612\",\""])</script>
+  <script>self.__next_f.push([1, "static/chunks/612-58195f967a4f3018.js\",\"228\",\"static/chunks/228-c2358ef8f37a4cac.js\",\"974\",\"static/chunks/app/page-7829a1db070960a1.js?v=wmhero8\"],\"default\"]\nd:I[6213,[],\"OutletBoundary\"]\nf:I[6213,[],\"MetadataBoundary\"]\n11:I[6213,[],\"ViewportBoundary\"]\n13:I[4835,[],\"\"]\n:HL[\"/_next/static/css/89da6031e7ae37fb.css\",\"style\"]\n:HL[\"/_next/static/css/ba3a27aa20d5d66a.css\",\"style\"]\n"])</script>
   <script>self.__next_f.push([1, "0:{\"P\":null,\"b\":\"Z8YS3dMpVEw_MPozAsavV\",\"p\":\"\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/89da6031e7ae37fb.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/ba3a27aa20d5d66a.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"className\":\"__className_6f93a2\",\"children\":[[\"$\",\"$L2\",null,{}],[\"$\",\"$L3\",null,{}],[\"$\",\"$L4\",null,{}],[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[],[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}],[\"$\",\"footer\",null,{\"className\":\" bg-[#FFFFFF29] relative mt-[15vh] p-8 py-[10vh] rounded-t-[36px]\",\"style\":{\"backdropFilter\":\"blur(130px)\",\"boxShadow\":\"0px -8px 247.3px 0px #29ADE41A\"},\"children\":[\"$\",\"div\",null,{\"className\":\" max-w-[1300px] m-auto relative z-10\",\"children\":[\"$\",\"div\",null,{\"className\":\"grid gap-6 grid-cols-1 lg:grid-cols-[30%_30%_35%] justify-between\",\"children\":[[\"$\",\"div\",null,{\"className\":\"w-3/4 mx-auto sm:mx-[initial] flex md:block text-center md:text-left items-center md:items-start flex-col\",\"children\":[[\"$\",\"$L7\",null,{\"href\":\"/\",\"children\":[\"$\",\"$L8\",null,{\"src\":\"/images/branding/crestline-logo.png\",\"className\":\"w-[130px] h-[26px]\",\"alt\":\"Crestline Logo\",\"width\":99,\"height\":26,\"priority\":true}]}],[\"$\",\"div\",null,{\"className\":\"mt-3 font-normal text-sm text-[#343C6A]\",\"children\":\"we has the full types of potential for your start-up business.\"}]]}],[\"$\",\"div\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"grid grid-cols-2 text-sm font-normal\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium \",\"children\":\"Quick Links\"}],[\"$\",\"ul\",null,{\"className\":\"\",\"children\":[[\"$\",\"li\",\"0\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"About Us\"}]}],[\"$\",\"li\",\"1\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Our Services\"}]}],[\"$\",\"li\",\"2\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Community\"}]}],[\"$\",\"li\",\"3\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Testimonials\"}]}],[\"$\",\"li\",\"4\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"FAQ\"}]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"flex justify-end md:block\",\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium \",\"children\":\"Company\"}],[\"$\",\"ul\",null,{\"className\":\"\",\"children\":[[\"$\",\"li\",\"0\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"About Us\"}]}],[\"$\",\"li\",\"1\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Contact Us\"}]}],[\"$\",\"li\",\"2\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Career Tips\"}]}],[\"$\",\"li\",\"3\",{\"className\":\"mb-4 text-[#343C6A]\",\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"\",\"children\":\"Career\"}]}]]}],[\"$\",\"div\",null,{}]]}]}]]}]}],[\"$\",\"div\",null,{\"className\":\"\",\"children\":[[\"$\",\"p\",null,{\"className\":\"text-[32px] font-normal text-[#00274D] leading-[32px] text-center md:text-left\",\"children\":\"Join the Coworkit Community\"}],[\"$\",\"div\",null,{\"className\":\"border my-10 w-full rounded-full border-global flex relative md:h-[56px] items-center text-[#00274D]\",\"children\":[[\"$\",\"input\",null,{\"type\":\"text\",\"placeholder\":\"Enter Your Gmail\",\"className\":\"border-none outline-none focus:!outline-0 focus:outline-none focus:border-none focus:ring-0 bg-transparent w-full pl-5\"}],[\"$\",\"button\",null,{\"className\":\" bg-[linear-gradient(133deg,_white,_#26ADE3)] px-14 py-3 md:py-5 text-sm md:text-[18px] font-normal rounded-full flex-shrink-0 absolute right-0\",\"children\":\"Join Us\"}]]}],[\"$\",\"div\",null,{\"className\":\"flex gap-2 justify-center md:justify-start\",\"children\":[[\"$\",\"div\",null,{\"className\":\"rounded-full bg-global text-white p-1\",\"children\":[\"$\",\"svg\",null,{\"stroke\":\"currentColor\",\"fill\":\"currentColor\",\"strokeWidth\":\"0\",\"viewBox\":\"0 0 448 512\",\"className\":\"$undefined\",\"children\":[\"$undefined\",[[\"$\",\"path\",\"0\",{\"d\":\"M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z\",\"children\":[]}]]],\"style\":{\"color\":\"$undefined\"},\"height\":21.09,\"width\":21.09,\"xmlns\":\"http://www.w3.org/2000/svg\"}]}],[\"$\",\"div\",null,{\"className\":\"rounded-full bg-global text-white p-1\",\"children\":[\"$\",\"svg\",null,{\"stroke\":\"currentColor\",\"fill\":\"currentColor\",\"strokeWidth\":\"0\",\"viewBox\":\"0 0 448 512\",\"className\":\"$undefined\",\"children\":[\"$undefined\",[[\"$\",\"path\",\"0\",{\"d\":\"M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z\",\"children\":[]}]]],\"style\":{\"color\":\"$undefined\"},\"height\":21.09,\"width\":21.09,\"xmlns\":\"http://www.w3.org/2000/svg\"}]}],[\"$\",\"div\",null,{\"className\":\"rounded-full bg-global text-white p-1\",\"children\":[\"$\",\"svg\",null,{\"stroke\":\"currentColor\",\"fill\":\"currentColor\",\"strokeWidth\":\"0\",\"viewBox\":\"0 0 320 512\",\"className\":\"$undefined\",\"children\":[\"$undefined\",[[\"$\",\"path\",\"0\",{\"d\":\"M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z\",\"children\":[]}]]],\"style\":{\"color\":\"$undefined\"},\"height\":21.09,\"width\":21.09,\"xmlns\":\"http://www.w3.org/2000/svg\"}]}]]}]]}]]}]}]}]]}]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L9\",null,{\"Component\":\"$a\",\"searchParams\":{},\"params\":{},\"promises\":[\"$@b\",\"$@c\"]}],null,[\"$\",\"$Ld\",null,{\"children\":\"$Le\"}]]}],{},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"hIetuGGSnMy_BApD0Jgb2\",{\"children\":[[\"$\",\"$Lf\",null,{\"children\":\"$L10\"}],[\"$\",\"$L11\",null,{\"children\":\"$L12\"}],null]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$13\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script>
   <script>self.__next_f.push([1, "b:{}\nc:{}\n"])</script>
   <script>self.__next_f.push([1, "12:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n10:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"Coworkit\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Best Coworking System\"}],[\"$\",\"link\",\"3\",{\"rel\":\"icon\",\"href\":\"/images/branding/crestline-logo.png\"}]]\n"])</script>
-  <script>self.__next_f.push([1, "e:null\n"])</script><next-route-announcer
+  <script>self.__next_f.push([1, "e:null\n"])</script>
+  <script>
+    (function () {
+      function normalize(value) {
+        return (value || "").replace(/\s+/g, " ").trim();
+      }
+
+      function setText(node, text) {
+        if (node && node.textContent !== text) {
+          node.textContent = text;
+        }
+      }
+
+      function setHtml(node, html) {
+        if (node && node.innerHTML !== html) {
+          node.innerHTML = html;
+        }
+      }
+
+      function setPlaceholder(node, text) {
+        if (node && node.placeholder !== text) {
+          node.placeholder = text;
+        }
+      }
+
+      function findByText(root, selector, texts) {
+        var wanted = (Array.isArray(texts) ? texts : [texts]).map(normalize);
+        return Array.from((root || document).querySelectorAll(selector)).find(function (node) {
+          return wanted.indexOf(normalize(node.textContent)) !== -1;
+        }) || null;
+      }
+
+      function updateLink(node, href, text) {
+        if (!node) {
+          return;
+        }
+        if (href) {
+          node.setAttribute("href", href);
+        }
+        if (text) {
+          setText(node, text);
+        }
+      }
+
+      function bindButton(node, text, href) {
+        if (!node) {
+          return;
+        }
+        setText(node, text);
+        node.setAttribute("type", "button");
+        node.onclick = function () {
+          window.location.href = href;
+        };
+      }
+
+      var processStepDetails = {
+        productBrief: {
+          title: "Product Brief",
+          image: "/images/process-cards/step1.png",
+          alt: "Product brief process step",
+          copy:
+            "Share the product you need along with fabric specifications, GSM, pantone references, and print or embroidery details. We review the brief, quote pricing, and outline an estimated shipment schedule."
+        },
+        sampleDevelopment: {
+          title: "Sample Review",
+          image: "/images/process-cards/step2.png",
+          alt: "Sample review process step",
+          copy:
+            "Once specifications are confirmed, our sampling team prepares a natural-fabric sample and, where needed, matching lab dips for your color reference, typically within about 10 days."
+        },
+        reviewRevisions: {
+          title: "Custom Branding",
+          image: "/images/process-cards/step3.png",
+          alt: "Custom branding process step",
+          copy:
+            "You review the sample and color approvals, then share any changes required. If major revisions are needed, we update the sample and resend it for final approval."
+        },
+        finalDelivery: {
+          title: "Final Delivery",
+          image: "/images/process-cards/step4.png",
+          alt: "Final delivery process step",
+          copy:
+            "After the pre-production sample is approved, we move into bulk production and deliver the confirmed order quantity within the agreed timeline."
+        }
+      };
+
+      function getProcessModalNodes() {
+        var modal = document.getElementById("processStepModal");
+
+        if (!modal) {
+          modal = document.createElement("div");
+          modal.id = "processStepModal";
+          modal.className = "process-step-modal";
+          modal.setAttribute("aria-hidden", "true");
+          modal.innerHTML = [
+            '<div class="process-step-modal__panel" role="dialog" aria-modal="true" aria-labelledby="processStepModalTitle">',
+            '  <button type="button" class="process-step-modal__close" data-process-modal-close aria-label="Close process details">&times;</button>',
+            '  <div class="process-step-modal__media">',
+            '    <img data-process-modal-image src="/images/process-cards/step1.png" alt="Product brief process step">',
+            "  </div>",
+            '  <h3 id="processStepModalTitle" class="process-step-modal__title" data-process-modal-title>Product Brief</h3>',
+            '  <p class="process-step-modal__copy" data-process-modal-copy>Share the product you need along with fabric specifications, GSM, pantone references, and print or embroidery details. We review the brief, quote pricing, and outline an estimated shipment schedule.</p>',
+            "</div>"
+          ].join("");
+          document.body.appendChild(modal);
+        }
+
+        return {
+          modal: modal,
+          title: modal.querySelector("[data-process-modal-title]"),
+          image: modal.querySelector("[data-process-modal-image]"),
+          copy: modal.querySelector("[data-process-modal-copy]"),
+          close: modal.querySelector("[data-process-modal-close]")
+        };
+      }
+
+      function openProcessModal(stepKey, trigger) {
+        var modalNodes = getProcessModalNodes();
+        var step = processStepDetails[stepKey];
+
+        if (!modalNodes.modal || !step) {
+          return;
+        }
+
+        window.__processModalLastTrigger = trigger || document.activeElement;
+
+        setText(modalNodes.title, step.title);
+        setText(modalNodes.copy, step.copy);
+
+        if (modalNodes.image) {
+          modalNodes.image.setAttribute("src", step.image);
+          modalNodes.image.setAttribute("alt", step.alt);
+        }
+
+        modalNodes.modal.setAttribute("aria-hidden", "false");
+        modalNodes.modal.classList.add("is-open");
+        document.body.classList.add("process-modal-open");
+
+        if (modalNodes.close) {
+          window.setTimeout(function () {
+            modalNodes.close.focus();
+          }, 30);
+        }
+      }
+
+      function closeProcessModal() {
+        var modalNodes = getProcessModalNodes();
+
+        if (!modalNodes.modal) {
+          return;
+        }
+
+        modalNodes.modal.setAttribute("aria-hidden", "true");
+        modalNodes.modal.classList.remove("is-open");
+        document.body.classList.remove("process-modal-open");
+
+        if (window.__processModalLastTrigger && typeof window.__processModalLastTrigger.focus === "function") {
+          window.setTimeout(function () {
+            window.__processModalLastTrigger.focus();
+          }, 40);
+        }
+      }
+
+      function wireProcessCardTriggers() {
+        [
+          { selector: "#cubeanim5", key: "productBrief", label: "Open Product Brief details" },
+          { selector: "#cubeanim4", key: "sampleDevelopment", label: "Open Sample Review details" },
+          { selector: "#cubeanim3", key: "reviewRevisions", label: "Open Custom Branding details" },
+          { selector: "#cubeanim2", key: "finalDelivery", label: "Open Final Delivery details" }
+        ].forEach(function (entry) {
+          var node = document.querySelector(entry.selector);
+
+          if (!node) {
+            return;
+          }
+
+          node.dataset.processStep = entry.key;
+          node.classList.add("process-step-trigger");
+          node.setAttribute("role", "button");
+          node.setAttribute("tabindex", "0");
+          node.setAttribute("aria-haspopup", "dialog");
+          node.setAttribute("aria-label", entry.label);
+
+          var image = node.querySelector("img");
+          if (image) {
+            image.classList.add("process-step-trigger");
+            image.setAttribute("draggable", "false");
+          }
+        });
+
+        Array.from(document.querySelectorAll("#cubeanim5Para span")).forEach(function (label, index) {
+          var stepKeys = ["productBrief", "sampleDevelopment", "reviewRevisions", "finalDelivery"];
+          var stepLabels = [
+            "Open Product Brief details",
+            "Open Sample Review details",
+            "Open Custom Branding details",
+            "Open Final Delivery details"
+          ];
+
+          if (!stepKeys[index]) {
+            return;
+          }
+
+          label.dataset.processStep = stepKeys[index];
+          label.classList.add("process-step-trigger");
+          label.setAttribute("role", "button");
+          label.setAttribute("tabindex", "0");
+          label.setAttribute("aria-haspopup", "dialog");
+          label.setAttribute("aria-label", stepLabels[index]);
+        });
+      }
+
+      function applyHomepageCopy() {
+        var heroImageVersion = "/bg-hero.png?v=hero20260314b";
+        Array.from(document.querySelectorAll(".wm-hero-bg-image")).forEach(function (imageNode) {
+          imageNode.setAttribute("src", heroImageVersion);
+        });
+
+        document.title = "Crestline";
+
+        var metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute(
+            "content",
+            "Crestline (SMC-PVT) Limited manufactures and exports custom promotional textiles for global brands."
+          );
+        }
+
+        var featureSection = document.getElementById("featureSection");
+        if (featureSection) {
+          var featureTags = featureSection.querySelectorAll("h5");
+          var featureHeadings = featureSection.querySelectorAll("h4");
+          var featureCopy = Array.from(featureSection.querySelectorAll("p")).filter(function (node) {
+            return node.className.indexOf("pb-10") !== -1;
+          });
+          var featureDashboardImage = featureSection.querySelector("#featureDashboard");
+          var featureMobileImage = featureSection.querySelector("#featureMobile");
+
+          setText(featureTags[0], "About Us");
+          setText(featureTags[1], "Manufacturing");
+          setText(featureTags[2], "Responsibility");
+
+          setHtml(featureHeadings[0], "Founded in 1982.<br>Built on Quality.");
+          setHtml(featureHeadings[1], "Custom Textile<br>Manufacturing Expertise");
+          setText(featureHeadings[2], "Responsible Production for Global Brands");
+
+          setText(
+            featureCopy[0],
+            "Crestline (SMC-PVT) Limited is a trusted manufacturer and exporter of custom promotional textiles, serving the global promotional industry with premium cotton and poly/cotton products since 1982."
+          );
+          setText(
+            featureCopy[1],
+            "From 100% cotton bags and poly/cotton aprons to oven mitts, potholders, and promotional made-ups, we develop products around customer specifications, collaborative sampling, and brand requirements."
+          );
+          setText(
+            featureCopy[2],
+            "Our focus is on delivering consistent quality, reliable production timelines, and responsibly manufactured products that meet international standards while supporting long-term customer partnerships."
+          );
+
+          if (featureDashboardImage) {
+            featureDashboardImage.setAttribute("src", "/images/section3-part2.png");
+            featureDashboardImage.setAttribute("alt", "Crestline custom manufacturing preview");
+            featureDashboardImage.setAttribute("width", "2752");
+            featureDashboardImage.setAttribute("height", "1536");
+          }
+
+          if (featureMobileImage) {
+            featureMobileImage.setAttribute("src", "/images/section3-part3.png");
+            featureMobileImage.setAttribute("alt", "Crestline responsible production preview");
+            featureMobileImage.setAttribute("width", "704");
+            featureMobileImage.setAttribute("height", "1490");
+            featureMobileImage.style.display = "";
+            featureMobileImage.removeAttribute("aria-hidden");
+          }
+        }
+
+        var virtualDevices = document.querySelector(".VirtualDevices");
+        if (virtualDevices) {
+          var virtualHeadings = virtualDevices.querySelectorAll("h2");
+          var virtualCopy = virtualDevices.querySelectorAll(".descVD");
+
+          setText(virtualHeadings[0], "Quality in Every Order.");
+          setText(virtualHeadings[1], "Reliability in Every Timeline.");
+          setText(virtualHeadings[2], "Confidence in Every Shipment.");
+
+          setText(
+            virtualCopy[0],
+            "Crestline combines premium materials, strict in-house inspection, and scalable production to deliver promotional textiles that meet international expectations across global markets."
+          );
+          setText(
+            virtualCopy[1],
+            "From sampling to final shipment, we work closely with customers to maintain quality, protect brand alignment, and keep every order moving on schedule."
+          );
+        }
+
+        var unitTeams = document.querySelector(".UnitTeams");
+        if (unitTeams) {
+          var unitHeadings = unitTeams.querySelectorAll("h2");
+          var loaderWords = unitTeams.querySelectorAll("#loaderLikeUTANIM h3 span");
+          var unitButtons = unitTeams.querySelectorAll('[id^="btnComp"] p');
+          var unitDescription = unitTeams.querySelector("#descUT p");
+
+          setText(unitHeadings[0], "Products &");
+          setText(unitHeadings[1], "Custom Manufacturing");
+
+          setText(loaderWords[0], "Custom");
+          setText(loaderWords[1], "Textile");
+          setText(loaderWords[2], "Solutions");
+
+          setText(unitButtons[0], "100% Cotton Bags");
+          setText(unitButtons[1], "Poly/Cotton Aprons");
+          setText(unitButtons[2], "Oven Mitts & Potholders");
+
+          setText(
+            unitDescription,
+            "Customers provide product specifications while our team develops standardized and specialized items through collaborative sampling to ensure accuracy, quality, and brand alignment."
+          );
+        }
+
+        var processLabels = document.querySelectorAll("#cubeanim5Para span");
+        if (processLabels.length === 4) {
+          setText(processLabels[0], "Product Brief");
+          setText(processLabels[1], "Sample Review");
+          setText(processLabels[2], "Custom Branding");
+          setText(processLabels[3], "Final Delivery");
+        }
+
+        wireProcessCardTriggers();
+
+        var capacitySection = document.getElementById("cyavoice");
+        if (capacitySection) {
+          var capacityBadge = findByText(
+            capacitySection,
+            "div",
+            [
+              "Speak, Command, Achieve with CYA Voice",
+              "Production Capacity & Lead Times"
+            ]
+          );
+          var capacityHeading = findByText(
+            capacitySection,
+            "h2",
+            [
+              "What If With CYA Voice, Everything You Say Gets Done?",
+              "Built to deliver large-scale orders with dependable lead times"
+            ]
+          );
+          var capacityText = findByText(
+            capacitySection,
+            "p",
+            [
+              "CYA Voice is a next-gen AI assistant designed for seamless voice interactions, intelligent task management, multilingual support, and personalized user experiences.",
+              "Crestline produces 750,000 to 1,000,000 pieces per month, depending on product mix, with standard lead times of 45 days for natural fabric and 75 days for dyed fabric."
+            ]
+          );
+          var capacityButtons = capacitySection.querySelectorAll("button, a");
+
+          setText(capacityBadge, "Production Capacity & Lead Times");
+          setText(capacityHeading, "Built to deliver large-scale orders with dependable lead times");
+          setText(
+            capacityText,
+            "Crestline produces 750,000 to 1,000,000 pieces per month, depending on product mix, with standard lead times of 45 days for natural fabric and 75 days for dyed fabric."
+          );
+
+          bindButton(capacityButtons[0], "Contact Us", "/contact-us");
+          updateLink(capacityButtons[1], "/contact-us", "Get Quotation");
+          if (capacityButtons[1]) {
+            capacityButtons[1].removeAttribute("target");
+          }
+        }
+
+        var reportingSection = document.querySelector(".dynamic-reporting");
+        if (reportingSection) {
+          var reportingBadge = findByText(
+            reportingSection,
+            "div",
+            ["? CYA Virtual Assistant", "✨ CYA Virtual Assistant", "Sustainability & Compliance"]
+          );
+          var reportingHeading = findByText(
+            reportingSection,
+            "h2",
+            [
+              "Elevate your Workspace Efficiency With CYA Dynamic Reporting",
+              "Responsible manufacturing is built into every stage"
+            ]
+          );
+          var reportingBoxOne = findByText(
+            reportingSection,
+            "div",
+            [
+              "Show me the count of active users for each Salesforce account",
+              "Eco-friendly fabrics, ethical labor, and strict in-house quality inspection"
+            ]
+          );
+          var reportingBoxTwo = findByText(
+            reportingSection,
+            "div",
+            [
+              "CYA is Pressing Your Report",
+              "Built for compliance and long-term brand trust"
+            ]
+          );
+          var reportingDescription = findByText(
+            reportingSection,
+            "p",
+            [
+              "This prompt instructs CYA to retrieve and display a report listing each Salesforce account alongside the corresponding number of active users associated with it.",
+              "Our sustainability efforts are embedded in the manufacturing process, with eco-friendly materials, worker welfare, and compliance practices aligned to international standards."
+            ]
+          );
+
+          setText(reportingBadge, "Sustainability & Compliance");
+          setText(reportingHeading, "Responsible manufacturing is built into every stage");
+          setText(reportingBoxOne, "Eco-friendly fabrics, ethical labor, and strict in-house quality inspection");
+          setText(reportingBoxTwo, "Built for compliance and long-term brand trust");
+          setText(
+            reportingDescription,
+            "Our sustainability efforts are embedded in the manufacturing process, with eco-friendly materials, worker welfare, and compliance practices aligned to international standards."
+          );
+        }
+
+        var inquirySection = document.getElementById("paymentSlider1");
+        if (inquirySection) {
+          inquirySection = inquirySection.closest("section");
+        }
+        if (inquirySection) {
+          setText(findByText(inquirySection, "div", ["Payment Gateways", "Contact & Commercial Terms"]), "Contact & Commercial Terms");
+          setText(findByText(inquirySection, "h2", ["25+ Payment Gateways", "Quotations shared within 48 hours"]), "Quotations shared within 48 hours");
+          setText(
+            findByText(
+              inquirySection,
+              "p",
+              [
+                "Enhance your experience with powerful add-ons tailored to elevate your performance.",
+                "Competitive pricing and minimum order quantity guidance are provided within 48 hours of inquiry, with final timelines confirmed at quotation stage."
+              ]
+            ),
+            "Competitive pricing and minimum order quantity guidance are provided within 48 hours of inquiry, with final timelines confirmed at quotation stage."
+          );
+          bindButton(findByText(inquirySection, "button", ["Show more", "Send Inquiry"]), "Send Inquiry", "/contact-us");
+        }
+
+        var valuesSection = document.getElementById("addons");
+        if (valuesSection) {
+          setText(findByText(valuesSection, "div", ["Add-ons integration", "Our Values"]), "Our Values");
+          setText(findByText(valuesSection, "h2", ["300+ Add-Ons", "Confidence, Quality & Responsibility"]), "Confidence, Quality & Responsibility");
+          setText(
+            findByText(
+              valuesSection,
+              "p",
+              [
+                "Enhance your experience with powerful add-ons tailored to elevate your performance.",
+                "These values guide how we manufacture, inspect, and support lasting customer partnerships across every order."
+              ]
+            ),
+            "These values guide how we manufacture, inspect, and support lasting customer partnerships across every order."
+          );
+          setText(findByText(valuesSection, "button", ["Show more 300 + add-ons", "Built on Integrity"]), "Built on Integrity");
+        }
+
+        var globalSectionImage = document.querySelector('img[src="/images/c-suite-ui/Integrations.webp"]');
+        var globalSection = globalSectionImage ? globalSectionImage.closest("section") : null;
+        if (globalSection) {
+          setText(findByText(globalSection, "h2", ["100+ Integrations", "Serving Global Markets"]), "Serving Global Markets");
+          setText(
+            findByText(
+              globalSection,
+              "p",
+              [
+                "Enhance your experience with powerful add-ons tailored to elevate your performance.",
+                "From Karachi to customers abroad, Crestline supports the global promotional industry with dependable manufacturing, export experience, and tailored product development."
+              ]
+            ),
+            "From Karachi to customers abroad, Crestline supports the global promotional industry with dependable manufacturing, export experience, and tailored product development."
+          );
+          bindButton(findByText(globalSection, "button", ["Show more 100+ integrations", "See Company Overview"]), "See Company Overview", "/about");
+        }
+
+        var clientsSection = document.getElementById("clientContainer");
+        if (clientsSection) {
+          clientsSection = clientsSection.closest("section");
+        }
+        if (clientsSection) {
+          setText(findByText(clientsSection, "h2", ["Our Best Clients", "Global Markets & Renowned Brands"]), "Global Markets & Renowned Brands");
+        }
+
+        var languagesSection = document.querySelector(".LanguagesSection");
+        if (languagesSection) {
+          var languageHeadings = languagesSection.querySelectorAll("h3");
+          setText(findByText(languagesSection, "h2", ["Support Multiple Languages", "Serving Global Markets"]), "Serving Global Markets");
+          setText(
+            findByText(
+              languagesSection,
+              "p",
+              [
+                "Break free from traditional boundaries. Work from anywhere, at the comfort of your own studio apartment. Perfect for Nomads and Travellers.",
+                "With decades of export experience and a subsidiary presence through Fabric Plus Inc. in Dallas since 2002, Crestline supports international buyers with responsive communication and dependable delivery."
+              ]
+            ),
+            "With decades of export experience and a subsidiary presence through Fabric Plus Inc. in Dallas since 2002, Crestline supports international buyers with responsive communication and dependable delivery."
+          );
+          setText(languageHeadings[0], "40+");
+          setHtml(languageHeadings[1], "Years of <br> Expertise");
+        }
+
+        var pricingSection = document.getElementById("pricing");
+        if (pricingSection) {
+          var pricingHeadings = pricingSection.querySelectorAll("h2");
+          var pricingTitles = pricingSection.querySelectorAll("h3");
+          var pricingDescriptions = pricingSection.querySelectorAll(".border-b-2 p.text-sm");
+          var pricingValues = Array.from(pricingSection.querySelectorAll("p")).filter(function (node) {
+            return node.className.indexOf("text-[41.05px]") !== -1;
+          });
+          var pricingFeatures = pricingSection.querySelectorAll("p.text-base");
+          var pricingToggles = Array.from(pricingSection.querySelectorAll("div")).filter(function (node) {
+            var text = normalize(node.textContent);
+            return text === "Monthly" || text === "Yearly" || text === "Capacity" || text === "Inquiry";
+          });
+
+          setText(findByText(pricingSection, "p", ["Pro Plus", "Key Facts"]), "Key Facts");
+          setText(pricingHeadings[0], "Capacity &");
+          setText(pricingHeadings[1], "Commercial Terms");
+          setText(pricingHeadings[2], "Capacity & Commercial Terms");
+
+          pricingToggles.forEach(function (node) {
+            var text = normalize(node.textContent);
+            if (text === "Monthly" || text === "Capacity") {
+              setText(node, "Capacity");
+            }
+            if (text === "Yearly" || text === "Inquiry") {
+              setText(node, "Inquiry");
+            }
+          });
+
+          setText(pricingTitles[0], "Production Capacity");
+          setText(pricingTitles[1], "Commercial Terms");
+
+          setText(pricingDescriptions[0], "Monthly output tailored to product mix");
+          setText(pricingDescriptions[1], "Fast quotations for custom textile programs");
+
+          setText(pricingValues[0], "750K - 1M");
+          setText(pricingValues[1], "48");
+
+          if (pricingValues[0] && pricingValues[0].parentElement) {
+            setText(pricingValues[0].parentElement.querySelectorAll("p")[1], "pieces/month");
+          }
+          if (pricingValues[1] && pricingValues[1].parentElement) {
+            setText(pricingValues[1].parentElement.querySelectorAll("p")[1], "hours");
+          }
+
+          setText(pricingFeatures[0], "Natural fabric lead time: 45 days");
+          setText(pricingFeatures[1], "Dyed fabric lead time: 75 days");
+          setText(pricingFeatures[2], "Final timelines confirmed at quotation stage");
+          setText(pricingFeatures[3], "Competitive pricing shared on inquiry");
+          setText(pricingFeatures[4], "MOQ guidance included with quotation");
+          setText(pricingFeatures[5], "Delivery schedules aligned to campaign needs");
+        }
+
+        var footer = document.querySelector("footer");
+        if (footer) {
+          var footerLists = footer.querySelectorAll("ul");
+          var footerInputs = footer.querySelectorAll("input");
+          var footerButtons = footer.querySelectorAll("button");
+
+          var footerGrid = footer.querySelector(".grid");
+          var brandColumn = footerGrid ? footerGrid.children[0] : null;
+          if (brandColumn) {
+            var brandLink = brandColumn.querySelector('a[href="/"]');
+            var brandBlurb = brandColumn.querySelector(".mt-3");
+
+            if (!brandLink || !brandBlurb) {
+              brandColumn.innerHTML = "";
+
+              brandLink = document.createElement("a");
+              brandLink.setAttribute("href", "/");
+
+              var brandImg = document.createElement("img");
+              brandImg.setAttribute("alt", "Crestline Logo");
+              brandImg.setAttribute("src", "/images/branding/crestline-logo.png");
+              brandImg.setAttribute("width", "99");
+              brandImg.setAttribute("height", "26");
+              brandImg.setAttribute("decoding", "async");
+              brandImg.setAttribute("data-nimg", "1");
+              brandImg.className = "footer-crestline-logo";
+              brandImg.style.color = "transparent";
+              brandImg.style.width = "85px";
+              brandImg.style.height = "65px";
+              brandImg.style.maxWidth = "none";
+              brandImg.style.objectFit = "contain";
+              brandImg.style.display = "block";
+              brandLink.appendChild(brandImg);
+
+              brandBlurb = document.createElement("div");
+              brandBlurb.className = "mt-3 font-normal text-sm text-[#343C6A]";
+
+              brandColumn.appendChild(brandLink);
+              brandColumn.appendChild(brandBlurb);
+            } else {
+              var existingBrandImg = brandLink.querySelector("img");
+              if (existingBrandImg) {
+                existingBrandImg.setAttribute("src", "/images/branding/crestline-logo.png");
+                existingBrandImg.style.width = "85px";
+                existingBrandImg.style.height = "65px";
+                existingBrandImg.style.maxWidth = "none";
+                existingBrandImg.style.objectFit = "contain";
+                existingBrandImg.style.display = "block";
+              }
+            }
+
+            setText(
+              brandBlurb,
+              "Custom promotional textiles manufactured with quality, consistency, and responsible production since 1982."
+            );
+          }
+          setText(
+            findByText(footer, "p", ["Join the Coworkit Community", "Start Your Next Custom Project"]),
+            "Start Your Next Custom Project"
+          );
+
+          if (footerLists[0]) {
+            var quickLinks = footerLists[0].querySelectorAll("a");
+            updateLink(quickLinks[0], "/about", "About Us");
+            updateLink(quickLinks[1], "/features", "Products");
+            updateLink(quickLinks[2], "/pricing", "Pricing");
+            updateLink(quickLinks[3], "/addons", "Add-Ons");
+            updateLink(quickLinks[4], "/contact-us", "Contact Us");
+          }
+
+          if (footerLists[1]) {
+            var companyLinks = footerLists[1].querySelectorAll("a");
+            updateLink(companyLinks[0], "/about", "Our Journey");
+            updateLink(companyLinks[1], "/features", "Sustainability");
+            updateLink(companyLinks[2], "/pricing", "Production Capacity");
+            updateLink(companyLinks[3], "/contact-us", "Get Quotation");
+          }
+
+          setPlaceholder(footerInputs[0], "Enter Your Email");
+          bindButton(footerButtons[0], "Send Inquiry", "/contact-us");
+        }
+      }
+
+      applyHomepageCopy();
+      window.requestAnimationFrame(applyHomepageCopy);
+      [400, 1200, 2500, 5000].forEach(function (delay) {
+        window.setTimeout(applyHomepageCopy, delay);
+      });
+
+      var resizeTimer = 0;
+      window.addEventListener("resize", function () {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(applyHomepageCopy, 150);
+      });
+
+      window.addEventListener("load", applyHomepageCopy);
+      document.addEventListener("click", function () {
+        window.setTimeout(applyHomepageCopy, 50);
+      });
+
+      document.addEventListener("click", function (event) {
+        var closeTrigger = event.target.closest("[data-process-modal-close]");
+        var modal = document.getElementById("processStepModal");
+
+        if (closeTrigger) {
+          closeProcessModal();
+          return;
+        }
+
+        if (modal && event.target === modal) {
+          closeProcessModal();
+          return;
+        }
+
+        var stepTrigger = event.target.closest("[data-process-step]");
+        if (stepTrigger) {
+          event.preventDefault();
+          openProcessModal(stepTrigger.getAttribute("data-process-step"), stepTrigger);
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeProcessModal();
+          return;
+        }
+
+        var stepTrigger = event.target && event.target.closest
+          ? event.target.closest("[data-process-step]")
+          : null;
+
+        if (stepTrigger && (event.key === "Enter" || event.key === " ")) {
+          event.preventDefault();
+          openProcessModal(stepTrigger.getAttribute("data-process-step"), stepTrigger);
+        }
+      });
+    })();
+  </script><next-route-announcer
     style="position: absolute;"></next-route-announcer>
 </body>
 
