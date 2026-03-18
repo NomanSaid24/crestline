@@ -129,6 +129,10 @@
     ]
   };
 
+  if (window.crestlineCatalogData && window.crestlineCatalogData.catalog) {
+    catalog = window.crestlineCatalogData.catalog;
+  }
+
   var state = { query: "", category: "All", activeProductId: null, activeImageIndex: 0 };
   var elements = {
     search: document.getElementById("productSearch"),
@@ -319,12 +323,13 @@
   var productsById = {};
 
   categoryOrder.forEach(function (category) {
-    catalog[category].forEach(function (product) {
+    (catalog[category] || []).forEach(function (product, productIndex) {
+      var productImages = Array.isArray(product.images) ? product.images.filter(Boolean) : [];
       var item = Object.assign({}, product, {
-        id: slugify(category + "-" + product.name),
+        id: slugify(product.sourceUrl || (category + "-" + product.name + "-" + productIndex)),
         category: category
       });
-      item.images = [buildProductImage(item, 0), buildProductImage(item, 1), buildProductImage(item, 2)];
+      item.images = productImages.length ? productImages : [buildProductImage(item, 0), buildProductImage(item, 1), buildProductImage(item, 2)];
       allProducts.push(item);
       productsById[item.id] = item;
     });

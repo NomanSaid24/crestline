@@ -1,0 +1,108 @@
+.crestline-nav-dropdown-item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.crestline-nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.crestline-nav-trigger {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 0.5rem 0.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.crestline-nav-trigger:hover,
+.crestline-nav-trigger:focus-visible {
+  color: #26ade3;
+  outline: none;
+}
+
+.crestline-nav-chevron {
+  width: 0.85rem;
+  height: 0.85rem;
+  transition: transform 0.22s ease;
+}
+
+.crestline-nav-dropdown:hover .crestline-nav-chevron,
+.crestline-nav-dropdown:focus-within .crestline-nav-chevron {
+  transform: rotate(180deg);
+}
+
+.crestline-nav-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  min-width: 248px;
+  padding: 0.85rem;
+  border-radius: 22px;
+  border: 1px solid rgba(157, 193, 255, 0.45);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 249, 255, 0.9));
+  box-shadow: 0 22px 60px rgba(0, 39, 77, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(28px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 60;
+}
+
+.crestline-nav-dropdown:hover .crestline-nav-panel,
+.crestline-nav-dropdown:focus-within .crestline-nav-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.crestline-nav-link {
+  display: block;
+  padding: 0.8rem 0.9rem;
+  border-radius: 16px;
+  color: #00274d;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.crestline-nav-link:hover,
+.crestline-nav-link:focus-visible {
+  background: rgba(41, 173, 228, 0.08);
+  color: #26ade3;
+  outline: none;
+  transform: translateX(2px);
+}
+
+nav a[href="/products"] {
+  display: block;
+}
+
+@media (max-width: 1023px) {
+  .crestline-nav-panel {
+    left: 0;
+    transform: translateX(0) translateY(12px);
+    min-width: min(280px, 82vw);
+  }
+
+  .crestline-nav-dropdown:hover .crestline-nav-panel,
+  .crestline-nav-dropdown:focus-within .crestline-nav-panel {
+    transform: translateX(0) translateY(0);
+  }
+}

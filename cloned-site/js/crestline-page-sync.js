@@ -70,6 +70,31 @@
     document.head.appendChild(style);
   }
 
+  function ensureShellStyles() {
+    ensureStyle(
+      "crestline-shell-inline-style",
+      ".crestline-nav-dropdown-item{list-style:none;display:flex;align-items:center}.crestline-nav-dropdown{position:relative;display:inline-flex;align-items:center}.crestline-nav-trigger{appearance:none;border:none;background:transparent;color:inherit;font:inherit;padding:.5rem .5rem;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;cursor:pointer;transition:color .2s ease,background-color .2s ease}.crestline-nav-trigger:hover,.crestline-nav-trigger:focus-visible{color:#26ade3;outline:none}.crestline-nav-chevron{width:.85rem;height:.85rem;transition:transform .22s ease}.crestline-nav-dropdown:hover .crestline-nav-chevron,.crestline-nav-dropdown:focus-within .crestline-nav-chevron{transform:rotate(180deg)}.crestline-nav-panel{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(12px);min-width:248px;padding:.85rem;border-radius:22px;border:1px solid rgba(157,193,255,.45);background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(244,249,255,.9));box-shadow:0 22px 60px rgba(0,39,77,.12),inset 0 1px 0 rgba(255,255,255,.7);backdrop-filter:blur(28px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s ease;z-index:60}.crestline-nav-dropdown:hover .crestline-nav-panel,.crestline-nav-dropdown:focus-within .crestline-nav-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}.crestline-nav-link{display:block;padding:.8rem .9rem;border-radius:16px;color:#00274d;font-size:.92rem;line-height:1.35;text-align:left;transition:background-color .2s ease,color .2s ease,transform .2s ease;white-space:nowrap}.crestline-nav-link:hover,.crestline-nav-link:focus-visible{background:rgba(41,173,228,.08);color:#26ade3;outline:none;transform:translateX(2px)}@media (max-width:1023px){.crestline-nav-panel{left:0;transform:translateX(0) translateY(12px);min-width:min(280px,82vw)}.crestline-nav-dropdown:hover .crestline-nav-panel,.crestline-nav-dropdown:focus-within .crestline-nav-panel{transform:translateX(0) translateY(0)}}"
+    );
+  }
+
+  function buildInfoNavMarkup() {
+    return (
+      '<div class="crestline-nav-dropdown">' +
+      '<button type="button" class="crestline-nav-trigger">Information Hub' +
+      '<svg class="crestline-nav-chevron" viewBox="0 0 448 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>' +
+      "</button>" +
+      '<div class="crestline-nav-panel">' +
+      '<a class="crestline-nav-link" href="/raw-material">Raw Material</a>' +
+      '<a class="crestline-nav-link" href="/certifications">Certifications</a>' +
+      '<a class="crestline-nav-link" href="/terms-and-conditions">Terms &amp; Conditions</a>' +
+      '<a class="crestline-nav-link" href="/general-information">General Information</a>' +
+      '<a class="crestline-nav-link" href="/services">Services</a>' +
+      '<a class="crestline-nav-link" href="/customer-satisfaction">Customer Satisfaction</a>' +
+      "</div>" +
+      "</div>"
+    );
+  }
+
   function updateFooter() {
     var footer = document.querySelector("footer");
     if (!footer) {
@@ -90,6 +115,25 @@
       brandText.textContent = "Custom promotional textiles manufactured with quality, consistency, and responsible production since 1982.";
     }
 
+    if (brandColumn) {
+      var brandQuoteButton = brandColumn.querySelector("[data-crestline-footer-quote]");
+      if (!brandQuoteButton) {
+        brandQuoteButton = document.createElement("a");
+        brandQuoteButton.setAttribute("data-crestline-footer-quote", "1");
+        brandQuoteButton.href = "/contact-us";
+        brandQuoteButton.className =
+          "rounded-full w-fit inline-flex text-[12.98px] gap-2 bg-gradient-to-r from-[#26ADE3] to-[#26ADE329] text-white items-center p-1 pl-[8px] font-extralight mt-5 mx-auto md:mx-0";
+        brandQuoteButton.innerHTML =
+          'Get Quotation<div class="w-[30.96px] h-[30.96px] flex items-center justify-center bg-white rounded-full"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></div>';
+
+        if (brandText) {
+          brandText.insertAdjacentElement("afterend", brandQuoteButton);
+        } else {
+          brandColumn.appendChild(brandQuoteButton);
+        }
+      }
+    }
+
     if (linksColumn) {
       linksColumn.innerHTML =
         '<div class="grid grid-cols-2 text-sm font-normal">' +
@@ -99,7 +143,8 @@
         '<li class="mb-4 text-[#343C6A]"><a href="/about">About Us</a></li>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/products">Products</a></li>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/pricing">Pricing</a></li>' +
-        '<li class="mb-4 text-[#343C6A]"><a href="/addons">Add-Ons</a></li>' +
+        '<li class="mb-4 text-[#343C6A]"><a href="/raw-material">Raw Material</a></li>' +
+        '<li class="mb-4 text-[#343C6A]"><a href="/certifications">Certifications</a></li>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/contact-us">Contact Us</a></li>' +
         '</ul>' +
         '</div>' +
@@ -107,9 +152,10 @@
         '<div>' +
         '<p class=" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium ">Company</p>' +
         '<ul>' +
-        '<li class="mb-4 text-[#343C6A]"><a href="/about">Our Journey</a></li>' +
-        '<li class="mb-4 text-[#343C6A]"><a href="/about">Sustainability</a></li>' +
-        '<li class="mb-4 text-[#343C6A]"><a href="/pricing">Production Capacity</a></li>' +
+        '<li class="mb-4 text-[#343C6A]"><a href="/general-information">General Information</a></li>' +
+        '<li class="mb-4 text-[#343C6A]"><a href="/services">Services</a></li>' +
+        '<li class="mb-4 text-[#343C6A]"><a href="/customer-satisfaction">Customer Satisfaction</a></li>' +
+        '<li class="mb-4 text-[#343C6A]"><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/contact-us">Get Quotation</a></li>' +
         '</ul>' +
         "<div></div>" +
@@ -131,6 +177,54 @@
 
       setText(button, "Send Inquiry");
     }
+  }
+
+  function removeMenuLink(link) {
+    if (!link) {
+      return;
+    }
+
+    var listItem = link.closest("li");
+    if (listItem) {
+      listItem.remove();
+      return;
+    }
+
+    link.remove();
+  }
+
+  function updateGlobalNavigation() {
+    Array.prototype.forEach.call(document.querySelectorAll("nav a, footer a"), function (link) {
+      var label = normalize(link.textContent);
+      var href = link.getAttribute("href") || "";
+
+      if (label === "Add-Ons" || label === "Blogs" || href === "/addons" || href === "/blogs") {
+        removeMenuLink(link);
+      }
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('nav a[href="/products"]'), function (link) {
+      Array.prototype.forEach.call(link.querySelectorAll("svg"), function (icon) {
+        icon.remove();
+      });
+      link.classList.remove("flex", "items-center", "gap-1", "justify-center");
+      link.classList.add("block");
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll("[data-crestline-info-nav]"), function (node) {
+      node.remove();
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll("nav button, nav a"), function (node) {
+      if (normalize(node.textContent) === "Information Hub") {
+        var wrapper = node.closest("li") || node.closest(".crestline-nav-dropdown-item");
+        if (wrapper) {
+          wrapper.remove();
+        } else {
+          node.remove();
+        }
+      }
+    });
   }
 
   function updateAboutPage() {
@@ -440,44 +534,10 @@
   }
 
   function insertPricingSummary() {
-    var footer = document.querySelector("footer");
-    var heroSection = document.querySelector("section.p-8.overflow-hidden");
-
-    if (!footer || !heroSection || document.getElementById("crestlinePricingTerms")) {
-      return;
+    var existing = document.getElementById("crestlinePricingTerms");
+    if (existing) {
+      existing.remove();
     }
-
-    var section = document.createElement("section");
-    section.id = "crestlinePricingTerms";
-    section.className = "px-4";
-    section.innerHTML =
-      '<div class="max-w-[1273px] m-auto rounded-3xl p-8 lg:p-12" style="background:linear-gradient(311.9deg, #FFFFFF 24.13%, rgba(255, 255, 255, 0.04) 137.99%);backdrop-filter:blur(44.5px);border:5px solid #FFFFFF">' +
-      '<div class="mb-8 text-center md:text-left">' +
-      '<p class="text-sm lg:mb-5 text-[#484848]">Commercial Terms</p>' +
-      '<h2 class="text-[32.9px] leading-[43.51px] md:text-[42.81px] !font-normal lg:!leading-[48.93px] text-[#00274D]" style="letter-spacing:-2px">Production Capacity & Order Planning</h2>' +
-      '<p class="text-[#616A6B] max-w-[860px] mt-4">Crestline shares competitive pricing and minimum order quantity details within 48 hours of inquiry. Final delivery timelines depend on order quantity, product complexity, and material selection.</p>' +
-      "</div>" +
-      '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-[#00274D]">' +
-      '<div class="p-6 rounded-3xl" style="background:linear-gradient(133.85deg, rgba(255, 255, 255, 0) 1.36%, #FFFFFF 39.81%, rgba(255, 255, 255, 0) 100.23%)">' +
-      '<p class="text-sm text-[#616A6B]">Monthly Capacity</p>' +
-      '<h3 class="text-[32px] font-normal mt-2">750,000 - 1,000,000</h3>' +
-      '<p class="text-[#616A6B] mt-3">pieces per month depending on product mix and order planning.</p>' +
-      "</div>" +
-      '<div class="p-6 rounded-3xl" style="background:linear-gradient(133.85deg, rgba(255, 255, 255, 0) 1.36%, #FFFFFF 39.81%, rgba(255, 255, 255, 0) 100.23%)">' +
-      '<p class="text-sm text-[#616A6B]">Lead Time Notes</p>' +
-      '<h3 class="text-[32px] font-normal mt-2">Order-Based</h3>' +
-      '<p class="text-[#616A6B] mt-3">Delivery timelines vary based on quantity and product complexity, with final schedules confirmed at quotation stage.</p>' +
-      "</div>" +
-      '<div class="p-6 rounded-3xl" style="background:linear-gradient(133.85deg, rgba(255, 255, 255, 0) 1.36%, #FFFFFF 39.81%, rgba(255, 255, 255, 0) 100.23%)">' +
-      '<p class="text-sm text-[#616A6B]">Customer Support</p>' +
-      '<h3 class="text-[32px] font-normal mt-2">Tailored Quotes</h3>' +
-      '<p class="text-[#616A6B] mt-3">Customers share their specifications and Crestline develops accurate quotations aligned with product, branding, and campaign needs.</p>' +
-      "</div>" +
-      "</div>" +
-      '<div class="mt-8"><a href="/contact-us" class="rounded-full w-fit flex text-[12.98px] gap-2 bg-gradient-to-r from-[#26ADE3] to-[#26ADE329] text-white items-center p-1 pl-[8px] font-extralight">Request Quotation<div class="w-[30.96px] h-[30.96px] flex items-center justify-center bg-white rounded-full"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></div></a></div>' +
-      "</div>";
-
-    footer.parentNode.insertBefore(section, footer);
   }
 
   function updatePricingPage() {
@@ -754,9 +814,10 @@
 
     var form = document.querySelector("form");
 
+    var params = new URLSearchParams(window.location.search);
+
     if (heading && heading.parentElement && form) {
       var status = null;
-      var params = new URLSearchParams(window.location.search);
 
       if (params.get("sent") === "1") {
         status = document.createElement("div");
@@ -778,6 +839,8 @@
     var companyLabel = document.querySelector('label[for="company"]');
     var countryLabel = document.querySelector('label[for="country"]');
     var helpLabel = document.querySelector('label[for="help"]');
+    var nameInput = document.getElementById("name");
+    var emailInput = document.getElementById("email");
     var companyInput = document.getElementById("company");
     var countryInput = document.getElementById("country");
     var helpInput = document.getElementById("help");
@@ -801,6 +864,38 @@
       helpInput.placeholder = "Tell us the product, quantity, material, branding, and required delivery timeline";
     }
 
+    if (nameInput && params.get("name") && !normalize(nameInput.value)) {
+      nameInput.value = params.get("name");
+    }
+
+    if (emailInput && params.get("email") && !normalize(emailInput.value)) {
+      emailInput.value = params.get("email");
+    }
+
+    if (companyInput && params.get("company") && !normalize(companyInput.value)) {
+      companyInput.value = params.get("company");
+    }
+
+    if (countryInput && params.get("country") && !normalize(countryInput.value)) {
+      countryInput.value = params.get("country");
+    }
+
+    if (helpInput && !normalize(helpInput.value)) {
+      var prefills = [];
+      if (params.get("product")) {
+        prefills.push("Product type: " + params.get("product"));
+      }
+      if (params.get("quantity")) {
+        prefills.push("Estimated quantity: " + params.get("quantity"));
+      }
+      if (params.get("help")) {
+        prefills.push(params.get("help"));
+      }
+      if (prefills.length) {
+        helpInput.value = prefills.join("\n");
+      }
+    }
+
     if (form) {
       form.method = "POST";
       form.action = "/contact-submit.php";
@@ -813,9 +908,6 @@
       if (countryInput) {
         countryInput.required = true;
       }
-
-      var nameInput = document.getElementById("name");
-      var emailInput = document.getElementById("email");
 
       if (nameInput) {
         nameInput.required = true;
@@ -878,6 +970,9 @@
 
   function runSync() {
     var path = window.location.pathname.replace(/\/+$/, "") || "/";
+
+    updateFooter();
+    updateGlobalNavigation();
 
     if (path === "/about") {
       updateAboutPage();

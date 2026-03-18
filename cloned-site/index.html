@@ -8,7 +8,8 @@
   <link rel="preload" as="image" href="/images/branding/crestline-logo.png">
   <link rel="stylesheet" href="/_next/static/css/89da6031e7ae37fb.css" data-precedence="next">
   <link rel="stylesheet" href="/_next/static/css/ba3a27aa20d5d66a.css" data-precedence="next">
-  <link rel="stylesheet" href="/css/home-categories.css?v=20260316b">
+  <link rel="stylesheet" href="/css/site-shell.css?v=20260317a">
+  <link rel="stylesheet" href="/css/home-categories.css?v=20260317c">
   <link rel="preload" as="script" fetchpriority="low" href="/_next/static/chunks/webpack-2f253dca8e70be4f.js">
   <script src="/_next/static/chunks/4bd1b696-d1afaf9361c0b921.js" async=""></script>
   <script src="/_next/static/chunks/517-eabd41823c139ab4.js" async=""></script>
@@ -38,11 +39,11 @@
       --wm-hero-black: #050505;
       --wm-hero-white: #fff;
       --wm-hero-yellow: #fef073;
-      --wm-hero-brown: #312821;
+      --wm-hero-brown: transparent;
       --wm-hero-nav-offset: clamp(4.75rem, 4.2rem + 1.2vw, 5.5rem);
       position: relative;
       z-index: 2;
-      margin-top: var(--wm-hero-nav-offset);
+      margin-top: 0;
     }
 
     .wm-hero-wrap {
@@ -63,7 +64,7 @@
       justify-content: center;
       position: relative;
       z-index: 2;
-      padding: 0;
+      padding: 0 !important;
     }
 
     .wm-home-hero-main {
@@ -76,7 +77,7 @@
       justify-content: center;
       position: relative;
       z-index: 2;
-      padding: clamp(2rem, 1.4rem + 2vw, 3.5rem) 0 clamp(2rem, 1.25rem + 1.5vw, 3rem);
+      padding: 0 !important;
     }
 
     .wm-hero-container {
@@ -108,7 +109,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: var(--wm-hero-white);
+      color: #00274D;
     }
 
     .wm-hero-main-title {
@@ -127,12 +128,13 @@
       letter-spacing: -0.02em;
       text-transform: uppercase;
       text-align: center;
-      color: var(--wm-hero-white);
+      color: #00274D;
     }
 
     .wm-hero-main-span {
       display: none;
     }
+
 
     .wm-hero-superscript {
       margin: 0 0 0 0.6em;
@@ -142,7 +144,7 @@
       font-weight: 500;
       letter-spacing: -0.01em;
       text-transform: none;
-      color: var(--wm-hero-white);
+      color: #00274D;
       position: absolute;
       top: 50%;
       left: 100%;
@@ -174,7 +176,7 @@
       font-weight: 500;
       letter-spacing: -0.01em;
       text-align: center;
-      color: var(--wm-hero-white);
+      color: #00274D;
     }
 
     .wm-hero-copy .wm-hero-split-mask {
@@ -250,8 +252,7 @@
     }
 
     .wm-hero-bg-image.wm-desktop {
-      opacity: 0.55;
-      filter: brightness(0.9);
+      opacity: 1;
     }
 
     .wm-mask-section {
@@ -263,13 +264,14 @@
       flex-direction: column;
       justify-content: flex-end;
       box-sizing: border-box;
-      padding-bottom: clamp(0.7rem, 1vw, 0.9rem);
+      padding-bottom: 0;
       pointer-events: none;
     }
 
     .wm-hero-image-mask {
-      background-color: var(--wm-hero-white);
+      background-color: #00274D;
       height: 0.4em;
+      flex: 0 0 auto;
       will-change: transform;
     }
 
@@ -283,6 +285,7 @@
 
     .wm-hero-image-mask.is-3 {
       height: 18%;
+      transform: translateY(-0.8em) !important;
     }
 
     .wm-mobile {
@@ -301,7 +304,7 @@
       }
 
       .wm-home-hero-main {
-        padding-top: 1.5rem;
+        padding-top: 0 !important;
       }
 
       .wm-hero-body {
@@ -345,12 +348,288 @@
       box-shadow: 0 18px 42px rgba(10, 43, 88, 0.16);
     }
 
+    .home-contact-shell {
+      max-width: 1273px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.88);
+      border-radius: 32px;
+      background: linear-gradient(132deg, rgba(231, 244, 255, 0.96) 0%, rgba(255, 255, 255, 0.94) 38%, rgba(228, 233, 255, 0.94) 100%);
+      box-shadow: 0 28px 88px rgba(41, 173, 228, 0.12);
+      backdrop-filter: blur(30px);
+    }
+
+    .home-contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.03fr) minmax(0, 0.97fr);
+    }
+
+    .home-contact-copy,
+    .home-contact-form-panel {
+      position: relative;
+      padding: clamp(1.75rem, 3vw, 3.5rem);
+    }
+
+    .home-contact-copy {
+      color: #00274D;
+    }
+
+    .home-contact-copy>*,
+    .home-contact-form-panel>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-contact-copy::before,
+    .home-contact-copy::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .home-contact-copy::before {
+      width: 22rem;
+      height: 22rem;
+      left: -6rem;
+      bottom: -10rem;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(0, 212, 255, 0) 72%);
+    }
+
+    .home-contact-copy::after {
+      width: 18rem;
+      height: 18rem;
+      right: -7rem;
+      top: -5rem;
+      background: radial-gradient(circle, rgba(143, 136, 237, 0.16) 0%, rgba(143, 136, 237, 0) 72%);
+    }
+
+    .home-contact-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.95rem;
+      border: 1px solid rgba(157, 193, 255, 0.56);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      color: #355065;
+      font-size: 0.84rem;
+      letter-spacing: 0.01em;
+    }
+
+    .home-contact-title {
+      margin: 1.25rem 0 0;
+      max-width: 34rem;
+      font-family: 'Neue Haas Display', Arial, sans-serif;
+      font-size: clamp(2.15rem, 4vw, 3.55rem);
+      line-height: 0.98;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      color: #00274D;
+    }
+
+    .home-contact-intro {
+      margin: 1.35rem 0 0;
+      max-width: 34rem;
+      color: #5A6675;
+      font-size: 0.98rem;
+      line-height: 1.85;
+    }
+
+    .home-contact-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .home-contact-highlight {
+      min-height: 12rem;
+      padding: 1.35rem;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.48));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .home-contact-highlight-label {
+      color: #64748B;
+      font-size: 0.86rem;
+      line-height: 1.3;
+    }
+
+    .home-contact-highlight-value {
+      margin-top: 0.9rem;
+      font-family: 'Neue Haas Display', Arial, sans-serif;
+      font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      color: #00274D;
+    }
+
+    .home-contact-highlight-copy {
+      margin-top: 0.85rem;
+      color: #5A6675;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .home-contact-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.65rem;
+    }
+
+    .home-contact-pill {
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      color: #1E4A67;
+      font-size: 0.88rem;
+      line-height: 1.3;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .home-contact-form-panel {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.88));
+    }
+
+    .home-contact-form-card {
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+      padding: clamp(1.5rem, 2.5vw, 2.25rem);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(245, 249, 255, 0.84));
+      box-shadow: 0 18px 50px rgba(0, 39, 77, 0.08);
+    }
+
+    .home-contact-form-eyebrow {
+      color: #484848;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .home-contact-form-title {
+      margin: 0.95rem 0 0;
+      font-family: 'Neue Haas Display', Arial, sans-serif;
+      font-size: clamp(1.7rem, 2.8vw, 2.35rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      color: #00274D;
+    }
+
+    .home-contact-form-copy {
+      margin: 0.95rem 0 0;
+      color: #64748B;
+      font-size: 0.93rem;
+      line-height: 1.75;
+    }
+
+    .home-contact-form {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+
+    .home-contact-form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .home-contact-field {
+      display: block;
+      color: #355065;
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .home-contact-input,
+    .home-contact-textarea {
+      width: 100%;
+      margin-top: 0.55rem;
+      padding: 0.95rem 1rem;
+      border: 1px solid #CFE3F4;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #00274D;
+      font: inherit;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .home-contact-input:focus,
+    .home-contact-textarea:focus {
+      border-color: #9AD1F5;
+      box-shadow: 0 0 0 3px rgba(154, 209, 245, 0.22);
+    }
+
+    .home-contact-textarea {
+      min-height: 9rem;
+      resize: vertical;
+      border-radius: 22px;
+    }
+
+    .home-contact-form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .home-contact-form-note {
+      max-width: 18rem;
+      color: #64748B;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .home-contact-submit {
+      border: none;
+      cursor: pointer;
+      justify-content: center;
+    }
+
+    .home-contact-submit .wm-hero-button-icon {
+      font-size: 1rem;
+      line-height: 1;
+      color: #26ADE3;
+    }
+
+    @media screen and (max-width: 991px) {
+      .home-contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .home-contact-highlights,
+      .home-contact-form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .home-contact-form-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .home-contact-form-note {
+        max-width: none;
+      }
+
+      .home-contact-submit {
+        width: 100%;
+      }
+    }
+
   </style>
   <style>
     /* === WhatMatters Loader === */
     .wm-loader {
       z-index: 9999999;
-      background-color: #fef073;
+      background-color: #e2eefb;
       pointer-events: none;
       justify-content: flex-start;
       align-items: flex-end;
@@ -427,11 +706,22 @@
 
     /* Block all page content from showing before the loader JS runs */
     html {
-      background: #fef073;
+      background: #e2eefb;
+    }
+
+    html.wm-loading {
+      overflow: hidden; /* prevents native scrollbar from covering the progress bar */
     }
 
     html.wm-loading body {
       visibility: hidden;
+    }
+
+    /* Hide nav during loading — display:none is required because the nav uses
+       backdrop-filter (backdrop-blur), which renders even under visibility:hidden.
+       display:none removes it from the render tree entirely, stopping the blur effect. */
+    html.wm-loading nav {
+      display: none !important;
     }
   </style>
   <style>
@@ -628,8 +918,17 @@
 
       /* -- Progress bar -- */
       var bar = document.createElement('div');
-      bar.style.cssText = 'background:#000;width:0.35rem;height:0;position:absolute;bottom:0;right:0;z-index:5;';
+      bar.style.cssText = 'background:#000;width:0.45rem;height:0;position:absolute;bottom:0;right:0.6rem;z-index:10;';
       loader.appendChild(bar);
+
+      /* Start bar animation immediately (full loader duration, pre-calculated) */
+      var _TRAVEL=480,_RL_TOTAL=600,_EL_TOTAL=380,_HOLD=200;
+      var _t1=_TRAVEL+_RL_TOTAL+_HOLD;
+      var _fullDur=900+_t1+2*(_EL_TOTAL+_TRAVEL+_RL_TOTAL+_HOLD)+_EL_TOTAL+_TRAVEL+300;
+      bar.animate(
+        [{ height: '0px' }, { height: '100vh' }],
+        { duration: _fullDur, easing: 'linear', fill: 'forwards' }
+      );
 
       /* -- Yellow mask � TOP (starts covering upper 2 zones) -- */
       var maskTop = document.createElement('div');
@@ -850,14 +1149,7 @@
 
         }, t1);       /* hold at BOTTOM */
 
-        /* Progress bar fills over total estimated duration */
-        var totalMs = 900 + t1 +
-          2 * (EL_TOTAL + TRAVEL + RL_TOTAL + HOLD) +
-          EL_TOTAL + TRAVEL + 300;
-        bar.animate(
-          [{ height: '0' }, { height: '100vh' }],
-          { duration: totalMs, easing: 'linear', fill: 'forwards' }
-        );
+        /* (Bar animation started immediately outside the timeout — nothing here) */
 
       }, 900); // initial empty yellow screen
     })();
@@ -903,19 +1195,11 @@
                 class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 href="/about">About Us</a></li>
             <li><a
-                class="py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 flex items-center gap-1 justify-center"
-                href="/products">Products <svg stroke="currentColor" fill="currentColor" stroke-width="0"
-                  viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z">
-                  </path>
-                </svg></a></li>
+                class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                href="/products">Products</a></li>
             <li><a
                 class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 href="/pricing">Pricing</a></li>
-            <li><a
-                class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                href="/addons">Add-Ons</a></li>
             <li><a
                 class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 href="/contact-us">Contact</a></li>
@@ -5298,7 +5582,8 @@
   <script>self.__next_f.push([1, "b:{}\nc:{}\n"])</script>
   <script>self.__next_f.push([1, "12:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n10:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"Coworkit\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Best Coworking System\"}],[\"$\",\"link\",\"3\",{\"rel\":\"icon\",\"href\":\"/images/branding/crestline-logo.png\"}]]\n"])</script>
   <script>self.__next_f.push([1, "e:null\n"])</script>
-  <script src="/js/home-categories.js?v=20260316b"></script>
+  <script src="/js/products-catalog-data.js?v=20260317b"></script>
+  <script src="/js/home-categories.js?v=20260317c"></script>
   <script>
     (function () {
       function normalize(value) {
@@ -5705,6 +5990,31 @@
           );
         }
 
+        var homeNav = document.querySelector("nav");
+        if (homeNav) {
+          var homeNavList = homeNav.querySelector("#navbar-sticky ul");
+          if (homeNavList) {
+            Array.from(homeNavList.querySelectorAll('a[href="/blogs"], a[href="/addons"]')).forEach(function (link) {
+              var menuItem = link.closest("li");
+              if (menuItem) {
+                menuItem.remove();
+              } else {
+                link.remove();
+              }
+            });
+
+            var homeProductsLink = homeNavList.querySelector('a[href="/products"]');
+            if (homeProductsLink) {
+              homeProductsLink.textContent = "Products";
+              homeProductsLink.classList.remove("flex", "items-center", "gap-1", "justify-center");
+            }
+
+            Array.from(homeNavList.querySelectorAll("[data-crestline-info-nav]")).forEach(function (item) {
+              item.remove();
+            });
+          }
+        }
+
         var featureSection = document.getElementById("featureSection");
         if (featureSection) {
           var featureTags = featureSection.querySelectorAll("h5");
@@ -6002,55 +6312,58 @@
 
         var pricingSection = document.getElementById("pricing");
         if (pricingSection) {
-          var pricingHeadings = pricingSection.querySelectorAll("h2");
-          var pricingTitles = pricingSection.querySelectorAll("h3");
-          var pricingDescriptions = pricingSection.querySelectorAll(".border-b-2 p.text-sm");
-          var pricingValues = Array.from(pricingSection.querySelectorAll("p")).filter(function (node) {
-            return node.className.indexOf("text-[41.05px]") !== -1;
-          });
-          var pricingFeatures = pricingSection.querySelectorAll("p.text-base");
-          var pricingToggles = Array.from(pricingSection.querySelectorAll("div")).filter(function (node) {
-            var text = normalize(node.textContent);
-            return text === "Monthly" || text === "Yearly" || text === "Capacity" || text === "Inquiry";
-          });
-
-          setText(findByText(pricingSection, "p", ["Pro Plus", "Key Facts"]), "Key Facts");
-          setText(pricingHeadings[0], "Capacity &");
-          setText(pricingHeadings[1], "Commercial Terms");
-          setText(pricingHeadings[2], "Capacity & Commercial Terms");
-
-          pricingToggles.forEach(function (node) {
-            var text = normalize(node.textContent);
-            if (text === "Monthly" || text === "Capacity") {
-              setText(node, "Capacity");
-            }
-            if (text === "Yearly" || text === "Inquiry") {
-              setText(node, "Inquiry");
-            }
-          });
-
-          setText(pricingTitles[0], "Production Capacity");
-          setText(pricingTitles[1], "Commercial Terms");
-
-          setText(pricingDescriptions[0], "Monthly output tailored to product mix");
-          setText(pricingDescriptions[1], "Fast quotations for custom textile programs");
-
-          setText(pricingValues[0], "750K - 1M");
-          setText(pricingValues[1], "48");
-
-          if (pricingValues[0] && pricingValues[0].parentElement) {
-            setText(pricingValues[0].parentElement.querySelectorAll("p")[1], "pieces/month");
+          if (!pricingSection.querySelector("[data-home-contact-section]")) {
+            pricingSection.innerHTML =
+              '<div class="home-contact-shell" data-home-contact-section="1">' +
+                '<div class="home-contact-grid">' +
+                  '<div class="home-contact-copy">' +
+                    '<div class="home-contact-badge">Contact Us</div>' +
+                    '<h2 class="home-contact-title">Start your next custom textile inquiry.</h2>' +
+                    '<p class="home-contact-intro">Use the quick form to share your brief, timeline, and market details. We will carry everything into the full contact page so your team can continue the inquiry without retyping it.</p>' +
+                    '<div class="home-contact-highlights">' +
+                      '<div class="home-contact-highlight">' +
+                        '<div class="home-contact-highlight-label">Fast response</div>' +
+                        '<div class="home-contact-highlight-value">48 hours</div>' +
+                        '<div class="home-contact-highlight-copy">Quotation guidance and MOQ direction are typically shared within two business days.</div>' +
+                      '</div>' +
+                      '<div class="home-contact-highlight">' +
+                        '<div class="home-contact-highlight-label">Manufacturing depth</div>' +
+                        '<div class="home-contact-highlight-value">40+ years</div>' +
+                        '<div class="home-contact-highlight-copy">Custom promotional textiles produced with quality, consistency, and responsible manufacturing.</div>' +
+                      '</div>' +
+                    '</div>' +
+                    '<div class="home-contact-pills">' +
+                      '<span class="home-contact-pill">Tote bags, aprons, towels, and utility textiles</span>' +
+                      '<span class="home-contact-pill">Natural and dyed fabric programs</span>' +
+                      '<span class="home-contact-pill">Custom branding and export-ready production</span>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div class="home-contact-form-panel">' +
+                    '<div class="home-contact-form-card">' +
+                      '<div class="home-contact-form-eyebrow">Inquiry Form</div>' +
+                      '<h3 class="home-contact-form-title">Tell us what you need.</h3>' +
+                      '<p class="home-contact-form-copy">This quick form opens the full contact page with your details already filled in.</p>' +
+                      '<form class="home-contact-form" method="GET" action="/contact-us">' +
+                        '<input type="hidden" name="source" value="home-quick-inquiry">' +
+                        '<div class="home-contact-form-row">' +
+                          '<label class="home-contact-field">Name<input class="home-contact-input" type="text" name="name" placeholder="Your name" required></label>' +
+                          '<label class="home-contact-field">Email<input class="home-contact-input" type="email" name="email" placeholder="you@company.com" required></label>' +
+                        '</div>' +
+                        '<div class="home-contact-form-row">' +
+                          '<label class="home-contact-field">Company / Brand<input class="home-contact-input" type="text" name="company" placeholder="Company / Brand" required></label>' +
+                          '<label class="home-contact-field">Country / Market<input class="home-contact-input" type="text" name="country" placeholder="Country / Market" required></label>' +
+                        '</div>' +
+                        '<label class="home-contact-field">Inquiry Details<textarea class="home-contact-textarea" name="help" placeholder="Tell us about the product, quantity, material, branding, and required delivery timeline." required></textarea></label>' +
+                        '<div class="home-contact-form-actions">' +
+                          '<p class="home-contact-form-note">Continue to the full contact page with this inquiry already prepared.</p>' +
+                          '<button class="wm-hero-button home-contact-submit" type="submit"><span class="wm-hero-button-text">Continue Inquiry</span><span class="wm-hero-button-icon" aria-hidden="true">&rarr;</span></button>' +
+                        '</div>' +
+                      '</form>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>';
           }
-          if (pricingValues[1] && pricingValues[1].parentElement) {
-            setText(pricingValues[1].parentElement.querySelectorAll("p")[1], "hours");
-          }
-
-          setText(pricingFeatures[0], "Natural fabric lead time: 45 days");
-          setText(pricingFeatures[1], "Dyed fabric lead time: 75 days");
-          setText(pricingFeatures[2], "Final timelines confirmed at quotation stage");
-          setText(pricingFeatures[3], "Competitive pricing shared on inquiry");
-          setText(pricingFeatures[4], "MOQ guidance included with quotation");
-          setText(pricingFeatures[5], "Delivery schedules aligned to campaign needs");
         }
 
         var footer = document.querySelector("footer");
@@ -6108,6 +6421,18 @@
               brandBlurb,
               "Custom promotional textiles manufactured with quality, consistency, and responsible production since 1982."
             );
+
+            var footerQuoteButton = brandColumn.querySelector("[data-home-footer-quote]");
+            if (!footerQuoteButton) {
+              footerQuoteButton = document.createElement("a");
+              footerQuoteButton.setAttribute("data-home-footer-quote", "1");
+              footerQuoteButton.href = "/contact-us";
+              footerQuoteButton.className =
+                "rounded-full w-fit inline-flex text-[12.98px] gap-2 bg-gradient-to-r from-[#26ADE3] to-[#26ADE329] text-white items-center p-1 pl-[8px] font-extralight mt-5 mx-auto md:mx-0";
+              footerQuoteButton.innerHTML =
+                'Get Quotation<div class="w-[30.96px] h-[30.96px] flex items-center justify-center bg-white rounded-full"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></div>';
+              brandBlurb.insertAdjacentElement("afterend", footerQuoteButton);
+            }
           }
           setText(
             findByText(footer, "p", ["Join the Coworkit Community", "Start Your Next Custom Project"]),
@@ -6115,20 +6440,22 @@
           );
 
           if (footerLists[0]) {
-            var quickLinks = footerLists[0].querySelectorAll("a");
-            updateLink(quickLinks[0], "/about", "About Us");
-            updateLink(quickLinks[1], "/products", "Products");
-            updateLink(quickLinks[2], "/pricing", "Pricing");
-            updateLink(quickLinks[3], "/addons", "Add-Ons");
-            updateLink(quickLinks[4], "/contact-us", "Contact Us");
+            footerLists[0].innerHTML =
+              '<li class="mb-4 text-[#343C6A]"><a href="/about">About Us</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/products">Products</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/pricing">Pricing</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/raw-material">Raw Material</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/certifications">Certifications</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/contact-us">Contact Us</a></li>';
           }
 
           if (footerLists[1]) {
-            var companyLinks = footerLists[1].querySelectorAll("a");
-            updateLink(companyLinks[0], "/about", "Our Journey");
-            updateLink(companyLinks[1], "/about", "Sustainability");
-            updateLink(companyLinks[2], "/pricing", "Production Capacity");
-            updateLink(companyLinks[3], "/contact-us", "Get Quotation");
+            footerLists[1].innerHTML =
+              '<li class="mb-4 text-[#343C6A]"><a href="/general-information">General Information</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/services">Services</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/customer-satisfaction">Customer Satisfaction</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>' +
+              '<li class="mb-4 text-[#343C6A]"><a href="/contact-us">Get Quotation</a></li>';
           }
 
           setPlaceholder(footerInputs[0], "Enter Your Email");

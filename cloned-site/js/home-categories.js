@@ -211,28 +211,39 @@
   function renderCategories() {
     var section = ensureSection();
     var grid = section ? section.querySelector("#homeCategoryGrid") : null;
+    var liveCatalog = window.crestlineCatalogData && window.crestlineCatalogData.catalog ? window.crestlineCatalogData.catalog : null;
     if (!grid) {
       return;
     }
 
     grid.innerHTML = categories.map(function (category, index) {
+      var featuredProduct = liveCatalog && liveCatalog[category.name] && liveCatalog[category.name][0] ? liveCatalog[category.name][0] : null;
+      var imageSrc = featuredProduct && featuredProduct.images && featuredProduct.images[0] ? featuredProduct.images[0] : buildCategoryImage(category, index);
+      var featuredName = featuredProduct && featuredProduct.name ? featuredProduct.name : "Category Preview";
+      var featuredMeta = featuredProduct
+        ? [featuredProduct.fabric, featuredProduct.size].filter(Boolean).join(" · ")
+        : category.summary;
       return [
         '<a class="home-category-card" href="/products/?category=',
         encodeURIComponent(category.name),
         '#productsBrowse">',
         '<div class="home-category-card-image">',
         '<img src="',
-        buildCategoryImage(category, index),
+        imageSrc,
         '" alt="',
-        escapeXml(category.name),
-        ' category preview">',
+        escapeXml(featuredName),
+        '">',
         "</div>",
         '<div class="home-category-card-copy">',
+        '<span class="home-category-card-kicker">Featured Product</span>',
         "<h3>",
         escapeXml(category.name),
         "</h3>",
-        "<p>",
-        escapeXml(category.summary),
+        '<p class="home-category-card-featured">',
+        escapeXml(featuredName),
+        "</p>",
+        '<p class="home-category-card-summary">',
+        escapeXml(featuredMeta),
         "</p>",
         "</div>",
         '<div class="home-category-card-action"><span>Browse Products</span><span>&rarr;</span></div>',
