@@ -456,6 +456,7 @@
   padding: 1rem;
   background: rgba(0, 25, 46, 0.44);
   backdrop-filter: blur(14px);
+  overflow: hidden;
 }
 
 .product-modal[hidden] {
@@ -465,11 +466,23 @@
 .product-modal-panel {
   position: relative;
   width: min(1100px, 100%);
+  max-height: calc(100vh - 2rem);
   border-radius: 2rem;
   padding: 1.5rem;
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(231, 243, 255, 0.88));
   border: 1px solid rgba(255, 255, 255, 0.75);
   box-shadow: 0 45px 120px rgba(0, 39, 77, 0.16);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.product-modal-panel::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 .product-modal-close {
@@ -656,6 +669,14 @@
   .product-modal-panel {
     padding: 1rem;
     border-radius: 1.5rem;
+  }
+
+  .product-modal {
+    padding: 0.75rem;
+  }
+
+  .product-modal-panel {
+    max-height: calc(100dvh - 1.5rem);
   }
 
   .products-search-box,

@@ -13,6 +13,47 @@
     meta.content = content;
   }
 
+  function setPropertyMeta(property, content) {
+    var meta = document.querySelector('meta[property="' + property + '"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("property", property);
+      document.head.appendChild(meta);
+    }
+    meta.content = content;
+  }
+
+  function setLink(rel, href) {
+    var link = document.querySelector('link[rel="' + rel + '"]');
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = rel;
+      document.head.appendChild(link);
+    }
+    link.href = href;
+  }
+
+  function applySeo(title, description) {
+    var canonicalUrl = window.location.href;
+    document.title = title;
+    setMeta("description", description);
+    setMeta("robots", "index,follow");
+    setMeta("application-name", "Crestline");
+    setMeta("theme-color", "#e8faff");
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", "/images/branding/crestline-logo.png");
+    setLink("canonical", canonicalUrl);
+    setPropertyMeta("og:site_name", "Crestline (SMC-PVT) Limited");
+    setPropertyMeta("og:type", "website");
+    setPropertyMeta("og:title", title);
+    setPropertyMeta("og:description", description);
+    setPropertyMeta("og:url", canonicalUrl);
+    setPropertyMeta("og:image", "/images/branding/crestline-logo.png");
+    setPropertyMeta("og:image:alt", "Crestline (SMC-PVT) Limited logo");
+  }
+
   function setFirstTextNode(el, text) {
     if (!el) {
       return;
@@ -95,6 +136,117 @@
     );
   }
 
+  function buildStandardNavMarkup() {
+    return (
+      '<div class="max-w-[1328px] flex flex-col lg:flex-row flex-wrap items-center justify-between mx-auto p-4">' +
+      '<div class="flex justify-between w-full lg:w-fit">' +
+      '<a class="flex items-center space-x-3 rtl:space-x-reverse" href="/">' +
+      '<img alt="Crestline Logo" width="99" height="26" class="w-[130px] h-[26px]" src="/images/branding/crestline-logo.png">' +
+      "</a>" +
+      '<button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-lg border-none outline-none lg:hidden focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">' +
+      '<span class="sr-only">Open main menu</span>' +
+      '<svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<path d="M0.113985 2.2438C0.113985 1.33509 0.850497 0.601562 1.76289 0.601562H19.3513C20.2636 0.601562 21.0002 1.33509 21.0002 2.2438C21.0002 3.1525 20.2636 3.88603 19.3513 3.88603H1.76289C0.850497 3.88603 0.113985 3.1525 0.113985 2.2438ZM19.3513 18.1187H1.76289C0.850497 18.1187 0.113985 18.8522 0.113985 19.7609C0.113985 20.6696 0.850497 21.4032 1.76289 21.4032H19.3513C20.2636 21.4032 21.0002 20.6696 21.0002 19.7609C21.0002 18.8522 20.2636 18.1187 19.3513 18.1187ZM19.2373 9.36014H1.64891C0.736513 9.36014 0 10.0937 0 11.0024C0 11.9111 0.736513 12.6446 1.64891 12.6446H19.2373C20.1497 12.6446 20.8862 11.9111 20.8862 11.0024C20.8862 10.0937 20.1497 9.36014 19.2373 9.36014Z" fill="white" fill-opacity="0.2"></path>' +
+      '<path d="M0.113985 2.2438C0.113985 1.33509 0.850497 0.601562 1.76289 0.601562H19.3513C20.2636 0.601562 21.0002 1.33509 21.0002 2.2438C21.0002 3.1525 20.2636 3.88603 19.3513 3.88603H1.76289C0.850497 3.88603 0.113985 3.1525 0.113985 2.2438ZM19.3513 18.1187H1.76289C0.850497 18.1187 0.113985 18.8522 0.113985 19.7609C0.113985 20.6696 0.850497 21.4032 1.76289 21.4032H19.3513C20.2636 21.4032 21.0002 20.6696 21.0002 19.7609C21.0002 18.8522 20.2636 18.1187 19.3513 18.1187ZM19.2373 9.36014H1.64891C0.736513 9.36014 0 10.0937 0 11.0024C0 11.9111 0.736513 12.6446 1.64891 12.6446H19.2373C20.1497 12.6446 20.8862 11.9111 20.8862 11.0024C20.8862 10.0937 20.1497 9.36014 19.2373 9.36014Z" fill="url(#paint0_linear_1375_7667)"></path>' +
+      "<defs>" +
+      '<linearGradient id="paint0_linear_1375_7667" x1="6.86973" y1="1.31886" x2="17.2515" y2="29.2865" gradientUnits="userSpaceOnUse">' +
+      '<stop stop-color="#00D4FF"></stop>' +
+      '<stop offset="1" stop-color="#8F88ED"></stop>' +
+      "</linearGradient>" +
+      "</defs>" +
+      "</svg>" +
+      "</button>" +
+      "</div>" +
+      '<div class="flex md:w-[700px] xl:w-[800px] justify-between">' +
+      '<div class="flex lg:order-2 space-x-2 lg:space-x-0 rtl:space-x-reverse relative z-20">' +
+      '<a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-cyan-700 text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-cyan-800 dark:bg-cyan-600 dark:focus:ring-cyan-800 dark:enabled:hover:bg-cyan-700 rounded-full bg-gradient-to-b from-global to-[#9DC1FF] hover:!bg-transparent hover:outline-solid hidden lg:block"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a>' +
+      "</div>" +
+      '<div class="items-center justify-center hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">' +
+      '<ul class="flex flex-col xl:p-0 font-medium xl:space-x-3 rtl:space-x-reverse lg:flex-row xl:mt-0 xl:border-0 text-gray-900 dark:bg-gray-800 xl:dark:bg-gray-900 dark:border-gray-700 text-center text-[15px] lg:max-w-[1100px] font-normal">' +
+      '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/">Home</a></li>' +
+      '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/about">About Us</a></li>' +
+      '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/contact-us">Contact</a></li>' +
+      '<div class="xl:hidden gap-4 items-center flex flex-col mt-2"><a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-cyan-700 text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-cyan-800 dark:bg-cyan-600 dark:focus:ring-cyan-800 dark:enabled:hover:bg-cyan-700 rounded-full bg-gradient-to-b from-global to-[#9DC1FF] hover:!bg-transparent hover:outline-solid block lg:hidden"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a></div>' +
+      "</ul>" +
+      "</div>" +
+      "</div>" +
+      "</div>"
+    );
+  }
+
+  function bindStandardNav(nav) {
+    if (!nav || nav.getAttribute("data-crestline-nav-bound") === "1") {
+      return;
+    }
+
+    var toggle = nav.querySelector('[data-collapse-toggle="navbar-sticky"]');
+    var menu = nav.querySelector("#navbar-sticky");
+
+    if (!toggle || !menu) {
+      return;
+    }
+
+    function setMenuState(isOpen) {
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      menu.classList.toggle("hidden", !isOpen);
+      menu.classList.toggle("block", isOpen);
+    }
+
+    toggle.addEventListener("click", function () {
+      if (window.innerWidth >= 1024) {
+        return;
+      }
+
+      setMenuState(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    Array.prototype.forEach.call(menu.querySelectorAll("a"), function (link) {
+      link.addEventListener("click", function () {
+        if (window.innerWidth < 1024) {
+          setMenuState(false);
+        }
+      });
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth >= 1024) {
+        menu.classList.remove("block");
+        menu.classList.add("hidden");
+        toggle.setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      if (toggle.getAttribute("aria-expanded") !== "true") {
+        menu.classList.remove("block");
+        menu.classList.add("hidden");
+      }
+    });
+
+    setMenuState(false);
+    nav.setAttribute("data-crestline-nav-bound", "1");
+  }
+
+  function standardizeInfoPageNavigation() {
+    var body = document.body;
+    if (!body || !body.dataset || !body.dataset.infoPage) {
+      return;
+    }
+
+    var nav = document.querySelector("body[data-info-page] nav");
+    if (!nav) {
+      return;
+    }
+
+    if (nav.getAttribute("data-crestline-standard-nav") !== "1") {
+      nav.className =
+        "backdrop-blur-[83.1px] bg-transparent fixed w-full top-0 start-0 border-b border-gray-200 m-auto transition-all duration-300 z-[999999]";
+      nav.innerHTML = buildStandardNavMarkup();
+      nav.setAttribute("data-crestline-standard-nav", "1");
+    }
+
+    bindStandardNav(nav);
+  }
+
   function updateFooter() {
     var footer = document.querySelector("footer");
     if (!footer) {
@@ -141,8 +293,6 @@
         '<p class=" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium ">Quick Links</p>' +
         '<ul>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/about">About Us</a></li>' +
-        '<li class="mb-4 text-[#343C6A]"><a href="/products">Products</a></li>' +
-        '<li class="mb-4 text-[#343C6A]"><a href="/pricing">Pricing</a></li>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/raw-material">Raw Material</a></li>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/certifications">Certifications</a></li>' +
         '<li class="mb-4 text-[#343C6A]"><a href="/contact-us">Contact Us</a></li>' +
@@ -198,17 +348,18 @@
       var label = normalize(link.textContent);
       var href = link.getAttribute("href") || "";
 
-      if (label === "Add-Ons" || label === "Blogs" || href === "/addons" || href === "/blogs") {
+      if (
+        label === "Add-Ons" ||
+        label === "Blogs" ||
+        label === "Products" ||
+        label === "Pricing" ||
+        href === "/addons" ||
+        href === "/blogs" ||
+        href === "/products" ||
+        href === "/pricing"
+      ) {
         removeMenuLink(link);
       }
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll('nav a[href="/products"]'), function (link) {
-      Array.prototype.forEach.call(link.querySelectorAll("svg"), function (icon) {
-        icon.remove();
-      });
-      link.classList.remove("flex", "items-center", "gap-1", "justify-center");
-      link.classList.add("block");
     });
 
     Array.prototype.forEach.call(document.querySelectorAll("[data-crestline-info-nav]"), function (node) {
@@ -228,9 +379,8 @@
   }
 
   function updateAboutPage() {
-    document.title = "About Us | Crestline";
-    setMeta(
-      "description",
+    applySeo(
+      "About Us | Crestline",
       "Learn about Crestline (SMC-PVT) Limited, a trusted manufacturer and exporter of custom promotional textiles founded in 1982."
     );
 
@@ -520,7 +670,10 @@
           }
         });
 
-        var cardButton = card.querySelector('a[href*="demo.Xelvora.co"]');
+        var cardButton = Array.prototype.find.call(card.querySelectorAll("a"), function (link) {
+          var href = (link.getAttribute("href") || "").toLowerCase();
+          return href.indexOf("demo.") !== -1 || href.indexOf("/contact-us") !== -1;
+        });
         if (cardButton) {
           cardButton.href = "/contact-us";
           cardButton.target = "";
@@ -541,9 +694,8 @@
   }
 
   function updatePricingPage() {
-    document.title = "Pricing | Crestline";
-    setMeta(
-      "description",
+    applySeo(
+      "Pricing & Lead Times | Crestline",
       "Request competitive pricing, MOQ details, and lead times from Crestline for custom promotional textile orders."
     );
 
@@ -668,7 +820,7 @@
     var showcaseSection = Array.prototype.find.call(document.querySelectorAll("section"), function (node) {
       return (
         normalize(node.textContent).indexOf("Try it for free") !== -1 ||
-        !!node.querySelector('img[src*="accouting-db-xelvora.webp"]')
+        !!node.querySelector('img[src*="accouting-db-crestline.webp"]')
       );
     });
 
@@ -762,9 +914,8 @@
   }
 
   function updateContactPage() {
-    document.title = "Contact Us | Crestline";
-    setMeta(
-      "description",
+    applySeo(
+      "Contact Us | Crestline",
       "Contact Crestline (SMC-PVT) Limited for quotations, production timelines, and custom promotional textile inquiries."
     );
 
@@ -938,7 +1089,10 @@
 
     setText(submitButton, "Send Inquiry");
 
-    var cards = document.querySelectorAll('section a[href*="demo.Xelvora.co/login"]');
+    var cards = Array.prototype.filter.call(document.querySelectorAll("section a"), function (link) {
+      var href = (link.getAttribute("href") || "").toLowerCase();
+      return href.indexOf("demo.") !== -1 || href.indexOf("/contact-us") !== -1;
+    });
     var cardsWrapper = cards.length ? cards[0].parentElement : null;
 
     if (cardsWrapper) {
@@ -972,6 +1126,7 @@
     var path = window.location.pathname.replace(/\/+$/, "") || "/";
 
     updateFooter();
+    standardizeInfoPageNavigation();
     updateGlobalNavigation();
 
     if (path === "/about") {

@@ -1,4 +1,6 @@
 import express from 'express';
+import fs from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -7,12 +9,523 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = Number(process.env.PORT) || 3000;
 const siteDir = path.join(__dirname, 'cloned-site');
+const publicRoutes = [
+  '/',
+  '/about',
+  '/products',
+  '/pricing',
+  '/contact-us',
+  '/services',
+  '/raw-material',
+  '/certifications',
+  '/terms-and-conditions',
+  '/general-information',
+  '/customer-satisfaction',
+  '/blogs',
+  '/blogs/article',
+  '/features',
+  '/addons',
+];
+const productMenu = [
+  { id: 1, product_heading: 'Back Packs' },
+  { id: 2, product_heading: 'Boat and Tote Bags' },
+  { id: 3, product_heading: 'Drawstring Bags' },
+  { id: 4, product_heading: 'Duffle' },
+  { id: 5, product_heading: 'Fashion Bags' },
+  { id: 6, product_heading: 'Kitchen Accessories' },
+  { id: 7, product_heading: 'Messenger' },
+  { id: 8, product_heading: 'Organic Bags' },
+  { id: 9, product_heading: 'Recycle Bags' },
+  { id: 10, product_heading: 'Shopper Tote' },
+  { id: 11, product_heading: 'Utility Tote' },
+];
+const productCardsById = {
+  1: [
+    { id: 101, heading: 'Campus & Utility Packs', icon: 'FaBriefcase' },
+    { id: 102, heading: 'Sampling & Branding', icon: 'FaPaintBrush' },
+  ],
+  2: [
+    { id: 201, heading: 'Large Capacity Totes', icon: 'FaShoppingBag' },
+    { id: 202, heading: 'Retail Presentation', icon: 'FaTags' },
+  ],
+  3: [
+    { id: 301, heading: 'Event Drawstring Bags', icon: 'FaShoppingBasket' },
+    { id: 302, heading: 'Lightweight Fulfillment', icon: 'FaBoxes' },
+  ],
+  4: [
+    { id: 401, heading: 'Travel & Sports Duffles', icon: 'FaTruck' },
+    { id: 402, heading: 'Structured Storage', icon: 'FaBoxOpen' },
+  ],
+  5: [
+    { id: 501, heading: 'Lifestyle Fashion Bags', icon: 'FaShoppingBag' },
+    { id: 502, heading: 'Custom Finishing', icon: 'FaPaintBrush' },
+  ],
+  6: [
+    { id: 601, heading: 'Aprons & Mitts', icon: 'FaUtensils' },
+    { id: 602, heading: 'Kitchen Gift Programs', icon: 'FaGift' },
+  ],
+  7: [
+    { id: 701, heading: 'Messenger & Crossbody', icon: 'FaBriefcase' },
+    { id: 702, heading: 'Office & Commute Use', icon: 'FaTruck' },
+  ],
+  8: [
+    { id: 801, heading: 'Organic Cotton Bags', icon: 'FaLeaf' },
+    { id: 802, heading: 'Eco Positioning', icon: 'FaCheckCircle' },
+  ],
+  9: [
+    { id: 901, heading: 'Recycled Fabric Bags', icon: 'FaRecycle' },
+    { id: 902, heading: 'Sustainability Programs', icon: 'FaLeaf' },
+  ],
+  10: [
+    { id: 1001, heading: 'Retail Shopper Totes', icon: 'FaShoppingBasket' },
+    { id: 1002, heading: 'Store & Event Supply', icon: 'FaBoxes' },
+  ],
+  11: [
+    { id: 1101, heading: 'Multi-Pocket Utility Totes', icon: 'FaToolbox' },
+    { id: 1102, heading: 'Heavy Duty Builds', icon: 'FaShieldAlt' },
+  ],
+};
+const featureCardsById = {
+  101: [
+    { id: 1011, feature_heading: 'Reinforced straps', feature_icon: 'FaCheckCircle' },
+    { id: 1012, feature_heading: 'Front pocket options', feature_icon: 'FaBoxOpen' },
+    { id: 1013, feature_heading: 'Retail-ready sizing', feature_icon: 'FaTags' },
+  ],
+  102: [
+    { id: 1021, feature_heading: 'Embroidery placement', feature_icon: 'FaPaintBrush' },
+    { id: 1022, feature_heading: 'Screen print support', feature_icon: 'FaCheckCircle' },
+    { id: 1023, feature_heading: 'Custom trims', feature_icon: 'FaToolbox' },
+  ],
+  201: [
+    { id: 2011, feature_heading: 'Wide gussets', feature_icon: 'FaBoxes' },
+    { id: 2012, feature_heading: 'Heavy canvas options', feature_icon: 'FaShieldAlt' },
+    { id: 2013, feature_heading: 'Long handle variants', feature_icon: 'FaCheckCircle' },
+  ],
+  202: [
+    { id: 2021, feature_heading: 'Contrast panels', feature_icon: 'FaTags' },
+    { id: 2022, feature_heading: 'Boutique presentation', feature_icon: 'FaGift' },
+    { id: 2023, feature_heading: 'Private label finishing', feature_icon: 'FaPaintBrush' },
+  ],
+  301: [
+    { id: 3011, feature_heading: 'Event-friendly pack size', feature_icon: 'FaBoxes' },
+    { id: 3012, feature_heading: 'Lightweight fabrics', feature_icon: 'FaLeaf' },
+    { id: 3013, feature_heading: 'Quick branding area', feature_icon: 'FaPaintBrush' },
+  ],
+  302: [
+    { id: 3021, feature_heading: 'Foldable construction', feature_icon: 'FaBoxOpen' },
+    { id: 3022, feature_heading: 'Bulk dispatch support', feature_icon: 'FaTruck' },
+    { id: 3023, feature_heading: 'Campaign color matching', feature_icon: 'FaTags' },
+  ],
+  401: [
+    { id: 4011, feature_heading: 'Zip closure options', feature_icon: 'FaCheckCircle' },
+    { id: 4012, feature_heading: 'Shoulder strap add-ons', feature_icon: 'FaToolbox' },
+    { id: 4013, feature_heading: 'Travel-size formats', feature_icon: 'FaTruck' },
+  ],
+  402: [
+    { id: 4021, feature_heading: 'Structured silhouettes', feature_icon: 'FaShieldAlt' },
+    { id: 4022, feature_heading: 'Interior organizers', feature_icon: 'FaBoxes' },
+    { id: 4023, feature_heading: 'Premium detailing', feature_icon: 'FaGift' },
+  ],
+  501: [
+    { id: 5011, feature_heading: 'Lifestyle silhouettes', feature_icon: 'FaShoppingBag' },
+    { id: 5012, feature_heading: 'Soft-lined interiors', feature_icon: 'FaCheckCircle' },
+    { id: 5013, feature_heading: 'Retail color stories', feature_icon: 'FaTags' },
+  ],
+  502: [
+    { id: 5021, feature_heading: 'Brand-specific trims', feature_icon: 'FaPaintBrush' },
+    { id: 5022, feature_heading: 'Accessory coordination', feature_icon: 'FaGift' },
+    { id: 5023, feature_heading: 'Packaging support', feature_icon: 'FaBoxes' },
+  ],
+  601: [
+    { id: 6011, feature_heading: 'Apron programs', feature_icon: 'FaUtensils' },
+    { id: 6012, feature_heading: 'Oven mitt production', feature_icon: 'FaShieldAlt' },
+    { id: 6013, feature_heading: 'Potholder sets', feature_icon: 'FaGift' },
+  ],
+  602: [
+    { id: 6021, feature_heading: 'Kitchen bundle packing', feature_icon: 'FaBoxes' },
+    { id: 6022, feature_heading: 'Hospitality gifting', feature_icon: 'FaTruck' },
+    { id: 6023, feature_heading: 'Custom recipe branding', feature_icon: 'FaPaintBrush' },
+  ],
+  701: [
+    { id: 7011, feature_heading: 'Flap and zip styles', feature_icon: 'FaBriefcase' },
+    { id: 7012, feature_heading: 'Crossbody strap options', feature_icon: 'FaCheckCircle' },
+    { id: 7013, feature_heading: 'Document compartments', feature_icon: 'FaBoxes' },
+  ],
+  702: [
+    { id: 7021, feature_heading: 'Daily carry formats', feature_icon: 'FaTruck' },
+    { id: 7022, feature_heading: 'Executive gifting', feature_icon: 'FaGift' },
+    { id: 7023, feature_heading: 'Workwear coordination', feature_icon: 'FaTags' },
+  ],
+  801: [
+    { id: 8011, feature_heading: 'Certified organic options', feature_icon: 'FaLeaf' },
+    { id: 8012, feature_heading: 'Natural finish programs', feature_icon: 'FaCheckCircle' },
+    { id: 8013, feature_heading: 'Eco messaging support', feature_icon: 'FaPaintBrush' },
+  ],
+  802: [
+    { id: 8021, feature_heading: 'Sustainability storytelling', feature_icon: 'FaLeaf' },
+    { id: 8022, feature_heading: 'Responsible sourcing', feature_icon: 'FaShieldAlt' },
+    { id: 8023, feature_heading: 'Long-term brand alignment', feature_icon: 'FaHandsHelping' },
+  ],
+  901: [
+    { id: 9011, feature_heading: 'Recycled blends', feature_icon: 'FaRecycle' },
+    { id: 9012, feature_heading: 'Repeat-use durability', feature_icon: 'FaShieldAlt' },
+    { id: 9013, feature_heading: 'Retail-ready decoration', feature_icon: 'FaPaintBrush' },
+  ],
+  902: [
+    { id: 9021, feature_heading: 'Sustainability campaigns', feature_icon: 'FaLeaf' },
+    { id: 9022, feature_heading: 'Material traceability', feature_icon: 'FaCheckCircle' },
+    { id: 9023, feature_heading: 'Buyer communication', feature_icon: 'FaHandsHelping' },
+  ],
+  1001: [
+    { id: 10011, feature_heading: 'Store-ready sizes', feature_icon: 'FaShoppingBasket' },
+    { id: 10012, feature_heading: 'Wide branding panels', feature_icon: 'FaPaintBrush' },
+    { id: 10013, feature_heading: 'Strong carry handles', feature_icon: 'FaCheckCircle' },
+  ],
+  1002: [
+    { id: 10021, feature_heading: 'Campaign fulfillment', feature_icon: 'FaBoxes' },
+    { id: 10022, feature_heading: 'Retail replenishment', feature_icon: 'FaTruck' },
+    { id: 10023, feature_heading: 'Bulk packing support', feature_icon: 'FaShieldAlt' },
+  ],
+  1101: [
+    { id: 11011, feature_heading: 'Outer pocket layouts', feature_icon: 'FaToolbox' },
+    { id: 11012, feature_heading: 'Organizer interiors', feature_icon: 'FaBoxes' },
+    { id: 11013, feature_heading: 'High-capacity builds', feature_icon: 'FaShieldAlt' },
+  ],
+  1102: [
+    { id: 11021, feature_heading: 'Heavy canvas options', feature_icon: 'FaShieldAlt' },
+    { id: 11022, feature_heading: 'Industrial stitching', feature_icon: 'FaCheckCircle' },
+    { id: 11023, feature_heading: 'Reliable export packing', feature_icon: 'FaTruck' },
+  ],
+};
+const seoByPath = {
+  '/': {
+    title: 'Crestline | Custom Promotional Textiles Manufacturer',
+    description:
+      'Crestline (SMC-PVT) Limited manufactures custom promotional textiles, cotton bags, aprons, oven mitts, and export-ready products for global brands.',
+  },
+  '/about': {
+    title: 'About Us | Crestline',
+    description:
+      'Learn about Crestline (SMC-PVT) Limited, a trusted manufacturer and exporter of custom promotional textiles founded in 1982.',
+  },
+  '/products': {
+    title: 'Products & Custom Manufacturing | Crestline',
+    description:
+      'Explore Crestline textile products, including cotton bags, aprons, oven mitts, potholders, and custom promotional manufacturing solutions.',
+  },
+  '/pricing': {
+    title: 'Pricing & Lead Times | Crestline',
+    description:
+      'Request competitive pricing, MOQ details, and lead times from Crestline for custom promotional textile orders.',
+  },
+  '/contact-us': {
+    title: 'Contact Us | Crestline',
+    description:
+      'Contact Crestline (SMC-PVT) Limited for quotations, production timelines, and custom promotional textile inquiries.',
+  },
+  '/services': {
+    title: 'Services | Crestline',
+    description:
+      'Discover Crestline manufacturing, sampling, sourcing, and branding services for custom promotional textile programs.',
+  },
+  '/raw-material': {
+    title: 'Raw Materials | Crestline',
+    description:
+      'Review Crestline raw material capabilities for cotton, poly/cotton, dyed, and export-ready promotional textile production.',
+  },
+  '/certifications': {
+    title: 'Certifications | Crestline',
+    description:
+      'See Crestline certifications, compliance standards, and responsible production credentials for global textile buyers.',
+  },
+  '/terms-and-conditions': {
+    title: 'Terms & Conditions | Crestline',
+    description:
+      'Read Crestline commercial terms, production conditions, and quotation policies for custom promotional textile orders.',
+  },
+  '/general-information': {
+    title: 'General Information | Crestline',
+    description:
+      'Get general company information about Crestline, its manufacturing process, export background, and buyer support.',
+  },
+  '/customer-satisfaction': {
+    title: 'Customer Satisfaction | Crestline',
+    description:
+      'Learn how Crestline supports customer satisfaction through quality control, dependable timelines, and responsive communication.',
+  },
+  '/blogs': {
+    title: 'Blogs | Crestline',
+    description:
+      'Read Crestline insights on promotional textiles, manufacturing quality, sourcing, compliance, and export production.',
+  },
+  '/blogs/article': {
+    title: 'Article | Crestline',
+    description:
+      'Read Crestline articles covering custom promotional textile manufacturing, sourcing, compliance, and production guidance.',
+  },
+  '/features': {
+    title: 'Manufacturing Features | Crestline',
+    description:
+      'Explore Crestline manufacturing features, production visibility, quality control systems, and export support capabilities.',
+  },
+  '/addons': {
+    title: 'Capabilities | Crestline',
+    description:
+      'Review Crestline operational capabilities, manufacturing support, and custom textile production advantages for global buyers.',
+  },
+};
+
+function normalizeRoute(requestPath = '/') {
+  let route = (requestPath || '/').split('?')[0].split('#')[0];
+
+  route = route.replace(/\/index\.html$/i, '/');
+
+  if (!route.startsWith('/')) {
+    route = `/${route}`;
+  }
+
+  route = route.replace(/\/{2,}/g, '/');
+
+  if (route.length > 1 && route.endsWith('/')) {
+    route = route.slice(0, -1);
+  }
+
+  return route.toLowerCase() || '/';
+}
+
+function resolvePageFile(requestPath) {
+  const cleanedPath = decodeURIComponent((requestPath || '/').split('?')[0].split('#')[0]);
+  const trimmedPath = cleanedPath.replace(/^\/+/, '').replace(/\/+$/, '');
+
+  if (!trimmedPath) {
+    return path.join(siteDir, 'index.html');
+  }
+
+  if (cleanedPath.toLowerCase().endsWith('.html')) {
+    const directPath = path.join(siteDir, trimmedPath);
+    return fs.existsSync(directPath) ? directPath : null;
+  }
+
+  const nestedIndexPath = path.join(siteDir, trimmedPath, 'index.html');
+  return fs.existsSync(nestedIndexPath) ? nestedIndexPath : null;
+}
+
+function getSeoForRoute(route) {
+  if (seoByPath[route]) {
+    return seoByPath[route];
+  }
+
+  const label = route
+    .replace(/^\//, '')
+    .split('/')
+    .filter(Boolean)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '))
+    .join(' | ');
+
+  return {
+    title: `${label || 'Crestline'} | Crestline`,
+    description:
+      'Crestline (SMC-PVT) Limited manufactures custom promotional textiles for global brands with quality, consistency, and responsible production.',
+  };
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function escapeJson(value) {
+  return JSON.stringify(String(value)).slice(1, -1);
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function upsertTag(html, pattern, replacement) {
+  if (pattern.test(html)) {
+    return html.replace(pattern, replacement);
+  }
+
+  return html.replace('</head>', `${replacement}\n</head>`);
+}
+
+function injectSeo(html, route, baseUrl) {
+  const seo = getSeoForRoute(route);
+  const canonicalUrl = new URL(route === '/' ? '/' : `${route}/`, baseUrl).toString();
+  const imageUrl = new URL('/images/branding/crestline-logo.png', baseUrl).toString();
+
+  html = html.replace(/<title>.*?<\/title>/is, `<title>${escapeHtml(seo.title)}</title>`);
+  html = upsertTag(
+    html,
+    /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="description" content="${escapeHtml(seo.description)}">`
+  );
+  html = upsertTag(html, /<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/i, '<meta name="robots" content="index,follow">');
+  html = upsertTag(
+    html,
+    /<meta\s+name="theme-color"\s+content="[^"]*"\s*\/?>/i,
+    '<meta name="theme-color" content="#e8faff">'
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+name="application-name"\s+content="[^"]*"\s*\/?>/i,
+    '<meta name="application-name" content="Crestline">'
+  );
+  html = upsertTag(
+    html,
+    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i,
+    `<link rel="canonical" href="${escapeHtml(canonicalUrl)}">`
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+property="og:site_name"\s+content="[^"]*"\s*\/?>/i,
+    '<meta property="og:site_name" content="Crestline (SMC-PVT) Limited">'
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+property="og:type"\s+content="[^"]*"\s*\/?>/i,
+    '<meta property="og:type" content="website">'
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:title" content="${escapeHtml(seo.title)}">`
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:description" content="${escapeHtml(seo.description)}">`
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:url" content="${escapeHtml(canonicalUrl)}">`
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:image" content="${escapeHtml(imageUrl)}">`
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/?>/i,
+    '<meta property="og:image:alt" content="Crestline (SMC-PVT) Limited logo">'
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+name="twitter:card"\s+content="[^"]*"\s*\/?>/i,
+    '<meta name="twitter:card" content="summary_large_image">'
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="twitter:title" content="${escapeHtml(seo.title)}">`
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="twitter:description" content="${escapeHtml(seo.description)}">`
+  );
+  html = upsertTag(
+    html,
+    /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="twitter:image" content="${escapeHtml(imageUrl)}">`
+  );
+
+  html = html.replace(
+    /(\["\$","title","1",\{"children":")[^"]*("\}\])/g,
+    (_, start, end) => `${start}${escapeJson(seo.title)}${end}`
+  );
+  html = html.replace(
+    /(\["\$","meta","2",\{"name":"description","content":")[^"]*("\}\])/g,
+    (_, start, end) => `${start}${escapeJson(seo.description)}${end}`
+  );
+
+  return html;
+}
+
+function getBaseUrl(req) {
+  return `${req.protocol}://${req.get('host')}`;
+}
 
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
   next();
+});
+
+app.get('/robots.txt', (req, res) => {
+  const baseUrl = getBaseUrl(req);
+
+  res.type('text/plain');
+  res.send(`User-agent: *\nAllow: /\nSitemap: ${baseUrl}/sitemap.xml\n`);
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const baseUrl = getBaseUrl(req);
+  const today = new Date().toISOString().slice(0, 10);
+  const urlEntries = publicRoutes
+    .map((route) => {
+      const loc = new URL(route === '/' ? '/' : `${route}/`, baseUrl).toString();
+      return `<url><loc>${escapeXml(loc)}</loc><lastmod>${today}</lastmod></url>`;
+    })
+    .join('');
+
+  res.type('application/xml');
+  res.send(
+    `<?xml version="1.0" encoding="UTF-8"?>` +
+      `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urlEntries}</urlset>`
+  );
+});
+
+app.get('/api/products.php', (req, res) => {
+  res.json(productMenu);
+});
+
+app.get('/api/product_cards.php', (req, res) => {
+  const productId = Number(req.query.product_id);
+  res.json(productCardsById[productId] || []);
+});
+
+app.get('/api/features.php', (req, res) => {
+  const cardId = Number(req.query.card_id);
+  res.json(featureCardsById[cardId] || []);
+});
+
+app.get('*', async (req, res, next) => {
+  const extension = path.extname(req.path).toLowerCase();
+
+  if (extension && extension !== '.html') {
+    return next();
+  }
+
+  const pageFile = resolvePageFile(req.path);
+
+  if (!pageFile) {
+    return next();
+  }
+
+  try {
+    const route = normalizeRoute(req.path);
+    const baseUrl = getBaseUrl(req);
+    const html = await readFile(pageFile, 'utf8');
+    const injectedHtml = injectSeo(html, route, baseUrl);
+
+    res.type('html');
+    res.send(injectedHtml);
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.use(
@@ -22,14 +535,6 @@ app.use(
   })
 );
 
-app.get('*', (req, res, next) => {
-  if (path.extname(req.path)) {
-    return next();
-  }
-
-  res.sendFile(path.join(siteDir, 'index.html'));
-});
-
 app.listen(port, () => {
-  console.log(`Coworkit clone running at http://localhost:${port}`);
+  console.log(`Crestline site running at http://localhost:${port}`);
 });

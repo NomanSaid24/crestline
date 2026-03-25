@@ -2,74 +2,131 @@
   var categories = [
     {
       name: "Back Packs",
-      type: "backpack",
       summary: "Structured bags for employee kits, campus campaigns, and branded travel packs.",
-      palette: ["#29ADE4", "#9DC1FF", "#EAF6FF"]
+      detailText: "Backpack styles in this range are built for commuting, campus kits, travel programs, and premium branded giveaways.",
+      fabricNote: "Canvas, peach canvas, waxed cotton, and custom fabric constructions depending on the pack design.",
+      sizeNote: "Available in multiple backpack sizes for daily carry, travel, and utility-focused programs.",
+      colorNote: "Natural, black, navy, grey, and custom brand colors depending on the selected style.",
+      image: "/images/products/categories/24e39cdb-5ee2-43c1-90fa-f6e5fd23b24c.JPG",
+      gallery: ["/images/products/categories/24e39cdb-5ee2-43c1-90fa-f6e5fd23b24c.JPG"]
     },
     {
       name: "Boat and Tote Bags",
-      type: "boat",
       summary: "Large-format totes with generous gussets for retail, events, and hospitality gifting.",
-      palette: ["#2A6FD6", "#8F88ED", "#F2F5FF"]
+      detailText: "Boat and tote silhouettes in this range are designed for retail presentation, gifting, hospitality, and everyday carry.",
+      fabricNote: "Cotton canvas, duck, and recycled cotton options with structured gussets and long-handle variations.",
+      sizeNote: "From compact everyday totes to large-capacity carryalls for merchandising and travel programs.",
+      colorNote: "Natural body colors, contrast trim options, and custom color combinations are available.",
+      image: "/images/products/categories/55d22b40-78b4-4f7a-9054-dcc591af1907.JPG",
+      gallery: [
+        "/images/products/categories/55d22b40-78b4-4f7a-9054-dcc591af1907.JPG",
+        "/images/products/categories/aaa56673-8f10-4d16-8e9d-1f728a0d32e4.JPG"
+      ]
     },
     {
       name: "Drawstring Bags",
-      type: "drawstring",
       summary: "Lightweight promotional bags for conferences, clubs, and event distribution.",
-      palette: ["#0E8599", "#7ED7E8", "#EAFBFF"]
+      detailText: "Drawstring bags are lightweight, campaign-ready solutions for events, retail inserts, clubs, and promotional giveaways.",
+      fabricNote: "Cotton sheeting, twill, mesh, and custom fabric options depending on the carry requirement.",
+      sizeNote: "Offered in flat and larger-format sizes for giveaways, sports kits, and laundry-style use.",
+      colorNote: "Natural, black, bright promotional shades, and custom brand colors are available on request.",
+      image: "/images/products/categories/26652ece-a17b-40b6-8b43-e929ce8ab209.JPG",
+      gallery: ["/images/products/categories/26652ece-a17b-40b6-8b43-e929ce8ab209.JPG"]
     },
     {
       name: "Duffle",
-      type: "duffle",
       summary: "Soft-structured duffles designed for sports programs, travel, and premium gifting.",
-      palette: ["#2355C3", "#8F88ED", "#F4F3FF"]
+      detailText: "Duffle styles are developed for travel kits, sports programs, executive gifting, and premium branded carry solutions.",
+      fabricNote: "Cotton canvas, peach canvas, waxed cotton, and blended options based on the desired structure.",
+      sizeNote: "Multiple barrel and weekender sizes are available for compact carry through to large-capacity travel use.",
+      colorNote: "Natural, black, navy, brown, and custom color programs are available depending on the style.",
+      image: "/images/products/categories/68d1dc92-8913-4360-bb32-3fc51892a4e3.JPG",
+      gallery: ["/images/products/categories/68d1dc92-8913-4360-bb32-3fc51892a4e3.JPG"]
     },
     {
       name: "Fashion Bags",
-      type: "fashion",
       summary: "Lifestyle silhouettes for boutique retail, branded drops, and elevated merchandise.",
-      palette: ["#188AC0", "#9CC8FF", "#F3F7FF"]
+      detailText: "Fashion bag silhouettes focus on lifestyle presentation, boutique retail, and elevated promotional merchandise.",
+      fabricNote: "Canvas, peach canvas, twill, and lined constructions are available for fashion-forward programs.",
+      sizeNote: "Available in compact to medium carry formats suited to retail drops, branded merchandise, and daily use.",
+      colorNote: "Natural, fashion colors, contrast trims, and custom brand palettes are available.",
+      image: "/images/products/categories/164b8942-4ad2-403d-bf48-b7d6c22fec20.JPG",
+      gallery: ["/images/products/categories/164b8942-4ad2-403d-bf48-b7d6c22fec20.JPG"]
     },
     {
       name: "Kitchen Accessories",
-      type: "kitchen",
       summary: "Aprons, mitts, and kitchen textile accessories built for utility and branding.",
-      palette: ["#B03A67", "#F29AB8", "#FFF4F7"]
+      detailText: "Kitchen accessories include practical textile items for culinary promotions, hospitality, household gifting, and branded kitchen sets.",
+      fabricNote: "Poly/cotton twill, cotton drill, quilted constructions, and insulated textile builds depending on the product.",
+      sizeNote: "Category sizes vary by apron, mitt, potholder, and kitchen utility item requirements.",
+      colorNote: "Natural, black, white, bold hospitality colors, and custom dyed programs are available.",
+      image: "/images/products/categories/a4f0bbf2-16d1-414e-8e8b-95a87c05f418.JPG",
+      gallery: [
+        "/images/products/categories/a4f0bbf2-16d1-414e-8e8b-95a87c05f418.JPG",
+        "/images/products/categories/8ec28988-3e83-479c-af24-962609c1e76a.JPG",
+        "/images/products/categories/e45cda8e-30c0-44fb-bf89-903bca7d4b6a.JPG"
+      ]
     },
     {
       name: "Messenger",
-      type: "messenger",
       summary: "Crossbody and flap bags for work essentials, daily carry, and event programs.",
-      palette: ["#145F9D", "#8DC6FF", "#EEF7FF"]
+      detailText: "Messenger and crossbody styles support commuting, conferences, office kits, and workday carry essentials.",
+      fabricNote: "Canvas, denim, twill, and recycled cotton options are available depending on strap and flap construction.",
+      sizeNote: "Available in compact document sizes through larger messenger formats with organizer features.",
+      colorNote: "Natural, black, red, blue, denim tones, and custom brand colors are available.",
+      image: "/images/products/categories/223f0cc6-b415-4ccd-829e-41d2482dbdb4.JPG",
+      gallery: ["/images/products/categories/223f0cc6-b415-4ccd-829e-41d2482dbdb4.JPG"]
     },
     {
       name: "Organic Bags",
-      type: "organic",
       summary: "Organic cotton carry solutions positioned for eco-conscious brand campaigns.",
-      palette: ["#2C9F63", "#A7E1BB", "#F2FCF5"]
+      detailText: "Organic bag styles are positioned for sustainability-led retail, grocery, gifting, and promotional programs.",
+      fabricNote: "Certified organic cotton and organic canvas constructions tailored to lightweight and structured carry options.",
+      sizeNote: "Available in flat, gusseted, and market-style sizes depending on the program need.",
+      colorNote: "Natural, unbleached, olive, black, and custom dyed organic programs can be developed.",
+      image: "/images/products/categories/72b9b179-dc0b-4987-82de-5c4d35f80454.JPG",
+      gallery: ["/images/products/categories/72b9b179-dc0b-4987-82de-5c4d35f80454.JPG"]
     },
     {
       name: "Recycle Bags",
-      type: "recycle",
       summary: "Recycled-fabric bag options developed for sustainability-led marketing programs.",
-      palette: ["#0A7C92", "#7AD2E3", "#EEFBFF"]
+      detailText: "Recycle bag styles help brands communicate sustainability while still delivering practical everyday carry solutions.",
+      fabricNote: "Recycled cotton, recycled PET blends, and woven recycled constructions depending on the product application.",
+      sizeNote: "Available in foldable, shopper, and gusseted formats for retail, events, and repeat-use programs.",
+      colorNote: "Natural, charcoal, navy, black, and custom recycled-fabric color programs are available.",
+      image: "/images/products/categories/44868946-17ab-4f85-b715-06b0cef9bd49.JPG",
+      gallery: ["/images/products/categories/44868946-17ab-4f85-b715-06b0cef9bd49.JPG"]
     },
     {
       name: "Shopper Tote",
-      type: "shopper",
       summary: "Retail-ready shopper totes for stores, activations, and merchandising bundles.",
-      palette: ["#2297D3", "#A5D4FF", "#F2F9FF"]
+      detailText: "Shopper totes are built for retail checkout, merchandising bundles, grocery programs, and campaign distribution.",
+      fabricNote: "Cotton canvas, duck, twill, and recycled fabric options depending on required weight and finish.",
+      sizeNote: "Available in compact to oversized shopper formats with multiple gusset and handle configurations.",
+      colorNote: "Natural bodies, contrast trims, solid colors, and custom brand combinations are available.",
+      image: "/images/products/categories/e8943eff-b843-4952-89df-cee5559c61a3.JPG",
+      gallery: ["/images/products/categories/e8943eff-b843-4952-89df-cee5559c61a3.JPG"]
     },
     {
       name: "Utility Tote",
-      type: "utility",
       summary: "High-capacity totes with added organization for work kits and functional everyday use.",
-      palette: ["#165CA5", "#90C1FF", "#EEF6FF"]
+      detailText: "Utility totes combine capacity and organization for work kits, home storage, premium gifting, and heavy-use programs.",
+      fabricNote: "Heavy canvas, duck with lamination, and structured blended constructions for added durability.",
+      sizeNote: "Available in tall, wide, round, and multi-pocket utility formats depending on the end use.",
+      colorNote: "Natural, black, navy, olive, and custom trim combinations are available.",
+      image: "/images/products/categories/63b66388-c058-421b-b129-28dc757fe839.JPG",
+      gallery: ["/images/products/categories/63b66388-c058-421b-b129-28dc757fe839.JPG"]
     }
   ];
 
+  var modalState = {
+    previousOverflow: "",
+    images: [],
+    title: ""
+  };
+
   function slugify(text) {
-    return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    return String(text).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   }
 
   function escapeXml(text) {
@@ -81,161 +138,308 @@
       .replace(/'/g, "&apos;");
   }
 
-  function toDataUri(svg) {
-    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+  function uniqueStrings(list) {
+    var seen = {};
+    return list.filter(function (item) {
+      if (!item || seen[item]) {
+        return false;
+      }
+      seen[item] = true;
+      return true;
+    });
   }
 
-  function buildShape(type, primary, secondary, line, soft) {
-    var tote =
-      '<path d="M180 106c0-30 24-54 69-54s69 24 69 54" fill="none" stroke="' + line + '" stroke-width="10" stroke-linecap="round"/>' +
-      '<path d="M128 124h242l-22 190c-3 29-28 51-58 51H208c-30 0-55-22-58-51z" fill="#ffffff" stroke="' + line + '" stroke-width="10" stroke-linejoin="round"/>' +
-      '<path d="M164 106c0-41 32-72 85-72s85 31 85 72" fill="none" stroke="' + line + '" stroke-width="10" stroke-linecap="round"/>';
-
-    if (type === "backpack") {
-      return '<path d="M158 124c0-40 33-68 91-68s91 28 91 68v24H158z" fill="' + soft + '"/>' +
-        '<rect x="142" y="100" width="214" height="248" rx="48" fill="#ffffff" stroke="' + line + '" stroke-width="10"/>' +
-        '<path d="M185 100c0-21 18-39 64-39s64 18 64 39" fill="none" stroke="' + line + '" stroke-width="10" stroke-linecap="round"/>' +
-        '<rect x="192" y="200" width="114" height="80" rx="18" fill="' + secondary + '" opacity="0.28" stroke="' + line + '" stroke-width="8"/>';
-    }
-
-    if (type === "drawstring") {
-      return '<path d="M155 106h188l-13 34 23 136c5 36-23 68-59 68H204c-36 0-64-32-59-68l23-136z" fill="#ffffff" stroke="' + line + '" stroke-width="10"/>' +
-        '<path d="M168 106c3 18 22 27 42 27h80c20 0 39-9 42-27" fill="' + soft + '" stroke="' + line + '" stroke-width="8"/>' +
-        '<path d="M182 140l-44 60v128" fill="none" stroke="' + line + '" stroke-width="8" stroke-linecap="round"/>' +
-        '<path d="M316 140l44 60v128" fill="none" stroke="' + line + '" stroke-width="8" stroke-linecap="round"/>';
-    }
-
-    if (type === "duffle") {
-      return '<rect x="120" y="178" width="258" height="120" rx="56" fill="#ffffff" stroke="' + line + '" stroke-width="10"/>' +
-        '<path d="M182 178v-30c0-22 18-40 40-40h54c22 0 40 18 40 40v30" fill="none" stroke="' + line + '" stroke-width="10" stroke-linecap="round"/>' +
-        '<circle cx="249" cy="236" r="16" fill="' + primary + '"/>';
-    }
-
-    if (type === "kitchen") {
-      return '<path d="M196 66c20 15 97 15 117 0v58c0 16-13 30-30 30h-57c-17 0-30-14-30-30z" fill="#ffffff" stroke="' + line + '" stroke-width="10"/>' +
-        '<path d="M190 124l-38 186h205l-38-186" fill="#ffffff" stroke="' + line + '" stroke-width="10" stroke-linejoin="round"/>' +
-        '<rect x="224" y="180" width="50" height="72" rx="14" fill="' + secondary + '" opacity="0.28" stroke="' + line + '" stroke-width="8"/>';
-    }
-
-    if (type === "messenger") {
-      return '<path d="M148 134c10-35 49-68 101-68 48 0 87 21 107 58" fill="none" stroke="' + line + '" stroke-width="10" stroke-linecap="round"/>' +
-        '<rect x="124" y="136" width="250" height="168" rx="26" fill="#ffffff" stroke="' + line + '" stroke-width="10"/>' +
-        '<path d="M124 182h250l-32-46H156z" fill="' + soft + '" stroke="' + line + '" stroke-width="8" stroke-linejoin="round"/>';
-    }
-
-    if (type === "organic") {
-      return tote +
-        '<path d="M249 180c-23 7-37 25-37 46 0 25 19 43 37 51 18-8 37-26 37-51 0-21-14-39-37-46z" fill="' + secondary + '" opacity="0.35" stroke="' + line + '" stroke-width="8"/>' +
-        '<path d="M249 192v64" stroke="' + line + '" stroke-width="8" stroke-linecap="round"/>';
-    }
-
-    if (type === "recycle") {
-      return tote +
-        '<path d="M228 212l24-38 21 14-10 18h29l-25 44" fill="' + secondary + '" opacity="0.3" stroke="' + line + '" stroke-width="8"/>' +
-        '<path d="M218 248l-22-14 12-19h-27l25-43" fill="' + secondary + '" opacity="0.3" stroke="' + line + '" stroke-width="8"/>';
-    }
-
-    if (type === "utility") {
-      return tote +
-        '<rect x="173" y="184" width="48" height="64" rx="14" fill="' + secondary + '" opacity="0.28" stroke="' + line + '" stroke-width="8"/>' +
-        '<rect x="277" y="184" width="48" height="64" rx="14" fill="' + secondary + '" opacity="0.28" stroke="' + line + '" stroke-width="8"/>';
-    }
-
-    if (type === "boat" || type === "shopper") {
-      return tote + '<path d="M150 166h198" stroke="' + line + '" stroke-width="8" stroke-linecap="round"/>';
-    }
-
-    return tote + '<circle cx="249" cy="220" r="16" fill="' + primary + '"/>';
+  function getCatalog() {
+    return window.crestlineCatalogData && window.crestlineCatalogData.catalog
+      ? window.crestlineCatalogData.catalog
+      : {};
   }
 
-  function buildCategoryImage(category, index) {
-    var primary = category.palette[0];
-    var secondary = category.palette[1];
-    var soft = category.palette[2];
-    var line = "#21496d";
-    var svg =
-      '<svg xmlns="http://www.w3.org/2000/svg" width="500" height="390" viewBox="0 0 500 390">' +
-      '<defs><linearGradient id="panel-' + index + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="' + soft + '"/></linearGradient></defs>' +
-      '<rect width="500" height="390" rx="42" fill="url(#panel-' + index + ')"/>' +
-      '<circle cx="104" cy="92" r="68" fill="' + soft + '" opacity="0.75"/>' +
-      '<circle cx="410" cy="302" r="74" fill="' + secondary + '" opacity="0.16"/>' +
-      '<rect x="34" y="28" width="190" height="36" rx="18" fill="#ffffff" opacity="0.92"/>' +
-      '<text x="55" y="52" font-family="Arial, sans-serif" font-size="18" fill="' + line + '">' + escapeXml(category.name) + "</text>" +
-      buildShape(category.type, primary, secondary, line, soft) +
-      '<rect x="138" y="320" width="222" height="36" rx="18" fill="#ffffff" opacity="0.92"/>' +
-      '<text x="249" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="' + line + '">View category</text>' +
-      "</svg>";
+  function getCategoryByName(name) {
+    return categories.find(function (category) {
+      return category.name === name;
+    }) || null;
+  }
 
-    return toDataUri(svg);
+  function getSectionMarkup() {
+    return (
+      '<div class="home-category-shell">' +
+      '<div class="home-category-header">' +
+      '<span class="home-category-badge">Product Categories</span>' +
+      "<h2>Browse Crestline's Core Textile Categories</h2>" +
+      '<p>Explore the main product groups we manufacture for custom branding, promotional programs, retail launches, and campaign sourcing. Select any category to open a detailed popup with representative product information.</p>' +
+      "</div>" +
+      '<div class="home-category-grid" id="homeCategoryGrid"></div>' +
+      "</div>"
+    );
   }
 
   function ensureSection() {
     var section = document.getElementById("homeCategoryShowcase");
+    var insertBeforeNode;
+
     if (section) {
       if (!section.querySelector(".home-category-shell")) {
-        section.innerHTML =
-          '<div class="home-category-shell">' +
-          '<div class="home-category-header">' +
-          '<span class="home-category-badge">Product Categories</span>' +
-          '<h2>Browse Crestline&#8217;s Core Textile Categories</h2>' +
-          '<p>Explore the main product groups we manufacture for custom branding, promotional programs, retail launches, and campaign sourcing. Select any category to open the products page already filtered for that range.</p>' +
-          "</div>" +
-          '<div class="home-category-grid" id="homeCategoryGrid"></div>' +
-          "</div>";
+        section.innerHTML = getSectionMarkup();
       }
       return section;
     }
 
-    var unitTeams = document.querySelector(".UnitTeams");
-    if (!unitTeams || !unitTeams.parentNode) {
-      return null;
-    }
+    insertBeforeNode = document.getElementById("cyavoice") ||
+      document.getElementById("pricing") ||
+      document.querySelector("footer");
 
     section = document.createElement("section");
     section.className = "home-category-showcase";
     section.id = "homeCategoryShowcase";
-    section.innerHTML =
-      '<div class="home-category-shell">' +
-      '<div class="home-category-header">' +
-      '<span class="home-category-badge">Product Categories</span>' +
-      '<h2>Browse Crestline&#8217;s Core Textile Categories</h2>' +
-      '<p>Explore the main product groups we manufacture for custom branding, promotional programs, retail launches, and campaign sourcing. Select any category to open the products page already filtered for that range.</p>' +
-      "</div>" +
-      '<div class="home-category-grid" id="homeCategoryGrid"></div>' +
-      "</div>";
+    section.innerHTML = getSectionMarkup();
 
-    unitTeams.insertAdjacentElement("afterend", section);
+    if (insertBeforeNode && insertBeforeNode.parentNode) {
+      insertBeforeNode.parentNode.insertBefore(section, insertBeforeNode);
+      return section;
+    }
+
+    if (document.body) {
+      document.body.appendChild(section);
+      return section;
+    }
+
     return section;
+  }
+
+  function ensureModal() {
+    var modal = document.getElementById("productModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "productModal";
+      modal.className = "product-modal";
+      modal.hidden = true;
+      modal.innerHTML =
+        '<div class="product-modal-panel" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">' +
+        '<button type="button" class="product-modal-close" id="productModalClose" aria-label="Close category details">&times;</button>' +
+        '<div class="product-modal-grid">' +
+        "<div>" +
+        '<div class="product-modal-main-image">' +
+        '<img id="productModalImage" alt="">' +
+        "</div>" +
+        '<div id="productModalThumbs" class="product-modal-thumbs"></div>' +
+        "</div>" +
+        "<div>" +
+        '<div id="productModalCategory" class="product-modal-category"></div>' +
+        '<h3 id="productModalTitle"></h3>' +
+        '<p id="productModalDescription" class="product-modal-description"></p>' +
+        '<dl class="product-modal-specs">' +
+        "<div><dt>Fabric Range</dt><dd id=\"productModalFabric\"></dd></div>" +
+        "<div><dt>Size Scope</dt><dd id=\"productModalSize\"></dd></div>" +
+        "<div><dt>Color Options</dt><dd id=\"productModalColors\"></dd></div>" +
+        "<div><dt>Representative Styles</dt><dd id=\"productModalFeatures\"></dd></div>" +
+        "</dl>" +
+        '<div class="product-modal-actions">' +
+        '<a id="productInquiryLink" class="product-inquiry-button" href="/contact-us">Customer Inquiry</a>' +
+        '<span class="product-modal-note">Need custom branding, quantities, or packaging? Use Customer Inquiry and our team will route you to quotation support.</span>' +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "</div>";
+      document.body.appendChild(modal);
+    }
+
+    return {
+      modal: modal,
+      modalPanel: modal.querySelector(".product-modal-panel"),
+      modalClose: modal.querySelector("#productModalClose"),
+      modalCategory: modal.querySelector("#productModalCategory"),
+      modalTitle: modal.querySelector("#productModalTitle"),
+      modalDescription: modal.querySelector("#productModalDescription"),
+      modalFabric: modal.querySelector("#productModalFabric"),
+      modalSize: modal.querySelector("#productModalSize"),
+      modalColors: modal.querySelector("#productModalColors"),
+      modalFeatures: modal.querySelector("#productModalFeatures"),
+      modalImage: modal.querySelector("#productModalImage"),
+      modalThumbs: modal.querySelector("#productModalThumbs"),
+      inquiryLink: modal.querySelector("#productInquiryLink")
+    };
+  }
+
+  function bindModalEvents() {
+    if (window.__homeCategoryModalBound) {
+      return;
+    }
+
+    var nodes = ensureModal();
+    window.__homeCategoryModalBound = true;
+
+    nodes.modalClose.addEventListener("click", closeCategoryModal);
+    nodes.modal.addEventListener("click", function (event) {
+      if (event.target === nodes.modal) {
+        closeCategoryModal();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !nodes.modal.hidden) {
+        closeCategoryModal();
+      }
+    });
+  }
+
+  function buildCategoryGallery(category, categoryProducts) {
+    var productImages = categoryProducts
+      .map(function (product) {
+        return product && product.images && product.images[0] ? product.images[0] : "";
+      })
+      .filter(Boolean)
+      .slice(0, 3);
+
+    return uniqueStrings((category.gallery || []).concat(productImages));
+  }
+
+  function buildRepresentativeStyles(categoryProducts) {
+    var names = categoryProducts
+      .slice(0, 3)
+      .map(function (product) {
+        return product && product.name ? product.name : "";
+      })
+      .filter(Boolean);
+
+    return names.length
+      ? names.join(", ")
+      : "Representative styles can be developed around your specifications, materials, and branding requirements.";
+  }
+
+  function setModalImage(nodes, images, title, imageIndex) {
+    modalState.images = images;
+    modalState.title = title;
+
+    nodes.modalImage.src = images[imageIndex];
+    nodes.modalImage.alt = title;
+    nodes.modalThumbs.innerHTML = images.map(function (image, index) {
+      return (
+        '<button type="button" class="product-thumb' +
+        (index === imageIndex ? " active" : "") +
+        '" data-image-index="' +
+        index +
+        '">' +
+        '<img src="' +
+        image +
+        '" alt="' +
+        escapeXml(title) +
+        " preview " +
+        (index + 1) +
+        '">' +
+        "</button>"
+      );
+    }).join("");
+
+    Array.prototype.forEach.call(nodes.modalThumbs.querySelectorAll(".product-thumb"), function (thumb) {
+      thumb.addEventListener("click", function () {
+        setModalImage(nodes, images, title, Number(thumb.getAttribute("data-image-index")));
+      });
+    });
+  }
+
+  function openCategoryModal(categoryName) {
+    var category = getCategoryByName(categoryName);
+    var catalog = getCatalog();
+    var categoryProducts = category ? (catalog[category.name] || []) : [];
+    var nodes = ensureModal();
+    var description;
+    var galleryImages;
+
+    if (!category) {
+      return;
+    }
+
+    bindModalEvents();
+
+    description = category.detailText;
+    if (categoryProducts.length) {
+      description += " Representative styles in this range include " +
+        categoryProducts
+          .slice(0, 3)
+          .map(function (product) { return product.name; })
+          .join(", ") +
+        ".";
+    }
+
+    galleryImages = buildCategoryGallery(category, categoryProducts);
+    if (!galleryImages.length) {
+      galleryImages = [category.image];
+    }
+
+    nodes.modalCategory.textContent = category.name;
+    nodes.modalTitle.textContent = category.name;
+    nodes.modalDescription.textContent = description;
+    nodes.modalFabric.textContent = category.fabricNote;
+    nodes.modalSize.textContent = category.sizeNote;
+    nodes.modalColors.textContent = category.colorNote;
+    nodes.modalFeatures.textContent = buildRepresentativeStyles(categoryProducts);
+    nodes.inquiryLink.href = "/contact-us?category=" + encodeURIComponent(category.name);
+
+    setModalImage(nodes, galleryImages, category.name, 0);
+
+    modalState.previousOverflow = document.body.style.overflow;
+    nodes.modal.hidden = false;
+    document.body.style.overflow = "hidden";
+
+    if (nodes.modalPanel) {
+      nodes.modalPanel.scrollTop = 0;
+    }
+
+    window.setTimeout(function () {
+      nodes.modalClose.focus();
+    }, 30);
+  }
+
+  function closeCategoryModal() {
+    var nodes = ensureModal();
+    if (nodes.modal.hidden) {
+      return;
+    }
+
+    nodes.modal.hidden = true;
+    document.body.style.overflow = modalState.previousOverflow || "";
   }
 
   function renderCategories() {
     var section = ensureSection();
     var grid = section ? section.querySelector("#homeCategoryGrid") : null;
-    var liveCatalog = window.crestlineCatalogData && window.crestlineCatalogData.catalog ? window.crestlineCatalogData.catalog : null;
+    var header = section ? section.querySelector(".home-category-header") : null;
+    var catalog = getCatalog();
+
     if (!grid) {
       return;
     }
 
-    grid.innerHTML = categories.map(function (category, index) {
-      var featuredProduct = liveCatalog && liveCatalog[category.name] && liveCatalog[category.name][0] ? liveCatalog[category.name][0] : null;
-      var imageSrc = featuredProduct && featuredProduct.images && featuredProduct.images[0] ? featuredProduct.images[0] : buildCategoryImage(category, index);
-      var featuredName = featuredProduct && featuredProduct.name ? featuredProduct.name : "Category Preview";
-      var featuredMeta = featuredProduct
-        ? [featuredProduct.fabric, featuredProduct.size].filter(Boolean).join(" · ")
-        : category.summary;
+    if (header) {
+      if (header.querySelector("h2")) {
+        header.querySelector("h2").textContent = "Browse Crestline's Core Textile Categories";
+      }
+      if (header.querySelector("p")) {
+        header.querySelector("p").textContent =
+          "Explore the main product groups we manufacture for custom branding, promotional programs, retail launches, and campaign sourcing. Select any category to open a detailed popup with representative product information.";
+      }
+    }
+
+    grid.innerHTML = categories.map(function (category) {
+      var categoryProducts = catalog[category.name] || [];
+      var featuredProduct = categoryProducts[0] || null;
+      var featuredName = featuredProduct && featuredProduct.name ? featuredProduct.name : "Representative product range";
       return [
-        '<a class="home-category-card" href="/products/?category=',
-        encodeURIComponent(category.name),
-        '#productsBrowse">',
+        '<button type="button" class="home-category-card" data-category="',
+        escapeXml(category.name),
+        '" aria-haspopup="dialog" aria-label="Open ',
+        escapeXml(category.name),
+        ' category details">',
         '<div class="home-category-card-image">',
         '<img src="',
-        imageSrc,
+        category.image,
         '" alt="',
-        escapeXml(featuredName),
-        '">',
+        escapeXml(category.name),
+        ' category preview">',
         "</div>",
         '<div class="home-category-card-copy">',
-        '<span class="home-category-card-kicker">Featured Product</span>',
+        '<span class="home-category-card-kicker">Representative Range</span>',
         "<h3>",
         escapeXml(category.name),
         "</h3>",
@@ -243,13 +447,19 @@
         escapeXml(featuredName),
         "</p>",
         '<p class="home-category-card-summary">',
-        escapeXml(featuredMeta),
+        escapeXml(category.summary),
         "</p>",
         "</div>",
-        '<div class="home-category-card-action"><span>Browse Products</span><span>&rarr;</span></div>',
-        "</a>"
+        '<div class="home-category-card-action"><span>View Details</span><span>&rarr;</span></div>',
+        "</button>"
       ].join("");
     }).join("");
+
+    Array.prototype.forEach.call(grid.querySelectorAll(".home-category-card"), function (card) {
+      card.addEventListener("click", function () {
+        openCategoryModal(card.getAttribute("data-category"));
+      });
+    });
   }
 
   window.renderHomeCategoriesSection = renderCategories;
