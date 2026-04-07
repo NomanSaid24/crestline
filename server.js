@@ -361,7 +361,9 @@ function upsertTag(html, pattern, replacement) {
 function injectSeo(html, route, baseUrl) {
   const seo = getSeoForRoute(route);
   const canonicalUrl = new URL(route === '/' ? '/' : `${route}/`, baseUrl).toString();
-  const imageUrl = new URL('/images/branding/crestline-logo.png', baseUrl).toString();
+  const imageUrl = new URL('/images/branding/crestline-logo.png?v=20260327a', baseUrl).toString();
+  const iconPath = '/images/branding/crestline-logo.png?v=20260327a';
+  const linkedinUrl = 'https://www.linkedin.com/company/crestline-smc-pvt-limited/';
 
   html = html.replace(/<title>.*?<\/title>/is, `<title>${escapeHtml(seo.title)}</title>`);
   html = upsertTag(
@@ -441,16 +443,146 @@ function injectSeo(html, route, baseUrl) {
     `<meta name="twitter:image" content="${escapeHtml(imageUrl)}">`
   );
 
+  html = upsertTag(
+    html,
+    /<link\s+rel="me"\s+href="[^"]*linkedin[^"]*"\s*\/?>/i,
+    `<link rel="me" href="${escapeHtml(linkedinUrl)}">`
+  );
+
+  html = upsertTag(
+    html,
+    /<link\s+rel="shortcut icon"\s+href="[^"]*"\s*\/?>/i,
+    `<link rel="shortcut icon" href="${escapeHtml(iconPath)}">`
+  );
+
+  html = upsertTag(
+    html,
+    /<link\s+rel="apple-touch-icon"\s+href="[^"]*"\s*\/?>/i,
+    `<link rel="apple-touch-icon" href="${escapeHtml(iconPath)}">`
+  );
+
   html = html.replace(
-    /(\["\$","title","1",\{"children":")[^"]*("\}\])/g,
+    /(\["\$","title","[^"]+",\{"children":")[^"]*("\}\])/g,
     (_, start, end) => `${start}${escapeJson(seo.title)}${end}`
   );
   html = html.replace(
-    /(\["\$","meta","2",\{"name":"description","content":")[^"]*("\}\])/g,
+    /(\["\$","meta","[^"]+",\{"name":"description","content":")[^"]*("\}\])/g,
     (_, start, end) => `${start}${escapeJson(seo.description)}${end}`
   );
 
+  html = html.replace(
+    /(\[\\"\$\\",\\"title\\",\\"[^"]+\\",\{\\"children\\":\\")[^"]*(\\"\}\])/g,
+    (_, start, end) => `${start}${escapeJson(seo.title)}${end}`
+  );
+  html = html.replace(
+    /(\[\\"\$\\",\\"meta\\",\\"[^"]+\\",\{\\"name\\":\\"description\\",\\"content\\":\\")[^"]*(\\"\}\])/g,
+    (_, start, end) => `${start}${escapeJson(seo.description)}${end}`
+  );
+  html = html.replace(
+    /(\[\\"\$\\",\\"link\\",\\"[^"]+\\",\{\\"rel\\":\\"icon\\",\\"href\\":\\")[^"]*(\\"\}\])/g,
+    (_, start, end) => `${start}${escapeJson(iconPath)}${end}`
+  );
+
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Crestline (SMC-PVT) Limited',
+    url: new URL('/', baseUrl).toString(),
+    logo: imageUrl,
+    sameAs: [linkedinUrl],
+  };
+
+  html = upsertTag(
+    html,
+    /<script\s+id="crestline-org-schema"\s+type="application\/ld\+json">[\s\S]*?<\/script>/i,
+    `<script id="crestline-org-schema" type="application/ld+json">${escapeHtml(JSON.stringify(organizationSchema))}</script>`
+  );
+
   return html;
+}
+
+function injectWhatsApp(html) {
+  if (html.includes('whatsapp-float-btn')) {
+    return html;
+  }
+
+  const whatsappStyle = `
+    <style>
+      .whatsapp-float-btn {
+        position: fixed !important;
+        right: clamp(14px, 1.5vw, 24px) !important;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 16px) !important;
+        width: 64px !important;
+        height: 64px !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        z-index: 9999999 !important;
+        transition: transform 0.2s ease !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .whatsapp-float-btn:hover {
+        transform: translateY(-2px) scale(1.05) !important;
+      }
+      .whatsapp-float-btn svg {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+      }
+      @media (max-width: 768px) {
+        .whatsapp-float-btn {
+          right: 12px !important;
+          bottom: calc(env(safe-area-inset-bottom, 0px) + 12px) !important;
+          width: 54px !important;
+          height: 54px !important;
+        }
+      }
+    </style>
+  `;
+
+  const whatsappScript = `
+    <script>
+      (function() {
+        let delayedRefinementTimer = 0;
+
+        function applyRefinements() {
+          if (!document.querySelector('.whatsapp-float-btn')) {
+            const a = document.createElement('a');
+            a.className = 'whatsapp-float-btn';
+            a.href = 'https://web.whatsapp.com/send?phone=+923212572225';
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.ariaLabel = 'Chat on WhatsApp';
+            a.innerHTML = '<svg width="100%" height="100%" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28 16C28 22.6274 22.6274 28 16 28C13.4722 28 11.1269 27.2184 9.19266 25.8837L5.09091 26.9091L6.16576 22.8784C4.80092 20.9307 4 18.5589 4 16C4 9.37258 9.37258 4 16 4C22.6274 4 28 9.37258 28 16Z" fill="url(#paint0_linear_87_7264)"/><path d="M12.5 9.49989C12.1672 8.83131 11.6565 8.8905 11.1407 8.8905C10.2188 8.8905 8.78125 9.99478 8.78125 12.05C8.78125 13.7343 9.52345 15.578 12.0244 18.3361C14.438 20.9979 17.6094 22.3748 20.2422 22.3279C22.875 22.2811 23.4167 20.0154 23.4167 19.2503C23.4167 18.9112 23.2062 18.742 23.0613 18.696C22.1641 18.2654 20.5093 17.4631 20.1328 17.3124C19.7563 17.1617 19.5597 17.3656 19.4375 17.4765C19.0961 17.8018 18.4193 18.7608 18.1875 18.9765C17.9558 19.1922 17.6103 19.083 17.4665 19.0015C16.9374 18.7892 15.5029 18.1511 14.3595 17.0426C12.9453 15.6718 12.8623 15.2001 12.5959 14.7803C12.3828 14.4444 12.5392 14.2384 12.6172 14.1483C12.9219 13.7968 13.3426 13.254 13.5313 12.9843C13.7199 12.7145 13.5702 12.305 13.4803 12.05C13.0938 10.953 12.7663 10.0347 12.5 9.49989Z" fill="white"/><defs><linearGradient id="paint0_linear_87_7264" x1="26.5" y1="7" x2="4" y2="28" gradientUnits="userSpaceOnUse"><stop stop-color="#5BD066"/><stop offset="1" stop-color="#27B43E"/></linearGradient></defs></svg>';
+            document.body.appendChild(a);
+          }
+
+          const heroBtnIcons = document.querySelectorAll('.wm-hero-button-icon');
+          heroBtnIcons.forEach(icon => {
+            icon.style.display = 'none';
+          });
+        }
+
+        function runRefinementsOnce() {
+          applyRefinements();
+          window.clearTimeout(delayedRefinementTimer);
+          delayedRefinementTimer = window.setTimeout(applyRefinements, 250);
+        }
+
+        if (document.readyState === 'complete') runRefinementsOnce();
+        else window.addEventListener('load', runRefinementsOnce, { once: true });
+      })();
+    </script>
+  `;
+
+  return html
+    .replace('</head>', `${whatsappStyle}\n</head>`)
+    .replace('</body>', `${whatsappScript}\n</body>`);
 }
 
 function getBaseUrl(req) {
@@ -519,7 +651,8 @@ app.get('*', async (req, res, next) => {
     const route = normalizeRoute(req.path);
     const baseUrl = getBaseUrl(req);
     const html = await readFile(pageFile, 'utf8');
-    const injectedHtml = injectSeo(html, route, baseUrl);
+    const seoInjected = injectSeo(html, route, baseUrl);
+    const injectedHtml = injectWhatsApp(seoInjected);
 
     res.type('html');
     res.send(injectedHtml);

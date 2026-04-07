@@ -134,7 +134,7 @@
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
+      .replace(/\"/g, "&quot;")
       .replace(/'/g, "&apos;");
   }
 
@@ -159,6 +159,12 @@
     return categories.find(function (category) {
       return category.name === name;
     }) || null;
+  }
+
+  function setTextIfChanged(node, text) {
+    if (node && node.textContent !== text) {
+      node.textContent = text;
+    }
   }
 
   function getSectionMarkup() {
@@ -401,11 +407,40 @@
     document.body.style.overflow = modalState.previousOverflow || "";
   }
 
+  function bindGridEvents(grid) {
+    if (!grid || grid.getAttribute("data-home-category-grid-bound") === "1") {
+      return;
+    }
+
+    grid.addEventListener("click", function (event) {
+      var card = event.target.closest(".home-category-card");
+
+      if (!card || !grid.contains(card)) {
+        return;
+      }
+
+      openCategoryModal(card.getAttribute("data-category"));
+    });
+
+    grid.setAttribute("data-home-category-grid-bound", "1");
+  }
+
+  function getRenderSignature(catalog) {
+    return categories.map(function (category) {
+      var categoryProducts = catalog[category.name] || [];
+      var featuredProduct = categoryProducts[0] || null;
+      var featuredName = featuredProduct && featuredProduct.name ? featuredProduct.name : "Representative product range";
+
+      return [category.name, featuredName].join("::");
+    }).join("||");
+  }
+
   function renderCategories() {
     var section = ensureSection();
     var grid = section ? section.querySelector("#homeCategoryGrid") : null;
     var header = section ? section.querySelector(".home-category-header") : null;
     var catalog = getCatalog();
+    var renderSignature;
 
     if (!grid) {
       return;
@@ -413,12 +448,21 @@
 
     if (header) {
       if (header.querySelector("h2")) {
-        header.querySelector("h2").textContent = "Browse Crestline's Core Textile Categories";
+        setTextIfChanged(header.querySelector("h2"), "Browse Crestline's Core Textile Categories");
       }
       if (header.querySelector("p")) {
-        header.querySelector("p").textContent =
-          "Explore the main product groups we manufacture for custom branding, promotional programs, retail launches, and campaign sourcing. Select any category to open a detailed popup with representative product information.";
+        setTextIfChanged(
+          header.querySelector("p"),
+          "Explore the main product groups we manufacture for custom branding, promotional programs, retail launches, and campaign sourcing. Select any category to open a detailed popup with representative product information."
+        );
       }
+    }
+
+    bindGridEvents(grid);
+    renderSignature = getRenderSignature(catalog);
+
+    if (grid.getAttribute("data-home-category-signature") === renderSignature) {
+      return;
     }
 
     grid.innerHTML = categories.map(function (category) {
@@ -455,11 +499,7 @@
       ].join("");
     }).join("");
 
-    Array.prototype.forEach.call(grid.querySelectorAll(".home-category-card"), function (card) {
-      card.addEventListener("click", function () {
-        openCategoryModal(card.getAttribute("data-category"));
-      });
-    });
+    grid.setAttribute("data-home-category-signature", renderSignature);
   }
 
   window.renderHomeCategoriesSection = renderCategories;

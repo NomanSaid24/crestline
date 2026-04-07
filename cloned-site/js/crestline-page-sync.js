@@ -1,6 +1,107 @@
 (function () {
+  var homeAboutCardsObserver = null;
+
   function normalize(text) {
     return (text || "").replace(/\s+/g, " ").trim();
+  }
+
+  var seoByPath = {
+    "/": {
+      title: "Crestline | Custom Promotional Textiles Manufacturer",
+      description:
+        "Crestline (SMC-PVT) Limited manufactures custom promotional textiles, cotton bags, aprons, oven mitts, and export-ready products for global brands."
+    },
+    "/about": {
+      title: "About Us | Crestline",
+      description:
+        "Learn about Crestline (SMC-PVT) Limited, a trusted manufacturer and exporter of custom promotional textiles founded in 1982."
+    },
+    "/products": {
+      title: "Products & Custom Manufacturing | Crestline",
+      description:
+        "Explore Crestline textile products, including cotton bags, aprons, oven mitts, potholders, and custom promotional manufacturing solutions."
+    },
+    "/pricing": {
+      title: "Pricing & Lead Times | Crestline",
+      description:
+        "Request competitive pricing, MOQ details, and lead times from Crestline for custom promotional textile orders."
+    },
+    "/contact-us": {
+      title: "Contact Us | Crestline",
+      description:
+        "Contact Crestline (SMC-PVT) Limited for quotations, production timelines, and custom promotional textile inquiries."
+    },
+    "/services": {
+      title: "Services | Crestline",
+      description:
+        "Discover Crestline manufacturing, sampling, sourcing, and branding services for custom promotional textile programs."
+    },
+    "/raw-material": {
+      title: "Raw Materials | Crestline",
+      description:
+        "Review Crestline raw material capabilities for cotton, poly/cotton, dyed, and export-ready promotional textile production."
+    },
+    "/certifications": {
+      title: "Certifications | Crestline",
+      description:
+        "See Crestline certifications, compliance standards, and responsible production credentials for global textile buyers."
+    },
+    "/terms-and-conditions": {
+      title: "Terms & Conditions | Crestline",
+      description:
+        "Read Crestline commercial terms, production conditions, and quotation policies for custom promotional textile orders."
+    },
+    "/general-information": {
+      title: "General Information | Crestline",
+      description:
+        "Get general company information about Crestline, its manufacturing process, export background, and buyer support."
+    },
+    "/customer-satisfaction": {
+      title: "Customer Satisfaction | Crestline",
+      description:
+        "Learn how Crestline supports customer satisfaction through quality control, dependable timelines, and responsive communication."
+    },
+    "/blogs": {
+      title: "Blogs | Crestline",
+      description:
+        "Read Crestline insights on promotional textiles, manufacturing quality, sourcing, compliance, and export production."
+    },
+    "/blogs/article": {
+      title: "Article | Crestline",
+      description:
+        "Read Crestline articles covering custom promotional textile manufacturing, sourcing, compliance, and production guidance."
+    },
+    "/features": {
+      title: "Manufacturing Features | Crestline",
+      description:
+        "Explore Crestline manufacturing features, production visibility, quality control systems, and export support capabilities."
+    },
+    "/addons": {
+      title: "Capabilities | Crestline",
+      description:
+        "Review Crestline operational capabilities, manufacturing support, and custom textile production advantages for global buyers."
+    }
+  };
+
+  function getSeoForRoute(route) {
+    if (seoByPath[route]) {
+      return seoByPath[route];
+    }
+
+    var label = route
+      .replace(/^\//, "")
+      .split("/")
+      .filter(Boolean)
+      .map(function (segment) {
+        return segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
+      })
+      .join(" | ");
+
+    return {
+      title: (label || "Crestline") + " | Crestline",
+      description:
+        "Crestline (SMC-PVT) Limited manufactures custom promotional textiles for global brands with quality, consistency, and responsible production."
+    };
   }
 
   function setMeta(name, content) {
@@ -10,7 +111,9 @@
       meta.name = name;
       document.head.appendChild(meta);
     }
-    meta.content = content;
+    if (meta.content !== content) {
+      meta.content = content;
+    }
   }
 
   function setPropertyMeta(property, content) {
@@ -20,38 +123,62 @@
       meta.setAttribute("property", property);
       document.head.appendChild(meta);
     }
-    meta.content = content;
+    if (meta.getAttribute("content") !== content) {
+      meta.setAttribute("content", content);
+    }
   }
 
   function setLink(rel, href) {
-    var link = document.querySelector('link[rel="' + rel + '"]');
+    var selector = 'link[rel="' + rel + '"]';
+    var link = document.querySelector(selector);
+
     if (!link) {
       link = document.createElement("link");
       link.rel = rel;
       document.head.appendChild(link);
     }
-    link.href = href;
+
+    if (link.getAttribute("href") !== href) {
+      link.href = href;
+    }
   }
 
-  function applySeo(title, description) {
-    var canonicalUrl = window.location.href;
-    document.title = title;
-    setMeta("description", description);
+  function getBaseUrl() {
+    if (window.location && /^https?:$/i.test(window.location.protocol)) {
+      return window.location.origin;
+    }
+
+    return "https://www.crestline.com.pk";
+  }
+
+  function applyBrandingMeta(path) {
+    var seo = getSeoForRoute(path);
+    var baseUrl = getBaseUrl();
+    var canonicalUrl = new URL(path === "/" ? "/" : path + "/", baseUrl).toString();
+    var iconPath = "/images/branding/crestline-logo.png?v=20260327a";
+    var imageUrl = new URL(iconPath, baseUrl).toString();
+
+    document.title = seo.title;
+    setMeta("description", seo.description);
     setMeta("robots", "index,follow");
-    setMeta("application-name", "Crestline");
     setMeta("theme-color", "#e8faff");
+    setMeta("application-name", "Crestline");
     setMeta("twitter:card", "summary_large_image");
-    setMeta("twitter:title", title);
-    setMeta("twitter:description", description);
-    setMeta("twitter:image", "/images/branding/crestline-logo.png");
-    setLink("canonical", canonicalUrl);
+    setMeta("twitter:title", seo.title);
+    setMeta("twitter:description", seo.description);
+    setMeta("twitter:image", imageUrl);
     setPropertyMeta("og:site_name", "Crestline (SMC-PVT) Limited");
     setPropertyMeta("og:type", "website");
-    setPropertyMeta("og:title", title);
-    setPropertyMeta("og:description", description);
+    setPropertyMeta("og:title", seo.title);
+    setPropertyMeta("og:description", seo.description);
     setPropertyMeta("og:url", canonicalUrl);
-    setPropertyMeta("og:image", "/images/branding/crestline-logo.png");
+    setPropertyMeta("og:image", imageUrl);
     setPropertyMeta("og:image:alt", "Crestline (SMC-PVT) Limited logo");
+    setLink("icon", iconPath);
+    setLink("shortcut icon", iconPath);
+    setLink("apple-touch-icon", iconPath);
+    setLink("canonical", canonicalUrl);
+    setLink("me", "https://www.linkedin.com/company/crestline-smc-pvt-limited/");
   }
 
   function setFirstTextNode(el, text) {
@@ -81,8 +208,14 @@
   }
 
   function setText(node, text) {
-    if (node) {
+    if (node && node.textContent !== text) {
       node.textContent = text;
+    }
+  }
+
+  function setHtml(node, html) {
+    if (node && node.innerHTML !== html) {
+      node.innerHTML = html;
     }
   }
 
@@ -100,6 +233,12 @@
     }
   }
 
+  function removeNode(node) {
+    if (node && node.parentNode) {
+      node.parentNode.removeChild(node);
+    }
+  }
+
   function ensureStyle(id, cssText) {
     if (document.getElementById(id)) {
       return;
@@ -114,8 +253,223 @@
   function ensureShellStyles() {
     ensureStyle(
       "crestline-shell-inline-style",
-      ".crestline-nav-dropdown-item{list-style:none;display:flex;align-items:center}.crestline-nav-dropdown{position:relative;display:inline-flex;align-items:center}.crestline-nav-trigger{appearance:none;border:none;background:transparent;color:inherit;font:inherit;padding:.5rem .5rem;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;cursor:pointer;transition:color .2s ease,background-color .2s ease}.crestline-nav-trigger:hover,.crestline-nav-trigger:focus-visible{color:#26ade3;outline:none}.crestline-nav-chevron{width:.85rem;height:.85rem;transition:transform .22s ease}.crestline-nav-dropdown:hover .crestline-nav-chevron,.crestline-nav-dropdown:focus-within .crestline-nav-chevron{transform:rotate(180deg)}.crestline-nav-panel{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(12px);min-width:248px;padding:.85rem;border-radius:22px;border:1px solid rgba(157,193,255,.45);background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(244,249,255,.9));box-shadow:0 22px 60px rgba(0,39,77,.12),inset 0 1px 0 rgba(255,255,255,.7);backdrop-filter:blur(28px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s ease;z-index:60}.crestline-nav-dropdown:hover .crestline-nav-panel,.crestline-nav-dropdown:focus-within .crestline-nav-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}.crestline-nav-link{display:block;padding:.8rem .9rem;border-radius:16px;color:#00274d;font-size:.92rem;line-height:1.35;text-align:left;transition:background-color .2s ease,color .2s ease,transform .2s ease;white-space:nowrap}.crestline-nav-link:hover,.crestline-nav-link:focus-visible{background:rgba(41,173,228,.08);color:#26ade3;outline:none;transform:translateX(2px)}@media (max-width:1023px){.crestline-nav-panel{left:0;transform:translateX(0) translateY(12px);min-width:min(280px,82vw)}.crestline-nav-dropdown:hover .crestline-nav-panel,.crestline-nav-dropdown:focus-within .crestline-nav-panel{transform:translateX(0) translateY(0)}}"
+      ".crestline-nav-dropdown-item{list-style:none;display:flex;align-items:center}.crestline-nav-dropdown{position:relative;display:inline-flex;align-items:center}.crestline-nav-trigger{appearance:none;border:none;background:transparent;color:inherit;font:inherit;padding:.5rem .5rem;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;cursor:pointer;transition:color .2s ease,background-color .2s ease}.crestline-nav-trigger:hover,.crestline-nav-trigger:focus-visible{color:#26ade3;outline:none}.crestline-nav-chevron{width:.85rem;height:.85rem;transition:transform .22s ease}.crestline-nav-dropdown:hover .crestline-nav-chevron,.crestline-nav-dropdown:focus-within .crestline-nav-chevron{transform:rotate(180deg)}.crestline-nav-panel{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(12px);min-width:248px;padding:.85rem;border-radius:22px;border:1px solid rgba(157,193,255,.45);background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(244,249,255,.9));box-shadow:0 22px 60px rgba(0,39,77,.12),inset 0 1px 0 rgba(255,255,255,.7);backdrop-filter:blur(28px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s ease;z-index:60}.crestline-nav-dropdown:hover .crestline-nav-panel,.crestline-nav-dropdown:focus-within .crestline-nav-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}.crestline-nav-link{display:block;padding:.8rem .9rem;border-radius:16px;color:#00274d;font-size:.92rem;line-height:1.35;text-align:left;transition:background-color .2s ease,color .2s ease,transform .2s ease;white-space:nowrap}.crestline-nav-link:hover,.crestline-nav-link:focus-visible{background:rgba(41,173,228,.08);color:#26ade3;outline:none;transform:translateX(2px)}nav a[href=\"/contact-us\"].group.relative.items-stretch.justify-center{background:#00b14c !important;background-image:none !important}nav a[href=\"/contact-us\"].group.relative.items-stretch.justify-center:hover,nav a[href=\"/contact-us\"].group.relative.items-stretch.justify-center:focus-visible{background:#00b14c !important;background-image:none !important}.whatsapp-float-btn{position:fixed !important;right:clamp(14px,1.5vw,24px) !important;bottom:calc(env(safe-area-inset-bottom, 0px) + 16px) !important;width:64px !important;height:64px !important;background:transparent !important;border:none !important;box-shadow:none !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;text-decoration:none !important;z-index:9999999 !important;transition:transform .2s ease !important;padding:0 !important;margin:0 !important}.whatsapp-float-btn:hover{transform:translateY(-2px) scale(1.05) !important}.whatsapp-float-btn svg{width:100% !important;height:100% !important;display:block !important}.wm-hero-button-icon{display:none !important}@media (max-width:1023px){.crestline-nav-panel{left:0;transform:translateX(0) translateY(12px);min-width:min(280px,82vw)}.crestline-nav-dropdown:hover .crestline-nav-panel,.crestline-nav-dropdown:focus-within .crestline-nav-panel{transform:translateX(0) translateY(0)}}@media (max-width:768px){.whatsapp-float-btn{right:12px !important;bottom:calc(env(safe-area-inset-bottom, 0px) + 12px) !important;width:54px !important;height:54px !important}}"
     );
+    ensureStyle(
+      "crestline-side-contact-widget-style",
+      ".whatsapp-float-btn.wm-side-contact-widget{position:fixed!important;top:60%!important;right:0!important;left:auto!important;bottom:auto!important;transform:translate3d(0,-50%,0)!important;width:52px!important;height:auto!important;display:block!important;padding:0!important;margin:0!important;background:transparent!important;border:none!important;border-radius:0!important;overflow:visible!important;box-shadow:none!important;z-index:9999999!important;text-decoration:none!important}.whatsapp-float-btn.wm-side-contact-widget:hover{transform:translate3d(0,-50%,0)!important}.wm-side-contact-widget__rail{position:relative;display:flex;flex-direction:column;align-items:stretch;width:52px;margin-left:auto;box-shadow:0 12px 28px rgba(0,0,0,.18)}.wm-side-contact-widget__toggle,.wm-side-contact-widget__contact{appearance:none;border:none;cursor:pointer;font:inherit}.wm-side-contact-widget__toggle{display:flex;align-items:center;justify-content:center;width:52px;height:34px;padding:0;background:#080808;color:#fff;border-radius:6px 0 0 0;transition:background-color .2s ease}.wm-side-contact-widget__toggle:hover,.wm-side-contact-widget__toggle:focus-visible{background:#131313;outline:none}.wm-side-contact-widget__toggle-label{display:block;font-size:23px;line-height:1;transform:translateX(1px)}.wm-side-contact-widget__contact{display:flex;align-items:center;justify-content:center;gap:10px;width:52px;height:142px;padding:14px 0;background:#5b6168;color:#fff;writing-mode:vertical-rl;text-orientation:mixed;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);transition:background-color .22s ease}.wm-side-contact-widget__contact:hover,.wm-side-contact-widget__contact:focus-visible{background:#656b73;outline:none}.wm-side-contact-widget__contact-label{display:block;transform:rotate(180deg);font-size:12px;font-weight:600;line-height:1;letter-spacing:.01em;white-space:nowrap}.wm-side-contact-widget__contact-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;transform:rotate(90deg);color:#fff}.wm-side-contact-widget__contact-icon svg{width:16px!important;height:16px!important;display:block!important}.wm-side-contact-widget__whatsapp-wrap{position:relative;width:52px;height:50px}.wm-side-contact-widget__whatsapp{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:52px;height:50px;background:#20c65a;color:#fff;border-radius:0 0 0 6px;transition:border-radius .2s ease}.wm-side-contact-widget__whatsapp svg{width:21px!important;height:21px!important;display:block!important}.wm-side-contact-widget__whatsapp-flyout{position:absolute;right:52px;bottom:0;display:flex;align-items:center;justify-content:center;height:50px;width:0;overflow:hidden;background:#20c65a;color:#fff;border-radius:6px 0 0 6px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateX(14px);transition:width .28s ease,opacity .22s ease,transform .28s ease}.wm-side-contact-widget__whatsapp-flyout-text{display:flex;align-items:center;justify-content:center;min-width:168px;padding:0 24px 0 22px;font-size:12px;font-weight:600;letter-spacing:.01em}.wm-side-contact-widget__form{position:fixed;top:50%;right:52px;width:min(680px,calc(100vw - 96px));max-height:calc(100vh - 24px);padding:10px 14px 14px;background:#fff;border:1px solid rgba(221,226,232,.92);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.14);opacity:0;pointer-events:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;transform:translate3d(14px,-50%,0);transition:opacity .22s ease,transform .28s ease}.wm-side-contact-widget__form-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.wm-side-contact-widget__form-title{margin:0;color:#1fc55a;font-size:21px;font-weight:600;line-height:1.2}.wm-side-contact-widget__form-close{appearance:none;border:none;background:transparent;color:#c5bfd0;font-size:22px;line-height:1;padding:0 4px;cursor:pointer}.wm-side-contact-widget__form-close:hover,.wm-side-contact-widget__form-close:focus-visible{color:#a79ab8;outline:none}.wm-side-contact-widget__form-fields{display:flex;flex-direction:column;gap:10px}.wm-side-contact-widget__field-input,.wm-side-contact-widget__field-textarea{width:100%;padding:12px 16px;border:1px solid #dde3ea;border-radius:999px;background:#fff;color:#4f5864;font:inherit;font-size:13px;line-height:1.25;outline:none;box-sizing:border-box;box-shadow:none;transition:border-color .2s ease,box-shadow .2s ease}.wm-side-contact-widget__field-textarea{min-height:96px;resize:none;border-radius:26px;padding-top:14px}.wm-side-contact-widget__field-input:focus,.wm-side-contact-widget__field-textarea:focus{border-color:#cad4de;box-shadow:0 0 0 3px rgba(31,197,90,.08)}.wm-side-contact-widget__field-input::placeholder,.wm-side-contact-widget__field-textarea::placeholder{color:#626c78;opacity:1}.wm-side-contact-widget__form-submit{margin-top:2px;width:100%;height:44px;border:none;border-radius:999px;background:#2f2f2f;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:filter .2s ease}.wm-side-contact-widget__form-submit:hover,.wm-side-contact-widget__form-submit:focus-visible{filter:brightness(1.04);outline:none}.wm-side-contact-widget--contact-open .wm-side-contact-widget__form{opacity:1;pointer-events:auto;transform:translate3d(0,-50%,0)}.wm-side-contact-widget--whatsapp-open .wm-side-contact-widget__whatsapp-flyout{width:176px;opacity:1;transform:translateX(0)}.wm-side-contact-widget--whatsapp-open .wm-side-contact-widget__whatsapp{border-radius:0}.wm-side-contact-widget--collapsed{right:0!important;width:36px!important;max-width:36px!important;overflow:hidden!important}.wm-side-contact-widget--collapsed .wm-side-contact-widget__rail{width:36px;box-shadow:none}.wm-side-contact-widget--collapsed .wm-side-contact-widget__toggle{width:36px;height:42px;border-radius:6px 0 0 6px}.wm-side-contact-widget--collapsed .wm-side-contact-widget__contact,.wm-side-contact-widget--collapsed .wm-side-contact-widget__whatsapp-wrap{display:none!important}.wm-side-contact-widget--collapsed .wm-side-contact-widget__form{display:none!important}.wm-side-contact-widget--collapsed .wm-side-contact-widget__whatsapp-flyout{display:none!important}.wm-side-contact-widget--contact-open .wm-side-contact-widget__contact,.wm-side-contact-widget--whatsapp-open .wm-side-contact-widget__contact{background:#656b73}@media (max-width:900px){.whatsapp-float-btn.wm-side-contact-widget{top:62%!important}.wm-side-contact-widget__form{width:min(520px,calc(100vw - 76px))}}@media (max-width:768px){.whatsapp-float-btn.wm-side-contact-widget{top:65%!important;width:46px!important}.wm-side-contact-widget__rail{width:46px}.wm-side-contact-widget__toggle{width:46px;height:32px;border-radius:6px 0 0 0}.wm-side-contact-widget__contact{width:46px;height:122px}.wm-side-contact-widget__contact-label{font-size:11px}.wm-side-contact-widget__contact-icon,.wm-side-contact-widget__contact-icon svg{width:14px!important;height:14px!important}.wm-side-contact-widget__whatsapp-wrap,.wm-side-contact-widget__whatsapp{width:46px;height:46px}.wm-side-contact-widget__whatsapp-flyout{right:46px;height:46px;border-radius:6px 0 0 6px}.wm-side-contact-widget__whatsapp-flyout-text{min-width:140px;padding:0 16px}.wm-side-contact-widget__whatsapp svg{width:19px!important;height:19px!important}.wm-side-contact-widget__form{right:46px;width:min(248px,calc(100vw - 58px));max-height:calc(100vh - 20px);padding:10px 12px 12px;border-radius:12px;transform:translate3d(14px,-50%,0)}.wm-side-contact-widget--contact-open .wm-side-contact-widget__form{transform:translate3d(0,-50%,0)}.wm-side-contact-widget__form-title{font-size:18px}.wm-side-contact-widget__form-close{font-size:20px}.wm-side-contact-widget__form-fields{gap:9px}.wm-side-contact-widget__field-input,.wm-side-contact-widget__field-textarea{font-size:12.5px;padding:10px 14px}.wm-side-contact-widget__field-textarea{min-height:74px;padding-top:12px}.wm-side-contact-widget__form-submit{height:38px;font-size:13px}.wm-side-contact-widget--collapsed{width:32px!important;max-width:32px!important}.wm-side-contact-widget--collapsed .wm-side-contact-widget__rail{width:32px}.wm-side-contact-widget--collapsed .wm-side-contact-widget__toggle{width:32px;height:42px;border-radius:6px 0 0 6px}}"
+    );
+    ensureStyle(
+      "crestline-home-about-inline-style",
+      ".wm-home-about-section{position:relative;z-index:2;padding:clamp(4.5rem,7vw,6.5rem) 1rem clamp(4.75rem,7vw,6.75rem)}.wm-home-about-inner{max-width:919px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.5rem}.wm-home-about-heading{max-width:874px;margin:0 auto;font-family:inherit;font-size:clamp(1.875rem,1.42rem + 2.27vw,3.4375rem);line-height:clamp(2.625rem,2.1rem + 2.62vw,4.46875rem);font-weight:400;letter-spacing:-2px;color:#00274D}.wm-home-about-copy{max-width:919px;margin:.5rem auto 0;font-family:inherit;font-size:clamp(.9375rem,.82rem + .59vw,1.333rem);line-height:1.3;font-weight:400;color:rgb(71 77 77/var(--tw-text-opacity,1))}.wm-home-about-cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:.5rem;padding:.28rem .28rem .28rem .78rem;border-radius:999px;background:linear-gradient(90deg,#26ADE3 0%,rgba(38,173,227,.16) 100%);color:#fff;font-family:'Denim Ink',Arial,sans-serif;font-size:.82rem;font-weight:500;text-decoration:none;white-space:nowrap}.wm-home-about-cta-icon{width:30.96px;height:30.96px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#fff;flex-shrink:0}.wm-home-about-cards{max-width:1273px;margin:clamp(3rem,6vw,5rem) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:'vision .' '. mission';column-gap:clamp(1.5rem,3vw,2.5rem);row-gap:clamp(1rem,2vw,1.5rem);align-items:start}.wm-home-about-card{width:min(100%,560px);padding:clamp(1.75rem,2vw,2.4rem);border-radius:32px;border:5px solid #fff;background:linear-gradient(311.9deg,#FFFFFF 24.13%,rgba(255,255,255,.04) 137.99%);backdrop-filter:blur(44.5px);box-shadow:0 18px 60px rgba(143,136,237,.12);display:flex;flex-direction:column;gap:1rem;color:#00274D;text-align:left}.wm-home-about-card.wm-home-about-card--reveal-ready{opacity:0;transform:translate3d(0,56px,0) scale(.98);filter:blur(10px);transition:opacity .72s ease,transform .72s cubic-bezier(.22,1,.36,1),filter .72s ease;will-change:opacity,transform,filter}.wm-home-about-card.wm-home-about-card--reveal-ready.wm-home-about-card--visible{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}.wm-home-about-card--vision{grid-area:vision;justify-self:start}.wm-home-about-card--mission{grid-area:mission;justify-self:end}.wm-home-about-card-title{margin:0;font-family:inherit;font-size:clamp(2rem,1.72rem + 1.4vw,2.675rem);line-height:1.08;font-weight:400;letter-spacing:-2px;color:#00274D}.wm-home-about-card-copy{margin:0;font-size:clamp(.9rem,.84rem + .18vw,1rem);line-height:1.7;font-weight:400;color:#00274D}.wm-home-about-card-tags{margin:.2rem 0 0;font-size:clamp(.82rem,.76rem + .18vw,.95rem);line-height:1.5;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#00274D}@media (prefers-reduced-motion:reduce){.wm-home-about-card.wm-home-about-card--reveal-ready,.wm-home-about-card.wm-home-about-card--reveal-ready.wm-home-about-card--visible{opacity:1;transform:none;filter:none;transition:none}}@media (max-width:768px){.wm-home-about-cards{grid-template-columns:1fr;grid-template-areas:'vision' 'mission'}.wm-home-about-card,.wm-home-about-card--vision,.wm-home-about-card--mission{width:100%;justify-self:stretch}.wm-home-about-card--mission{margin-top:0}}"
+    );
+  }
+
+  function ensureFloatingWhatsApp() {
+    if (!document.body) {
+      return;
+    }
+
+    var widget = document.querySelector(".whatsapp-float-btn.wm-side-contact-widget");
+    var legacyButton = document.querySelector(".whatsapp-float-btn:not(.wm-side-contact-widget)");
+    var markup = [
+      '<div class="wm-side-contact-widget__form" aria-hidden="true">',
+      '<div class="wm-side-contact-widget__form-header">',
+      '<h3 class="wm-side-contact-widget__form-title">Contact Form</h3>',
+      '<button type="button" class="wm-side-contact-widget__form-close" aria-label="Close contact form">&times;</button>',
+      "</div>",
+      '<form class="wm-side-contact-widget__form-fields" novalidate>',
+      '<input class="wm-side-contact-widget__field-input" type="text" name="name" placeholder="Name*" aria-label="Name" required>',
+      '<input class="wm-side-contact-widget__field-input" type="email" name="email" placeholder="Email*" aria-label="Email" required>',
+      '<input class="wm-side-contact-widget__field-input" type="text" name="company" placeholder="Company / Brand*" aria-label="Company / Brand" required>',
+      '<input class="wm-side-contact-widget__field-input" type="text" name="country" placeholder="Country / Market*" aria-label="Country / Market" required>',
+      '<textarea class="wm-side-contact-widget__field-textarea" name="help" placeholder="Inquiry Details*" aria-label="Inquiry Details" required></textarea>',
+      '<button type="submit" class="wm-side-contact-widget__form-submit">Submit</button>',
+      "</form>",
+      "</div>",
+      '<div class="wm-side-contact-widget__rail">',
+      '<button type="button" class="wm-side-contact-widget__toggle" aria-expanded="true" aria-label="Collapse quick contact widget"><span class="wm-side-contact-widget__toggle-label" aria-hidden="true">&rarr;</span></button>',
+      '<button type="button" class="wm-side-contact-widget__contact" aria-label="Open contact form">',
+      '<span class="wm-side-contact-widget__contact-label">Contact Us</span>',
+      '<span class="wm-side-contact-widget__contact-icon" aria-hidden="true">',
+      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 7.25H19.5C19.7761 7.25 20 7.47386 20 7.75V16.25C20 16.5261 19.7761 16.75 19.5 16.75H4.5C4.22386 16.75 4 16.5261 4 16.25V7.75C4 7.47386 4.22386 7.25 4.5 7.25Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4.75 8L11.2092 12.5298C11.6878 12.8654 12.3122 12.8654 12.7908 12.5298L19.25 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      "</span>",
+      "</button>",
+      '<div class="wm-side-contact-widget__whatsapp-wrap">',
+      '<div class="wm-side-contact-widget__whatsapp-flyout" aria-hidden="true"><span class="wm-side-contact-widget__whatsapp-flyout-text">WhatsApp</span></div>',
+      '<a class="wm-side-contact-widget__whatsapp" href="https://wa.me/923212572225" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">',
+      '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28 16C28 22.6274 22.6274 28 16 28C13.4722 28 11.1269 27.2184 9.19266 25.8837L5.09091 26.9091L6.16576 22.8784C4.80092 20.9307 4 18.5589 4 16C4 9.37258 9.37258 4 16 4C22.6274 4 28 9.37258 28 16Z" fill="white"/><path d="M12.5 9.49989C12.1672 8.83131 11.6565 8.8905 11.1407 8.8905C10.2188 8.8905 8.78125 9.99478 8.78125 12.05C8.78125 13.7343 9.52345 15.578 12.0244 18.3361C14.438 20.9979 17.6094 22.3748 20.2422 22.3279C22.875 22.2811 23.4167 20.0154 23.4167 19.2503C23.4167 18.9112 23.2062 18.742 23.0613 18.696C22.1641 18.2654 20.5093 17.4631 20.1328 17.3124C19.7563 17.1617 19.5597 17.3656 19.4375 17.4765C19.0961 17.8018 18.4193 18.7608 18.1875 18.9765C17.9558 19.1922 17.6103 19.083 17.4665 19.0015C16.9374 18.7892 15.5029 18.1511 14.3595 17.0426C12.9453 15.6718 12.8623 15.2001 12.5959 14.7803C12.3828 14.4444 12.5392 14.2384 12.6172 14.1483C12.9219 13.7968 13.3426 13.254 13.5313 12.9843C13.7199 12.7145 13.5702 12.305 13.4803 12.05C13.0938 10.953 12.7663 10.0347 12.5 9.49989Z" fill="#20C65A"/></svg>',
+      "</a>",
+      "</div>",
+      "</div>"
+    ].join("");
+
+    if (!widget) {
+      widget = document.createElement("div");
+      widget.className = "whatsapp-float-btn wm-side-contact-widget";
+      widget.setAttribute("aria-label", "Quick contact links");
+
+      if (legacyButton && legacyButton.parentNode) {
+        legacyButton.parentNode.replaceChild(widget, legacyButton);
+      } else {
+        document.body.appendChild(widget);
+      }
+    }
+
+    if (
+      !widget.querySelector(".wm-side-contact-widget__rail") ||
+      !widget.querySelector('input[name="company"]') ||
+      !widget.querySelector('textarea[name="help"]')
+    ) {
+      widget.innerHTML = markup;
+      widget.removeAttribute("data-crestline-widget-bound");
+    }
+
+    if (widget.getAttribute("data-crestline-widget-bound") !== "1") {
+      var toggle = widget.querySelector(".wm-side-contact-widget__toggle");
+      var toggleLabel = widget.querySelector(".wm-side-contact-widget__toggle-label");
+      var contactTrigger = widget.querySelector(".wm-side-contact-widget__contact");
+      var whatsappTrigger = widget.querySelector(".wm-side-contact-widget__whatsapp");
+      var formPanel = widget.querySelector(".wm-side-contact-widget__form");
+      var closeButton = widget.querySelector(".wm-side-contact-widget__form-close");
+      var form = widget.querySelector(".wm-side-contact-widget__form form");
+
+      function setCollapsed(collapsed) {
+        widget.classList.toggle("wm-side-contact-widget--collapsed", collapsed);
+        widget.classList.remove("wm-side-contact-widget--contact-open");
+        widget.classList.remove("wm-side-contact-widget--whatsapp-open");
+        if (toggle) {
+          toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+          toggle.setAttribute("aria-label", collapsed ? "Open quick contact widget" : "Collapse quick contact widget");
+        }
+        if (toggleLabel) {
+          toggleLabel.innerHTML = collapsed ? "&larr;" : "&rarr;";
+        }
+        if (formPanel) {
+          formPanel.setAttribute("aria-hidden", "true");
+        }
+      }
+
+      function openContact() {
+        if (widget.classList.contains("wm-side-contact-widget--collapsed")) {
+          return;
+        }
+        widget.classList.add("wm-side-contact-widget--contact-open");
+        widget.classList.remove("wm-side-contact-widget--whatsapp-open");
+        if (formPanel) {
+          formPanel.setAttribute("aria-hidden", "false");
+        }
+      }
+
+      function closeContact() {
+        widget.classList.remove("wm-side-contact-widget--contact-open");
+        if (formPanel) {
+          formPanel.setAttribute("aria-hidden", "true");
+        }
+      }
+
+      function openWhatsAppPreview() {
+        if (widget.classList.contains("wm-side-contact-widget--collapsed")) {
+          return;
+        }
+        widget.classList.remove("wm-side-contact-widget--contact-open");
+        widget.classList.add("wm-side-contact-widget--whatsapp-open");
+        if (formPanel) {
+          formPanel.setAttribute("aria-hidden", "true");
+        }
+      }
+
+      function closeWhatsAppPreview() {
+        widget.classList.remove("wm-side-contact-widget--whatsapp-open");
+      }
+
+      if (toggle) {
+        toggle.addEventListener("click", function (event) {
+          event.preventDefault();
+          setCollapsed(!widget.classList.contains("wm-side-contact-widget--collapsed"));
+        });
+      }
+
+      if (contactTrigger) {
+        contactTrigger.addEventListener("mouseenter", openContact);
+        contactTrigger.addEventListener("focus", openContact);
+        contactTrigger.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (widget.classList.contains("wm-side-contact-widget--collapsed")) {
+            setCollapsed(false);
+          }
+          openContact();
+        });
+      }
+
+      if (whatsappTrigger) {
+        whatsappTrigger.addEventListener("mouseenter", openWhatsAppPreview);
+        whatsappTrigger.addEventListener("focus", openWhatsAppPreview);
+        whatsappTrigger.addEventListener("blur", closeWhatsAppPreview);
+      }
+
+      if (formPanel) {
+        formPanel.addEventListener("mouseenter", openContact);
+      }
+
+      widget.addEventListener("mouseleave", function () {
+        closeContact();
+        closeWhatsAppPreview();
+      });
+
+      document.addEventListener("pointerdown", function (event) {
+        if (!widget.contains(event.target)) {
+          closeContact();
+          closeWhatsAppPreview();
+        }
+      });
+
+      if (closeButton) {
+        closeButton.addEventListener("click", function (event) {
+          event.preventDefault();
+          closeContact();
+        });
+      }
+
+      if (form) {
+        form.addEventListener("submit", function (event) {
+          var formData;
+          var draft;
+
+          event.preventDefault();
+
+          if (typeof form.reportValidity === "function" && !form.reportValidity()) {
+            return;
+          }
+
+          formData = new FormData(form);
+          draft = {
+            name: normalize(formData.get("name")),
+            email: normalize(formData.get("email")),
+            company: normalize(formData.get("company")),
+            country: normalize(formData.get("country")),
+            help: normalize(formData.get("help"))
+          };
+
+          try {
+            window.sessionStorage.setItem("crestlineFloatingInquiryDraft", JSON.stringify(draft));
+          } catch (error) {
+            // Ignore storage failures and still send the user to the main contact page.
+          }
+
+          window.location.href = "/contact-us?source=floating-widget";
+        });
+      }
+
+      setCollapsed(false);
+      widget.setAttribute("data-crestline-widget-bound", "1");
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll(".wm-hero-button-icon"), function (icon) {
+      if (icon.style.display !== "none") {
+        icon.style.display = "none";
+      }
+    });
   }
 
   function buildInfoNavMarkup() {
@@ -159,14 +513,14 @@
       "</div>" +
       '<div class="flex md:w-[700px] xl:w-[800px] justify-between">' +
       '<div class="flex lg:order-2 space-x-2 lg:space-x-0 rtl:space-x-reverse relative z-20">' +
-      '<a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-cyan-700 text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-cyan-800 dark:bg-cyan-600 dark:focus:ring-cyan-800 dark:enabled:hover:bg-cyan-700 rounded-full bg-gradient-to-b from-global to-[#9DC1FF] hover:!bg-transparent hover:outline-solid hidden lg:block"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a>' +
+      '<a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-[#00b14c] text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-[#00b14c] dark:bg-[#00b14c] dark:focus:ring-cyan-800 dark:enabled:hover:bg-[#00b14c] rounded-full hidden lg:block"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a>' +
       "</div>" +
       '<div class="items-center justify-center hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">' +
       '<ul class="flex flex-col xl:p-0 font-medium xl:space-x-3 rtl:space-x-reverse lg:flex-row xl:mt-0 xl:border-0 text-gray-900 dark:bg-gray-800 xl:dark:bg-gray-900 dark:border-gray-700 text-center text-[15px] lg:max-w-[1100px] font-normal">' +
       '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/">Home</a></li>' +
       '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/about">About Us</a></li>' +
       '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/contact-us">Contact</a></li>' +
-      '<div class="xl:hidden gap-4 items-center flex flex-col mt-2"><a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-cyan-700 text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-cyan-800 dark:bg-cyan-600 dark:focus:ring-cyan-800 dark:enabled:hover:bg-cyan-700 rounded-full bg-gradient-to-b from-global to-[#9DC1FF] hover:!bg-transparent hover:outline-solid block lg:hidden"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a></div>' +
+      '<div class="xl:hidden gap-4 items-center flex flex-col mt-2"><a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-[#00b14c] text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-[#00b14c] dark:bg-[#00b14c] dark:focus:ring-cyan-800 dark:enabled:hover:bg-[#00b14c] rounded-full block lg:hidden"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a></div>' +
       "</ul>" +
       "</div>" +
       "</div>" +
@@ -227,12 +581,7 @@
   }
 
   function standardizeInfoPageNavigation() {
-    var body = document.body;
-    if (!body || !body.dataset || !body.dataset.infoPage) {
-      return;
-    }
-
-    var nav = document.querySelector("body[data-info-page] nav");
+    var nav = document.querySelector("nav");
     if (!nav) {
       return;
     }
@@ -249,6 +598,7 @@
 
   function updateFooter() {
     var footer = document.querySelector("footer");
+    var linksMarkup;
     if (!footer) {
       return;
     }
@@ -268,15 +618,45 @@
     }
 
     if (brandColumn) {
-      var brandQuoteButton = brandColumn.querySelector("[data-crestline-footer-quote]");
-      if (!brandQuoteButton) {
+      var quoteButtons = Array.prototype.filter.call(brandColumn.querySelectorAll("a, button"), function (node) {
+        var text = normalize(node.textContent);
+        if (text !== "Get Quotation") {
+          return false;
+        }
+
+        if (node.tagName === "A") {
+          var nodeHref = node.getAttribute("href") || "";
+          return !nodeHref || nodeHref === "/contact-us" || nodeHref.indexOf("/contact-us") === 0;
+        }
+
+        return true;
+      });
+
+      var brandQuoteButton = brandColumn.querySelector("[data-crestline-footer-quote]") || quoteButtons[0] || null;
+
+      if (brandQuoteButton) {
+        brandQuoteButton.setAttribute("data-crestline-footer-quote", "1");
+        if (brandQuoteButton.tagName === "A") {
+          brandQuoteButton.href = "/contact-us";
+        }
+        brandQuoteButton.className =
+          "rounded-full w-fit inline-flex text-[12.98px] gap-2 bg-gradient-to-r from-[#26ADE3] to-[#26ADE329] text-white items-center p-1 pl-[8px] font-extralight mt-5 mx-auto md:mx-0";
+
+        Array.prototype.forEach.call(quoteButtons, function (node) {
+          if (node !== brandQuoteButton) {
+            node.remove();
+          }
+        });
+      } else {
         brandQuoteButton = document.createElement("a");
         brandQuoteButton.setAttribute("data-crestline-footer-quote", "1");
         brandQuoteButton.href = "/contact-us";
         brandQuoteButton.className =
           "rounded-full w-fit inline-flex text-[12.98px] gap-2 bg-gradient-to-r from-[#26ADE3] to-[#26ADE329] text-white items-center p-1 pl-[8px] font-extralight mt-5 mx-auto md:mx-0";
-        brandQuoteButton.innerHTML =
-          'Get Quotation<div class="w-[30.96px] h-[30.96px] flex items-center justify-center bg-white rounded-full"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></div>';
+        setHtml(
+          brandQuoteButton,
+          'Get Quotation<div class="w-[30.96px] h-[30.96px] flex items-center justify-center bg-white rounded-full"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></div>'
+        );
 
         if (brandText) {
           brandText.insertAdjacentElement("afterend", brandQuoteButton);
@@ -287,7 +667,7 @@
     }
 
     if (linksColumn) {
-      linksColumn.innerHTML =
+      linksMarkup =
         '<div class="grid grid-cols-2 text-sm font-normal">' +
         '<div>' +
         '<p class=" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium ">Quick Links</p>' +
@@ -312,20 +692,47 @@
         "</div>" +
         "</div>" +
         "</div>";
+      setHtml(linksColumn, linksMarkup);
     }
 
     if (ctaColumn) {
       var title = ctaColumn.querySelector("p");
       var input = ctaColumn.querySelector("input");
       var button = ctaColumn.querySelector("button");
+      var socialRow = ctaColumn.querySelector(".flex.gap-2");
 
       setText(title, "Start Your Next Custom Project");
 
       if (input) {
-        input.placeholder = "Enter Your Email";
+        if (input.placeholder !== "Enter Your Email") {
+          input.placeholder = "Enter Your Email";
+        }
       }
 
-      setText(button, "Send Inquiry");
+      setText(button, "Subscribe");
+
+      if (socialRow) {
+        var socialItems = Array.prototype.filter.call(socialRow.children, function (node) {
+          return node && node.querySelector && node.querySelector("svg");
+        });
+        var linkedinItem = socialItems[1];
+
+        if (linkedinItem) {
+          var linkedinAnchor = linkedinItem;
+
+          if (linkedinItem.tagName !== "A") {
+            linkedinAnchor = document.createElement("a");
+            linkedinAnchor.className = linkedinItem.className;
+            linkedinAnchor.innerHTML = linkedinItem.innerHTML;
+            socialRow.replaceChild(linkedinAnchor, linkedinItem);
+          }
+
+          linkedinAnchor.href = "https://www.linkedin.com/company/crestline-smc-pvt-limited/";
+          linkedinAnchor.target = "_blank";
+          linkedinAnchor.rel = "noopener noreferrer";
+          linkedinAnchor.setAttribute("aria-label", "Crestline LinkedIn");
+        }
+      }
     }
   }
 
@@ -378,9 +785,131 @@
     });
   }
 
+  function buildHomeAboutMarkup() {
+    return (
+      '<div class="wm-home-about-inner">' +
+      '<h2 class="wm-home-about-heading">About Us</h2>' +
+      '<p class="wm-home-about-copy">Founded in 1982, Crestline (SMC-PVT) Limited is a trusted manufacturer and exporter of custom promotional textiles, specializing in premium cotton and poly/cotton products for the global promotional industry.</p>' +
+      '<a class="wm-home-about-cta" href="/contact-us">Get Quotation<span class="wm-home-about-cta-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></span></a>' +
+      "</div>" +
+      '<div class="wm-home-about-cards" aria-label="Crestline Vision and Mission">' +
+      '<article class="wm-home-about-card wm-home-about-card--vision">' +
+      '<h3 class="wm-home-about-card-title">Our Vision</h3>' +
+      '<p class="wm-home-about-card-copy">To be the leading provider of responsible, high-quality promotional textiles for global brands. Crestline combines premium materials, compliance-focused manufacturing, and dependable service to support long-term customer partnerships across global markets.</p>' +
+      '<p class="wm-home-about-card-tags">QUALITY - CONSISTENCY - SUSTAINABILITY</p>' +
+      "</article>" +
+      '<article class="wm-home-about-card wm-home-about-card--mission">' +
+      '<h3 class="wm-home-about-card-title">Our Mission</h3>' +
+      '<p class="wm-home-about-card-copy">Our mission is to deliver quality, responsibly made textile products at scale while maintaining ethical standards and dependable production timelines. We work closely with customers to develop tailored solutions that align with brand requirements, product specifications, and market needs.</p>' +
+      '<p class="wm-home-about-card-tags">SCALE - COMPLIANCE - SUSTAINABILITY - PARTNERSHIP</p>' +
+      "</article>" +
+      "</div>"
+    );
+  }
+
+  function initHomeAboutCardAnimations() {
+    var cards = document.querySelectorAll("[data-crestline-home-about] .wm-home-about-card");
+    var reduceMotion =
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!cards.length) {
+      if (homeAboutCardsObserver) {
+        homeAboutCardsObserver.disconnect();
+        homeAboutCardsObserver = null;
+      }
+      return;
+    }
+
+    if (
+      Array.prototype.every.call(cards, function (card) {
+        return card.getAttribute("data-home-about-reveal-bound") === "1";
+      })
+    ) {
+      return;
+    }
+
+    if (homeAboutCardsObserver) {
+      homeAboutCardsObserver.disconnect();
+      homeAboutCardsObserver = null;
+    }
+
+    Array.prototype.forEach.call(cards, function (card) {
+      card.setAttribute("data-home-about-reveal-bound", "1");
+      card.classList.add("wm-home-about-card--reveal-ready");
+      card.classList.remove("wm-home-about-card--visible");
+    });
+
+    if (!("IntersectionObserver" in window) || reduceMotion) {
+      Array.prototype.forEach.call(cards, function (card) {
+        card.classList.add("wm-home-about-card--visible");
+      });
+      return;
+    }
+
+    homeAboutCardsObserver = new IntersectionObserver(
+      function (entries, observer) {
+        Array.prototype.forEach.call(entries, function (entry) {
+          if (entry.isIntersecting || entry.intersectionRatio > 0.24) {
+            entry.target.classList.add("wm-home-about-card--visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: [0.24, 0.45],
+        rootMargin: "0px 0px -10% 0px"
+      }
+    );
+
+    Array.prototype.forEach.call(cards, function (card) {
+      homeAboutCardsObserver.observe(card);
+    });
+  }
+
+  function removeHomeInquirySection() {
+    var inquirySlider = document.getElementById("paymentSlider1");
+    var inquirySection = inquirySlider ? inquirySlider.closest("section") : null;
+
+    if (!inquirySection) {
+      var inquiryHeading =
+        findHeading("Quotations shared within 48 hours") || findHeading("25+ Payment Gateways");
+      inquirySection = inquiryHeading ? inquiryHeading.closest("section") : null;
+    }
+
+    removeNode(inquirySection);
+  }
+
+  function ensureHomeAboutSection() {
+    var processCard = document.getElementById("cubeAnimation");
+    var processSection = processCard ? processCard.closest("section") : null;
+    var aboutSection = document.querySelector("[data-crestline-home-about]");
+    var aboutMarkup = buildHomeAboutMarkup();
+
+    if (!processSection || !processSection.parentNode) {
+      return;
+    }
+
+    if (!aboutSection) {
+      aboutSection = document.createElement("section");
+      aboutSection.setAttribute("data-crestline-home-about", "1");
+    }
+
+    aboutSection.className = "wm-home-about-section";
+    if (aboutSection.innerHTML !== aboutMarkup) {
+      setHtml(aboutSection, aboutMarkup);
+    }
+
+    if (aboutSection.nextElementSibling !== processSection) {
+      processSection.parentNode.insertBefore(aboutSection, processSection);
+    }
+
+    initHomeAboutCardAnimations();
+  }
+
   function updateAboutPage() {
-    applySeo(
-      "About Us | Crestline",
+    document.title = "About Us | Crestline";
+    setMeta(
+      "description",
       "Learn about Crestline (SMC-PVT) Limited, a trusted manufacturer and exporter of custom promotional textiles founded in 1982."
     );
 
@@ -670,9 +1199,8 @@
           }
         });
 
-        var cardButton = Array.prototype.find.call(card.querySelectorAll("a"), function (link) {
-          var href = (link.getAttribute("href") || "").toLowerCase();
-          return href.indexOf("demo.") !== -1 || href.indexOf("/contact-us") !== -1;
+        var cardButton = Array.prototype.find.call(card.querySelectorAll("a"), function (node) {
+          return node.className && node.className.indexOf("rounded-full") !== -1;
         });
         if (cardButton) {
           cardButton.href = "/contact-us";
@@ -694,8 +1222,9 @@
   }
 
   function updatePricingPage() {
-    applySeo(
-      "Pricing & Lead Times | Crestline",
+    document.title = "Pricing | Crestline";
+    setMeta(
+      "description",
       "Request competitive pricing, MOQ details, and lead times from Crestline for custom promotional textile orders."
     );
 
@@ -820,7 +1349,7 @@
     var showcaseSection = Array.prototype.find.call(document.querySelectorAll("section"), function (node) {
       return (
         normalize(node.textContent).indexOf("Try it for free") !== -1 ||
-        !!node.querySelector('img[src*="accouting-db-crestline.webp"]')
+        !!node.querySelector('img[src*="crestline-pricing-overview"], img[src*="accouting-db-"]')
       );
     });
 
@@ -914,8 +1443,9 @@
   }
 
   function updateContactPage() {
-    applySeo(
-      "Contact Us | Crestline",
+    document.title = "Contact Us | Crestline";
+    setMeta(
+      "description",
       "Contact Crestline (SMC-PVT) Limited for quotations, production timelines, and custom promotional textile inquiries."
     );
 
@@ -987,6 +1517,7 @@
       }
     }
 
+    var floatingDraft = null;
     var companyLabel = document.querySelector('label[for="company"]');
     var countryLabel = document.querySelector('label[for="country"]');
     var helpLabel = document.querySelector('label[for="help"]');
@@ -998,6 +1529,12 @@
     var submitButton = Array.prototype.find.call(document.querySelectorAll('button[type="submit"]'), function (node) {
       return normalize(node.textContent) === "Get in touch";
     });
+
+    try {
+      floatingDraft = JSON.parse(window.sessionStorage.getItem("crestlineFloatingInquiryDraft") || "null");
+    } catch (error) {
+      floatingDraft = null;
+    }
 
     setText(companyLabel, "Company / Brand");
     setText(countryLabel, "Country / Market");
@@ -1047,6 +1584,50 @@
       }
     }
 
+    if (floatingDraft) {
+      var floatingHelp = [];
+
+      if (nameInput && floatingDraft.name && !normalize(nameInput.value)) {
+        nameInput.value = floatingDraft.name;
+      }
+
+      if (emailInput && floatingDraft.email && !normalize(emailInput.value)) {
+        emailInput.value = floatingDraft.email;
+      }
+
+      if (companyInput && floatingDraft.company && !normalize(companyInput.value)) {
+        companyInput.value = floatingDraft.company;
+      }
+
+      if (countryInput && floatingDraft.country && !normalize(countryInput.value)) {
+        countryInput.value = floatingDraft.country;
+      }
+
+      if (floatingDraft.phone) {
+        floatingHelp.push("Phone: " + floatingDraft.phone);
+      }
+
+      if (floatingDraft.message) {
+        floatingHelp.push(floatingDraft.message);
+      }
+
+      if (floatingDraft.help) {
+        floatingHelp.push(floatingDraft.help);
+      }
+
+      if (helpInput && floatingHelp.length) {
+        helpInput.value = normalize(helpInput.value)
+          ? helpInput.value + "\n\n" + floatingHelp.join("\n\n")
+          : floatingHelp.join("\n\n");
+      }
+
+      try {
+        window.sessionStorage.removeItem("crestlineFloatingInquiryDraft");
+      } catch (error) {
+        // Ignore storage cleanup failures.
+      }
+    }
+
     if (form) {
       form.method = "POST";
       form.action = "/contact-submit.php";
@@ -1089,9 +1670,8 @@
 
     setText(submitButton, "Send Inquiry");
 
-    var cards = Array.prototype.filter.call(document.querySelectorAll("section a"), function (link) {
-      var href = (link.getAttribute("href") || "").toLowerCase();
-      return href.indexOf("demo.") !== -1 || href.indexOf("/contact-us") !== -1;
+    var cards = Array.prototype.filter.call(document.querySelectorAll("section a"), function (node) {
+      return node.className && node.className.indexOf("md:max-w-[291px]") !== -1 && node.className.indexOf("h-[245px]") !== -1;
     });
     var cardsWrapper = cards.length ? cards[0].parentElement : null;
 
@@ -1125,6 +1705,16 @@
   function runSync() {
     var path = window.location.pathname.replace(/\/+$/, "") || "/";
 
+    ensureShellStyles();
+    applyBrandingMeta(path);
+    ensureFloatingWhatsApp();
+
+    if (path === "/") {
+      removeHomeInquirySection();
+      ensureHomeAboutSection();
+      return;
+    }
+
     updateFooter();
     standardizeInfoPageNavigation();
     updateGlobalNavigation();
@@ -1144,17 +1734,41 @@
     }
   }
 
+  function isSyncSettled(path) {
+    var hasWhatsApp = !!document.querySelector(".whatsapp-float-btn");
+    var title = normalize(document.title).toLowerCase();
+
+    if (!hasWhatsApp || title.indexOf("crestline") === -1) {
+      return false;
+    }
+
+    if (path === "/") {
+      return document.readyState === "complete" && !!document.querySelector("[data-crestline-home-about]");
+    }
+
+    return !!document.querySelector("footer");
+  }
+
   function start() {
     var attempts = 0;
+    var stablePasses = 0;
+    var path = window.location.pathname.replace(/\/+$/, "") || "/";
     runSync();
 
     var timer = window.setInterval(function () {
       runSync();
       attempts += 1;
-      if (attempts >= 12) {
+
+      if (isSyncSettled(path)) {
+        stablePasses += 1;
+      } else {
+        stablePasses = 0;
+      }
+
+      if (stablePasses >= 2 || attempts >= 8) {
         window.clearInterval(timer);
       }
-    }, 400);
+    }, 900);
   }
 
   if (document.readyState === "loading") {
@@ -1164,4 +1778,5 @@
   }
 
   window.addEventListener("load", runSync);
+  window.addEventListener("pageshow", runSync);
 })();
