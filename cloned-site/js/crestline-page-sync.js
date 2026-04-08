@@ -906,6 +906,165 @@
     initHomeAboutCardAnimations();
   }
 
+  function removeOverviewOuterCubes() {
+    removeNode(document.getElementById("cubeanim1"));
+    removeNode(document.getElementById("cubeanim6"));
+  }
+
+  function getElementTranslateY(node) {
+    if (!node) {
+      return 0;
+    }
+
+    var transform = window.getComputedStyle(node).transform;
+
+    if (!transform || transform === "none") {
+      return 0;
+    }
+
+    var matrix3dMatch = transform.match(/^matrix3d\((.+)\)$/);
+    if (matrix3dMatch) {
+      var matrix3dValues = matrix3dMatch[1].split(",");
+      return parseFloat(matrix3dValues[13] || "0") || 0;
+    }
+
+    var matrixMatch = transform.match(/^matrix\((.+)\)$/);
+    if (matrixMatch) {
+      var matrixValues = matrixMatch[1].split(",");
+      return parseFloat(matrixValues[5] || "0") || 0;
+    }
+
+    return 0;
+  }
+
+  function updateOverviewStepGuide() {
+    var processCard = document.getElementById("cubeAnimation");
+    var hint = processCard ? processCard.querySelector("[data-process-step-hint]") : null;
+    var stepCard = document.getElementById("cubeanim5");
+    var stepImage = stepCard ? stepCard.querySelector("img") : null;
+    var guide = processCard ? processCard.querySelector("[data-process-step-guide]") : null;
+
+    if (!processCard || !hint || !stepCard || !guide) {
+      return;
+    }
+
+    if (window.innerWidth < 1024) {
+      guide.setAttribute("hidden", "hidden");
+      return;
+    }
+
+    var line = guide.querySelector("[data-process-step-guide-line]");
+    var processRect = processCard.getBoundingClientRect();
+    var processStyle = window.getComputedStyle(processCard);
+    var hintRect = hint.getBoundingClientRect();
+    var stepRect = stepCard.getBoundingClientRect();
+    var targetRect = stepImage ? stepImage.getBoundingClientRect() : stepRect;
+    var processPinned = processStyle.position === "fixed";
+    var stepTranslateY = Math.abs(getElementTranslateY(stepCard));
+    var processVisible = processRect.bottom > 120 && processRect.top < window.innerHeight - 80;
+    var stepVisible = targetRect.bottom > 120 && targetRect.top < window.innerHeight - 40;
+    var stepInPlace = stepVisible && stepTranslateY <= 24;
+
+    if (!line || !processRect.width || !processRect.height) {
+      return;
+    }
+
+    if (!processPinned) {
+      window.__crestlineOverviewStepGuideActivated = false;
+      guide.setAttribute("hidden", "hidden");
+      return;
+    }
+
+    if (!window.__crestlineOverviewStepGuideActivated && stepInPlace) {
+      window.__crestlineOverviewStepGuideActivated = true;
+    }
+
+    var shouldShow = !!window.__crestlineOverviewStepGuideActivated && processVisible;
+
+    if (!shouldShow) {
+      guide.setAttribute("hidden", "hidden");
+      return;
+    }
+
+    guide.removeAttribute("hidden");
+    guide.setAttribute("viewBox", "0 0 " + processRect.width + " " + processRect.height);
+
+    var startX = hintRect.right - processRect.left - Math.max(26, hintRect.width * 0.12);
+    var startY = hintRect.bottom - processRect.top + 18;
+    var endX = targetRect.left - processRect.left + targetRect.width * 0.06;
+    var endY = targetRect.bottom - processRect.top + 4;
+    var deltaX = Math.max(210, endX - startX);
+    var loopDepth = Math.min(190, Math.max(120, deltaX * 0.34));
+    var pathData = [
+      "M", startX.toFixed(2), startY.toFixed(2),
+      "C", (startX + deltaX * 0.18).toFixed(2), (startY + loopDepth * 0.9).toFixed(2),
+      (startX + deltaX * 0.46).toFixed(2), (startY + loopDepth).toFixed(2),
+      (startX + deltaX * 0.58).toFixed(2), (startY + loopDepth * 0.52).toFixed(2),
+      "C", (startX + deltaX * 0.64).toFixed(2), (startY + loopDepth * 0.16).toFixed(2),
+      (startX + deltaX * 0.53).toFixed(2), (startY + loopDepth * 0.04).toFixed(2),
+      (startX + deltaX * 0.44).toFixed(2), (startY + loopDepth * 0.34).toFixed(2),
+      "C", (startX + deltaX * 0.36).toFixed(2), (startY + loopDepth * 0.82).toFixed(2),
+      (endX - 40).toFixed(2), (endY + 16).toFixed(2),
+      endX.toFixed(2), endY.toFixed(2)
+    ].join(" ");
+
+    line.setAttribute("d", pathData);
+  }
+
+  function ensureOverviewStepHint() {
+    var processCard = document.getElementById("cubeAnimation");
+    var processRow = processCard ? processCard.firstElementChild : null;
+    var leftColumn = processRow ? processRow.firstElementChild : null;
+    var guide = processCard ? processCard.querySelector("[data-process-step-guide]") : null;
+    var existingHint = leftColumn ? leftColumn.querySelector("[data-process-step-hint]") : null;
+
+    if (!processCard || !leftColumn) {
+      return;
+    }
+
+    Array.prototype.forEach.call(leftColumn.querySelectorAll("a"), function (link) {
+      if (normalize(link.textContent).toLowerCase() === "get quotation") {
+        removeNode(link);
+      }
+    });
+
+    if (!existingHint) {
+      existingHint = document.createElement("div");
+      existingHint.className = "wm-process-step-hint mx-auto lg:mx-[initial]";
+      existingHint.setAttribute("data-process-step-hint", "1");
+      leftColumn.appendChild(existingHint);
+    }
+
+    setText(existingHint, "Click on each step to view details");
+
+    if (!guide) {
+      guide = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      guide.setAttribute("class", "wm-process-step-guide");
+      guide.setAttribute("data-process-step-guide", "1");
+      guide.setAttribute("aria-hidden", "true");
+      guide.setAttribute("hidden", "hidden");
+      processCard.appendChild(guide);
+    }
+
+    if (!guide.querySelector("#wm-process-step-guide-arrowhead") || !guide.querySelector("[data-process-step-guide-line]")) {
+      guide.innerHTML =
+        '<defs><marker id="wm-process-step-guide-arrowhead" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#474d4d"></path></marker></defs>' +
+        '<path data-process-step-guide-line="1" marker-end="url(#wm-process-step-guide-arrowhead)"></path>';
+    }
+
+    updateOverviewStepGuide();
+
+    if (!window.__crestlineOverviewStepGuideBound) {
+      window.__crestlineOverviewStepGuideBound = true;
+      window.__crestlineOverviewStepGuideSync = function () {
+        window.requestAnimationFrame(updateOverviewStepGuide);
+      };
+      window.addEventListener("resize", window.__crestlineOverviewStepGuideSync);
+      window.addEventListener("scroll", window.__crestlineOverviewStepGuideSync, { passive: true });
+      window.addEventListener("load", window.__crestlineOverviewStepGuideSync);
+    }
+  }
+
   function updateAboutPage() {
     document.title = "About Us | Crestline";
     setMeta(
@@ -1712,6 +1871,8 @@
     if (path === "/") {
       removeHomeInquirySection();
       ensureHomeAboutSection();
+      removeOverviewOuterCubes();
+      ensureOverviewStepHint();
       return;
     }
 

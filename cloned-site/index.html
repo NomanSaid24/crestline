@@ -618,10 +618,6 @@
 
     .wm-founded-journey-section {
       --wm-founded-nav-offset: 92px;
-      --wm-founded-surface:
-        radial-gradient(circle at 50% 44%, rgba(24, 186, 255, 0.16) 0%, rgba(24, 186, 255, 0) 34%),
-        radial-gradient(circle at 42% 52%, rgba(143, 136, 237, 0.13) 0%, rgba(143, 136, 237, 0) 32%),
-        linear-gradient(180deg, rgba(232, 243, 255, 0.96) 0%, rgba(247, 250, 255, 0.98) 48%, rgba(232, 243, 255, 0.96) 100%);
       --wm-founded-line-start: 240px;
       --wm-founded-line-width: 1980px;
       --wm-founded-copy-width: 300px;
@@ -629,7 +625,18 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: var(--wm-founded-surface);
+      background: transparent;
+    }
+
+    .wm-founded-journey-header {
+      position: relative;
+      min-height: calc(100vh - var(--wm-founded-nav-offset));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(2.5rem, 7vw, 5rem) 1rem;
+      z-index: 1;
+      background: transparent;
     }
 
     .wm-founded-journey-sticky {
@@ -640,19 +647,15 @@
       justify-content: center;
       overflow: hidden;
       padding: 1rem 0;
-      background: var(--wm-founded-surface);
+      background: transparent;
     }
 
     .wm-founded-journey-sticky::before {
-      content: "";
-      position: absolute;
-      inset: -12% -8%;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 50% 52%, rgba(24, 186, 255, 0.18) 0%, rgba(24, 186, 255, 0.07) 16%, rgba(24, 186, 255, 0) 40%),
-        radial-gradient(circle at 42% 50%, rgba(143, 136, 237, 0.14) 0%, rgba(143, 136, 237, 0.05) 18%, rgba(143, 136, 237, 0) 42%),
-        radial-gradient(circle at 58% 50%, rgba(24, 186, 255, 0.11) 0%, rgba(24, 186, 255, 0) 34%);
-      z-index: 0;
+      content: none;
+    }
+
+    .wm-founded-journey-section .pin-spacer {
+      background: transparent !important;
     }
 
     .wm-founded-journey-canvas {
@@ -664,9 +667,8 @@
     }
 
     .wm-founded-journey-intro {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
+      position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -675,8 +677,6 @@
       max-width: min(780px, 76vw);
       margin: auto;
       text-align: center;
-      will-change: transform, opacity;
-      pointer-events: none;
     }
 
     .wm-founded-journey-heading {
@@ -934,6 +934,11 @@
         display: block;
         padding: 0;
         overflow: visible;
+      }
+
+      .wm-founded-journey-header {
+        min-height: auto;
+        padding: 1.5rem 0 2rem;
       }
 
       .wm-founded-journey-canvas {
@@ -1357,6 +1362,52 @@
       user-select: none;
     }
 
+    #cubeAnimation {
+      position: relative;
+    }
+
+    .wm-process-step-hint {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      max-width: min(100%, 290px);
+      min-height: 40px;
+      padding: 11px 22px;
+      margin-top: 28px;
+      border-radius: 999px;
+      background: #00b14c;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.25;
+      text-align: center;
+      box-shadow: 0 14px 28px rgba(0, 177, 76, 0.16);
+      user-select: none;
+    }
+
+    .wm-process-step-guide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 12;
+    }
+
+    .wm-process-step-guide[hidden] {
+      display: none !important;
+    }
+
+    .wm-process-step-guide [data-process-step-guide-line] {
+      fill: none;
+      stroke: #474d4d;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     #cubeanim5Para .process-step-trigger {
       transition: color 0.25s ease, transform 0.25s ease;
     }
@@ -1487,6 +1538,17 @@
       .process-step-modal__copy {
         font-size: 15px;
         line-height: 1.65;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .wm-process-step-guide {
+        display: none !important;
+      }
+
+      .wm-process-step-hint {
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   </style>
@@ -1945,7 +2007,7 @@
       <div class="max-w-[1328px] px-4 lg:pl-12 m-auto relative text-center lg:text-left">
         <div class="" id="cubeAnimation">
             <div class="h-full relative gap-4 flex justify-between flex-col lg:flex-row">
-              <div class="w-full lg:w-2/6 my-auto relative z-20">
+              <div class="w-full lg:w-2/6 my-auto relative z-20" data-process-overview-copy>
                 <div>
                   <h2
                     class="text-[32.9px] md:text-[42.81px] !font-normal lg:!leading-[48.93px] text-[#00274D] py-4 lg:text-[42.81px] leading-[48.93px]"
@@ -1953,23 +2015,11 @@
                   <p class="text-[12.98px] text-center lg:text-justify">From concept sampling to final branding,
                     Crestline follows a clear four-step process to turn custom promotional textile ideas into finished
                     products with precision and consistency.</p>
-                </div><a
-                  class="rounded-full w-fit flex text-[12.98px] gap-2 bg-gradient-to-r from-[#26ADE3] to-[#26ADE329] text-white items-center p-1 pl-[8px] font-extralight mt-4 lg:mt-7 mx-auto lg:mx-[initial]"
-                  href="/contact-us">Get Quotation<div
-                    class="w-[30.96px] h-[30.96px] flex items-center justify-center bg-white rounded-full"><svg
-                      width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z"
-                        fill="#29ADE4"></path>
-                    </svg></div></a>
+                </div>
+                <div class="wm-process-step-hint mx-auto lg:mx-[initial]" data-process-step-hint>Click on each step to
+                  view details</div>
               </div>
               <div class="w-4/5 mx-auto lg:w-2/6 mt-32 lg:mt-8 relative z-10 flex items-center flex-col justify-start">
-                <div
-                  class="h-14 flex border-solid items-center right-0 w-full justify-center lg:justify-start relative z-[16]"
-                  id="cubeanim1">
-                  <img alt="Final branded card" loading="lazy" width="682" height="366" decoding="async" data-nimg="1"
-                    style="color:transparent" src="/images/process-cards/cards-end.png">
-                </div>
                 <div
                   class="h-14 flex border-solid items-center right-0 w-full justify-center lg:justify-start relative z-[15]"
                   id="cubeanim2">
@@ -1994,12 +2044,6 @@
                   <img alt="Step 1 process card" loading="lazy" width="663" height="376" decoding="async" data-nimg="1"
                     style="color:transparent" src="/images/process-cards/step1.png">
                 </div>
-                <div
-                  class="h-14 flex border-solid items-center right-0 w-full justify-center lg:justify-start relative z-[11]"
-                  id="cubeanim6">
-                  <img alt="Final branded card" loading="lazy" width="682" height="366" decoding="async" data-nimg="1"
-                    style="color:transparent" src="/images/process-cards/cards-end.png">
-                </div>
               </div>
               <div class="w-full lg:w-1/4 flex flex-col justify-center items-end">
                 <div class="w-11/12 py-2 hidden lg:block">
@@ -2009,6 +2053,15 @@
                 </div>
               </div>
             </div>
+            <svg class="wm-process-step-guide" data-process-step-guide aria-hidden="true" hidden>
+              <defs>
+                <marker id="wm-process-step-guide-arrowhead" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6"
+                  markerHeight="6" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#474d4d"></path>
+                </marker>
+              </defs>
+              <path data-process-step-guide-line marker-end="url(#wm-process-step-guide-arrowhead)"></path>
+            </svg>
         </div>
       </div>
     </section>
@@ -6308,7 +6361,7 @@
           image: "/images/process-cards/step2.png",
           alt: "Sample review process step",
           copy:
-            "Once specifications are confirmed, our sampling team prepares a natural-fabric sample and, where needed, matching lab dips for your color reference, typically within about 10 days."
+            "Once specifications are confirmed, our sampling team prepares a natural-fabric sample and, where needed, matching lab dips for your color reference, within about 10 days."
         },
         reviewRevisions: {
           title: "Custom Branding",
@@ -6618,7 +6671,7 @@
         });
       }
 
-      var FOUNDED_JOURNEY_VERSION = "gsap-horizontal-v8-restored-track-static-intro";
+      var FOUNDED_JOURNEY_VERSION = "gsap-horizontal-v9-header-before-pin";
 
       function clampNumber(value, min, max) {
         return Math.min(Math.max(value, min), max);
@@ -6948,12 +7001,14 @@
       function buildFoundedJourneyMarkup() {
         var events = getFoundedJourneyEvents();
         return [
-          '<div class="wm-founded-journey-sticky" data-founded-pin>',
-          '<div class="wm-founded-journey-canvas">',
-          '<div class="wm-founded-journey-intro" data-founded-intro>',
+          '<div class="wm-founded-journey-header">',
+          '<div class="wm-founded-journey-intro">',
           '<h2 class="wm-founded-journey-heading">Founded in 1982</h2>',
           '<p class="wm-founded-journey-copy">Over the years, Crestline has evolved into a reliable manufacturing partner for the promotional textile industry worldwide.</p>',
           "</div>",
+          "</div>",
+          '<div class="wm-founded-journey-sticky" data-founded-pin>',
+          '<div class="wm-founded-journey-canvas">',
           '<div class="wm-founded-journey-desktop" data-founded-desktop>',
           '<div class="wm-founded-journey-viewport" data-founded-viewport>',
           '<div class="wm-founded-journey-track" data-founded-track>',
@@ -7162,14 +7217,13 @@
 
         media.add("(min-width: 1024px)", function () {
           var sticky = section.querySelector("[data-founded-pin]");
-          var intro = section.querySelector("[data-founded-intro]");
           var desktop = section.querySelector("[data-founded-desktop]");
           var viewport = section.querySelector("[data-founded-viewport]");
           var track = section.querySelector("[data-founded-track]");
           var progress = section.querySelector("[data-founded-progress]");
           var events = gsapInstance.utils.toArray(section.querySelectorAll("[data-founded-event]"));
 
-          if (!sticky || !intro || !desktop || !viewport || !track || !progress || !events.length) {
+          if (!sticky || !desktop || !viewport || !track || !progress || !events.length) {
             return;
           }
 
@@ -7205,7 +7259,7 @@
               ease: "none"
             },
             scrollTrigger: {
-              trigger: section,
+              trigger: sticky,
               start: function () {
                 return "top top+=" + readLayout().navOffset;
               },
@@ -7213,7 +7267,7 @@
                 return "+=" + Math.max(readLayout().viewportWidth * 4.15, 3600);
               },
               scrub: 1,
-              pin: sticky,
+              pin: true,
               pinSpacing: true,
               anticipatePin: 1,
               invalidateOnRefresh: true
@@ -7222,18 +7276,13 @@
 
           gsapInstance.set(track, { x: 0, yPercent: -50 });
           gsapInstance.set(progress, { width: 0, transformOrigin: "left center" });
-          gsapInstance.set(intro, { autoAlpha: 1, clearProps: "transform" });
-          gsapInstance.set(desktop, { autoAlpha: 0, y: 0, visibility: "hidden" });
+          gsapInstance.set(desktop, { autoAlpha: 1, y: 0, visibility: "visible" });
 
           events.forEach(function (eventNode, index) {
             setFoundedJourneyEventState(gsapInstance, eventNode, index === 0);
           });
 
-          desktopTimeline
-            .to({}, { duration: 0.18 }, 0)
-            .set(intro, { autoAlpha: 0 }, 0.18)
-            .set(desktop, { visibility: "visible", autoAlpha: 1 }, 0.18)
-            .to({}, { duration: 0.08 }, 0.28);
+          desktopTimeline.to({}, { duration: 0.36 }, 0);
 
           desktopTimeline.to(progress, {
             width: function () {
@@ -7845,7 +7894,6 @@
               '<div class="home-contact-shell" data-home-contact-section="1">' +
                 '<div class="home-contact-grid">' +
                   '<div class="home-contact-copy">' +
-                    '<div class="home-contact-badge">Contact Us</div>' +
                     '<h2 class="home-contact-title">Start your next custom textile inquiry.</h2>' +
                     '<p class="home-contact-intro">Use the quick form to share your brief, timeline, and market details. We will carry everything into the full contact page so your team can continue the inquiry without retyping it.</p>' +
                     '<div class="home-contact-highlights">' +
@@ -7860,15 +7908,9 @@
                         '<div class="home-contact-highlight-copy">Custom promotional textiles produced with quality, consistency, and responsible manufacturing.</div>' +
                       '</div>' +
                     '</div>' +
-                    '<div class="home-contact-pills">' +
-                      '<span class="home-contact-pill">Tote bags, aprons, towels, and utility textiles</span>' +
-                      '<span class="home-contact-pill">Natural and dyed fabric programs</span>' +
-                      '<span class="home-contact-pill">Custom branding and export-ready production</span>' +
-                    '</div>' +
                   '</div>' +
                   '<div class="home-contact-form-panel">' +
                     '<div class="home-contact-form-card">' +
-                      '<div class="home-contact-form-eyebrow">Inquiry Form</div>' +
                       '<h3 class="home-contact-form-title">Tell us what you need.</h3>' +
                       '<p class="home-contact-form-copy">This quick form opens the full contact page with your details already filled in.</p>' +
                       '<form class="home-contact-form" method="GET" action="/contact-us">' +
@@ -7883,8 +7925,7 @@
                         '</div>' +
                         '<label class="home-contact-field">Inquiry Details<textarea class="home-contact-textarea" name="help" placeholder="Tell us about the product, quantity, material, branding, and required delivery timeline." required></textarea></label>' +
                         '<div class="home-contact-form-actions">' +
-                          '<p class="home-contact-form-note">Continue to the full contact page with this inquiry already prepared.</p>' +
-                          '<button class="wm-hero-button home-contact-submit" type="submit"><span class="wm-hero-button-text">Continue Inquiry</span><span class="wm-hero-button-icon" aria-hidden="true">&rarr;</span></button>' +
+                          '<button class="wm-hero-button home-contact-submit" type="submit"><span class="wm-hero-button-text">Submit</span><span class="wm-hero-button-icon" aria-hidden="true">&rarr;</span></button>' +
                         '</div>' +
                       '</form>' +
                     '</div>' +
