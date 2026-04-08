@@ -1247,6 +1247,17 @@
       }
     }
 
+    .pin-spacer:has(#clientContainer) {
+      position: relative;
+    }
+
+    .pin-spacer:has(#clientContainer) > section,
+    section:has(#clientContainer) {
+      isolation: isolate;
+      overflow: hidden !important;
+      background: linear-gradient(180deg, rgba(232, 242, 251, 0.98) 0%, rgba(246, 247, 250, 0.98) 100%);
+    }
+
 
   </style>
   <style>
