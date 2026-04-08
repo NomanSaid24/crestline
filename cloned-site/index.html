@@ -1249,11 +1249,14 @@
 
     .pin-spacer:has(#clientContainer) {
       position: relative;
+      z-index: 0 !important;
     }
 
     .pin-spacer:has(#clientContainer) > section,
     section:has(#clientContainer) {
       isolation: isolate;
+      position: relative;
+      z-index: 0 !important;
       overflow: hidden !important;
       background: linear-gradient(180deg, rgba(232, 242, 251, 0.98) 0%, rgba(246, 247, 250, 0.98) 100%);
     }
@@ -7433,7 +7436,6 @@
           var scrollTrigger = runtime && runtime.ScrollTrigger;
           var clientContainer = document.getElementById("clientContainer");
           var clientSection = clientContainer && clientContainer.closest ? clientContainer.closest("section") : null;
-          var clientSpacer = getPinSpacer(clientSection);
 
           clientSectionAlignmentTimer = 0;
 
@@ -7447,12 +7449,6 @@
           }
 
           scrollTrigger.refresh();
-
-          if (!clientSpacer && clientSectionAlignmentPasses < 12) {
-            clientSectionAlignmentPasses += 1;
-            queueClientSectionAlignment(220);
-            return;
-          }
 
           if (clientSectionAlignmentPasses < 2) {
             clientSectionAlignmentPasses += 1;
@@ -7470,12 +7466,19 @@
         var scrollTrigger = runtime && runtime.ScrollTrigger;
         var clientContainer = document.getElementById("clientContainer");
         var clientSection = clientContainer && clientContainer.closest ? clientContainer.closest("section") : null;
+        var clientSpacer = getPinSpacer(clientSection);
         var scroll0 = document.getElementById("clientScroll0");
         var scroll1 = document.getElementById("clientScroll1");
 
         if (!clientSection || !scrollTrigger || typeof scrollTrigger.getAll !== "function") {
           if (gsap && scroll0 && scroll1) {
             gsap.set([scroll0, scroll1], { clearProps: "x,transform" });
+          }
+          if (gsap && clientSection) {
+            gsap.set(clientSection, { clearProps: "position,top,left,bottom,right,width,height,maxWidth,maxHeight,margin,padding,transform,translate,rotate,scale,zIndex" });
+          }
+          if (gsap && clientSpacer && clientSpacer !== clientSection) {
+            gsap.set(clientSpacer, { clearProps: "position,top,left,bottom,right,width,height,maxWidth,maxHeight,margin,padding,transform,translate,rotate,scale,zIndex,display,overflow" });
           }
           return;
         }
@@ -7507,6 +7510,43 @@
         if (gsap && scroll0 && scroll1) {
           gsap.set([scroll0, scroll1], { clearProps: "x,transform" });
         }
+        if (gsap && clientSection) {
+          gsap.set(clientSection, { clearProps: "position,top,left,bottom,right,width,height,maxWidth,maxHeight,margin,padding,transform,translate,rotate,scale,zIndex" });
+        }
+        if (gsap && clientSpacer && clientSpacer !== clientSection) {
+          gsap.set(clientSpacer, { clearProps: "position,top,left,bottom,right,width,height,maxWidth,maxHeight,margin,padding,transform,translate,rotate,scale,zIndex,display,overflow" });
+        }
+      }
+
+      function ensureHomepageSectionOrder() {
+        var globalSectionImage = document.querySelector('img[src="/images/c-suite-ui/Integrations.webp"]');
+        var overviewSection = globalSectionImage && globalSectionImage.closest ? globalSectionImage.closest("section") : null;
+        var languagesSection = document.querySelector(".LanguagesSection");
+        var clientContainer;
+        var clientSection;
+        var clientHolder;
+
+        if (!overviewSection || !languagesSection || !overviewSection.parentNode) {
+          return;
+        }
+
+        destroyClientSectionPin();
+
+        clientContainer = document.getElementById("clientContainer");
+        clientSection = clientContainer && clientContainer.closest ? clientContainer.closest("section") : null;
+        clientHolder = getPinSpacer(clientSection) || clientSection;
+
+        if (!clientHolder || clientHolder === overviewSection || clientHolder === languagesSection) {
+          return;
+        }
+
+        if (overviewSection.nextElementSibling !== clientHolder) {
+          overviewSection.insertAdjacentElement("afterend", clientHolder);
+        }
+
+        if (clientHolder.nextElementSibling !== languagesSection) {
+          clientHolder.insertAdjacentElement("afterend", languagesSection);
+        }
       }
 
       function initClientSectionPin() {
@@ -7522,7 +7562,6 @@
         var gap = 0;
         var cardWidth = 0;
         var step = 0;
-        var endDistance = 0;
         var timeline;
 
         if (!clientSection || !scroll0 || !scroll1) {
@@ -7545,7 +7584,6 @@
         gap = parseFloat(rowStyles.columnGap || rowStyles.gap || 0) || 0;
         cardWidth = firstCard.getBoundingClientRect().width || firstCard.clientWidth || 0;
         step = cardWidth + gap;
-        endDistance = Math.max(step * 2.8, window.innerHeight * 0.95);
 
         timeline = gsap.timeline({
           defaults: {
@@ -7554,12 +7592,9 @@
           scrollTrigger: {
             id: "crestlineClientSectionPin",
             trigger: clientSection,
-            start: "top 10%",
-            end: "+=" + endDistance,
+            start: "top 78%",
+            end: "bottom 35%",
             scrub: 1,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
             invalidateOnRefresh: true
           }
         });
@@ -7617,6 +7652,517 @@
         document.documentElement.classList.toggle("mobile-performance-mode", enabled);
         toggleClass(clientSection, "mobile-performance-static", enabled);
         toggleClass(clientSpacer, "mobile-performance-spacer", enabled);
+      }
+
+      function getGlobalMarketsCountryRoutes() {
+        var pakistan = {
+          lat: 24.8607,
+          lng: 67.0011,
+          mapX: 514,
+          mapY: 145,
+          label: "Pakistan",
+          labelDx: 10,
+          labelDy: -10,
+          hub: true
+        };
+
+        return [
+          {
+            start: pakistan,
+            end: { lat: 51.5072, lng: -0.1276, mapX: 397, mapY: 90, label: "UK", labelDx: 8, labelDy: -10 },
+            index: 0,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 39.9334, lng: 32.8597, mapX: 464, mapY: 111, label: "Turkey", labelDx: 8, labelDy: -8 },
+            index: 0,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 24.4539, lng: 54.3773, mapX: 500, mapY: 157, label: "UAE", labelDx: 8, labelDy: 16 },
+            index: 0,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 48.8566, lng: 2.3522, mapX: 404, mapY: 105, label: "France", labelDx: -44, labelDy: 10 },
+            index: 1,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 52.52, lng: 13.405, mapX: 423, mapY: 96, label: "Germany", labelDx: 8, labelDy: -12 },
+            index: 1,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 41.9028, lng: 12.4964, mapX: 429, mapY: 116, label: "Italy", labelDx: 8, labelDy: 14 },
+            index: 1,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 40.4168, lng: -3.7038, mapX: 387, mapY: 122, label: "Spain", labelDx: -34, labelDy: 18 },
+            index: 1,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 38.9072, lng: -77.0369, mapX: 190, mapY: 130, label: "USA", labelDx: 8, labelDy: -8 },
+            index: 2,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 45.4215, lng: -75.6972, mapX: 186, mapY: 94, label: "Canada", labelDx: 8, labelDy: -10 },
+            index: 2,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 9.0765, lng: 7.3986, mapX: 412, mapY: 180, label: "Nigeria", labelDx: -46, labelDy: -6 },
+            index: 3,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: -25.7479, lng: 28.2293, mapX: 452, mapY: 255, label: "South Africa", labelDx: 8, labelDy: 18 },
+            index: 3,
+            direction: "left"
+          },
+          {
+            start: pakistan,
+            end: { lat: 39.9042, lng: 116.4074, mapX: 617, mapY: 111, label: "China", labelDx: 8, labelDy: -8 },
+            index: 4,
+            direction: "right"
+          },
+          {
+            start: pakistan,
+            end: { lat: 35.6762, lng: 139.6503, mapX: 684, mapY: 118, label: "Japan", labelDx: 8, labelDy: -8 },
+            index: 4,
+            direction: "right"
+          },
+          {
+            start: pakistan,
+            end: { lat: -35.2809, lng: 149.13, mapX: 688, mapY: 288, label: "Australia", labelDx: 8, labelDy: 18 },
+            index: 4,
+            direction: "right"
+          }
+        ];
+      }
+
+      function projectGlobalMarketsPoint(point) {
+        if (point && typeof point.mapX === "number" && typeof point.mapY === "number") {
+          return {
+            x: point.mapX,
+            y: point.mapY
+          };
+        }
+
+        return {
+          x: 800 / 360 * (point.lng + 180),
+          y: 400 / 180 * (90 - point.lat)
+        };
+      }
+
+      function buildGlobalMarketsPath(startPoint, endPoint) {
+        var curveX = (startPoint.x + endPoint.x) / 2;
+        var curveY = Math.min(startPoint.y, endPoint.y) - 50;
+        return "M " + startPoint.x + " " + startPoint.y + " Q " + curveX + " " + curveY + " " + endPoint.x + " " + endPoint.y;
+      }
+
+      function buildGlobalMarketsPulseMarkup(x, y, color, radius, pulseRadius) {
+        return (
+          '<circle cx="' + x + '" cy="' + y + '" r="' + radius + '" fill="' + color + '"></circle>' +
+          '<circle cx="' + x + '" cy="' + y + '" r="' + radius + '" fill="' + color + '" opacity="0.5">' +
+            '<animate attributeName="r" from="' + radius + '" to="' + pulseRadius + '" dur="1.5s" begin="0s" repeatCount="indefinite"></animate>' +
+            '<animate attributeName="opacity" from="0.5" to="0" dur="1.5s" begin="0s" repeatCount="indefinite"></animate>' +
+          '</circle>'
+        );
+      }
+
+      function buildGlobalMarketsCountryMap(svgNode, routes) {
+        var lineColor = "#29ADE4";
+        var pointMarkup = [];
+        var pathMarkup = [];
+        var pulseMarkup = [];
+        var seenPoints = Object.create(null);
+
+        routes.forEach(function (route, routeIndex) {
+          var startPoint = projectGlobalMarketsPoint(route.start);
+          var endPoint = projectGlobalMarketsPoint(route.end);
+          var routePath = buildGlobalMarketsPath(startPoint, endPoint);
+          var gradientLeadingId = route.direction === "right" ? "lineGradTransparent-" + routeIndex : "";
+          var gradientTrailingId = route.direction === "left" ? "lineGradTransparent-" + routeIndex : "";
+          var startColor = route.start.hub ? "#00b14c" : lineColor;
+          var endColor = route.end.hub ? "#00b14c" : lineColor;
+          var startRadius = route.start.hub ? 3.4 : 2.2;
+          var endRadius = route.end.hub ? 3.4 : 2.2;
+          var startKey = route.start.lat + "," + route.start.lng;
+          var endKey = route.end.lat + "," + route.end.lng;
+
+          pathMarkup.push(
+            '<g>' +
+              '<path id="path' + routeIndex + '" d="' + routePath + '" fill="none" stroke="url(#path-gradient-' + routeIndex + ')" stroke-width="1.5" style="stroke-dashoffset:0px;stroke-dasharray:0;opacity:0;"></path>' +
+              '<path id="pathWhite' + routeIndex + '" d="' + routePath + '" fill="none" stroke="" stroke-width="2.5"></path>' +
+              '<defs>' +
+                '<linearGradient id="path-gradient-' + routeIndex + '" x1="0%" y1="0%" x2="100%" y2="0%">' +
+                  '<stop offset="0%" stop-color="white" stop-opacity="0"' + (gradientLeadingId ? ' id="' + gradientLeadingId + '"' : "") + '></stop>' +
+                  '<stop offset="0%" stop-color="' + lineColor + '" stop-opacity="1"></stop>' +
+                  '<stop offset="100%" stop-color="' + lineColor + '" stop-opacity="1"' + (gradientTrailingId ? ' id="' + gradientTrailingId + '"' : "") + '></stop>' +
+                  '<stop offset="100%" stop-color="white" stop-opacity="0"></stop>' +
+                '</linearGradient>' +
+              '</defs>' +
+            '</g>'
+          );
+
+          if (!seenPoints[startKey]) {
+            seenPoints[startKey] = true;
+            pointMarkup.push(
+              '<g class="market-country-point">' +
+                '<circle cx="' + startPoint.x + '" cy="' + startPoint.y + '" r="' + startRadius + '" fill="' + startColor + '"></circle>' +
+                '<text x="' + (startPoint.x + (route.start.labelDx != null ? route.start.labelDx : 6)) + '" y="' + (startPoint.y + (route.start.labelDy != null ? route.start.labelDy : -6)) + '" font-size="' + (route.start.hub ? 13 : 12) + '" font-weight="' + (route.start.hub ? 600 : 500) + '" fill="' + startColor + '" style="paint-order:stroke;stroke:rgba(255,255,255,0.84);stroke-width:2px;">' + route.start.label + '</text>' +
+              '</g>'
+            );
+          }
+
+          if (!seenPoints[endKey]) {
+            seenPoints[endKey] = true;
+            pointMarkup.push(
+              '<g class="market-country-point">' +
+                '<circle cx="' + endPoint.x + '" cy="' + endPoint.y + '" r="' + endRadius + '" fill="' + endColor + '"></circle>' +
+                '<text x="' + (endPoint.x + (route.end.labelDx != null ? route.end.labelDx : 6)) + '" y="' + (endPoint.y + (route.end.labelDy != null ? route.end.labelDy : -6)) + '" font-size="' + (route.end.hub ? 13 : 12) + '" font-weight="' + (route.end.hub ? 600 : 500) + '" fill="' + endColor + '" style="paint-order:stroke;stroke:rgba(255,255,255,0.84);stroke-width:2px;">' + route.end.label + '</text>' +
+              '</g>'
+            );
+          }
+
+          pulseMarkup.push(
+            '<g>' +
+              '<g id="start-' + routeIndex + '" style="opacity:0;">' + buildGlobalMarketsPulseMarkup(startPoint.x, startPoint.y, startColor, startRadius, route.start.hub ? 11 : 8) + '</g>' +
+              '<g id="end-' + routeIndex + '" style="opacity:0;">' + buildGlobalMarketsPulseMarkup(endPoint.x, endPoint.y, endColor, endRadius, route.end.hub ? 10 : 8) + '</g>' +
+            '</g>'
+          );
+        });
+
+        svgNode.innerHTML =
+          pathMarkup.join("") +
+          '<g class="market-country-points">' + pointMarkup.join("") + '</g>' +
+          pulseMarkup.join("");
+      }
+
+      function resetGlobalMarketsCountryMap(section) {
+        var state = section && section.__crestlineCountryMapState;
+        if (!state || !state.svg) {
+          return;
+        }
+
+        state.routes.forEach(function (route, routeIndex) {
+          var path = state.svg.querySelector("#path" + routeIndex);
+          var start = state.svg.querySelector("#start-" + routeIndex);
+          var end = state.svg.querySelector("#end-" + routeIndex);
+          var gradientStop = state.svg.querySelector("#lineGradTransparent-" + routeIndex);
+          var totalLength = path && typeof path.getTotalLength === "function" ? path.getTotalLength() : 0;
+
+          if (path) {
+            path.style.strokeDasharray = totalLength ? String(totalLength) : "0";
+            path.style.strokeDashoffset = totalLength ? String(totalLength) : "0";
+            path.style.opacity = "0";
+          }
+
+          if (start) {
+            start.style.opacity = "0";
+          }
+
+          if (end) {
+            end.style.opacity = "0";
+          }
+
+          if (gradientStop) {
+            gradientStop.setAttribute("offset", route.direction === "left" ? "100%" : "0%");
+          }
+        });
+      }
+
+      function clearGlobalMarketsCountryMapTimers(section) {
+        var state = section && section.__crestlineCountryMapState;
+
+        if (!state) {
+          return;
+        }
+
+        (state.routeTimers || []).forEach(function (timerId) {
+          window.clearTimeout(timerId);
+        });
+        state.routeTimers = [];
+
+        if (state.loopTimer) {
+          window.clearTimeout(state.loopTimer);
+          state.loopTimer = 0;
+        }
+
+        (state.timelines || []).forEach(function (timeline) {
+          if (timeline && typeof timeline.kill === "function") {
+            timeline.kill();
+          }
+        });
+        state.timelines = [];
+      }
+
+      function animateGlobalMarketsCountryRoute(section, routeIndex) {
+        var state = section && section.__crestlineCountryMapState;
+        var runtime = getFoundedJourneyGsapRuntime();
+        var gsap = runtime && runtime.gsap;
+        var route;
+        var path;
+        var start;
+        var end;
+        var gradientStop;
+        var totalLength;
+        var timeline;
+
+        if (!state || !state.svg) {
+          return;
+        }
+
+        route = state.routes[routeIndex];
+        path = state.svg.querySelector("#path" + routeIndex);
+        start = state.svg.querySelector("#start-" + routeIndex);
+        end = state.svg.querySelector("#end-" + routeIndex);
+        gradientStop = state.svg.querySelector("#lineGradTransparent-" + routeIndex);
+        totalLength = path && typeof path.getTotalLength === "function" ? path.getTotalLength() : 0;
+
+        if (!path || !gsap) {
+          if (path) {
+            path.style.opacity = "1";
+            path.style.strokeDasharray = totalLength ? String(totalLength) : "0";
+            path.style.strokeDashoffset = "0";
+          }
+          if (start) {
+            start.style.opacity = "1";
+          }
+          if (end) {
+            end.style.opacity = "1";
+          }
+          return;
+        }
+
+        timeline = gsap.timeline({
+          defaults: {
+            ease: "power1.inOut"
+          }
+        });
+
+        state.timelines.push(timeline);
+
+        timeline.set(path, {
+          opacity: 1,
+          strokeDasharray: totalLength,
+          strokeDashoffset: totalLength
+        });
+
+        if (gradientStop) {
+          timeline.set(gradientStop, {
+            attr: {
+              offset: route.direction === "left" ? "100%" : "0%"
+            }
+          }, 0);
+        }
+
+        if (start) {
+          timeline.set(start, { opacity: 0 }, 0);
+          timeline.to(start, { opacity: 1, duration: 0.18 }, 0);
+        }
+
+        if (end) {
+          timeline.set(end, { opacity: 0 }, 0);
+          timeline.to(end, { opacity: 1, duration: 0.18 }, 0.75);
+        }
+
+        timeline.to(path, { strokeDashoffset: 0, duration: 1 }, 0.05);
+
+        if (gradientStop) {
+          timeline.to(
+            gradientStop,
+            {
+              attr: {
+                offset: route.direction === "left" ? "0%" : "100%"
+              },
+              duration: 1
+            },
+            0.95
+          );
+        }
+
+        if (start) {
+          timeline.to(start, { opacity: 0, duration: 0.22 }, 1.1);
+        }
+
+        timeline.to(path, { opacity: 0.08, duration: 0.32 }, 1.28);
+
+        if (end) {
+          timeline.to(end, { opacity: 0, duration: 0.22 }, 1.52);
+        }
+      }
+
+      function playGlobalMarketsCountryMap(section) {
+        var state = section && section.__crestlineCountryMapState;
+        var groupedRoutes = {};
+        var groupIndexes;
+        var totalDelay = 0;
+
+        if (!state || !state.svg) {
+          return;
+        }
+
+        clearGlobalMarketsCountryMapTimers(section);
+        resetGlobalMarketsCountryMap(section);
+
+        state.routes.forEach(function (route, routeIndex) {
+          if (!groupedRoutes[route.index]) {
+            groupedRoutes[route.index] = [];
+          }
+          groupedRoutes[route.index].push(routeIndex);
+        });
+
+        groupIndexes = Object.keys(groupedRoutes).map(function (key) {
+          return parseInt(key, 10);
+        }).sort(function (a, b) {
+          return a - b;
+        });
+
+        groupIndexes.forEach(function (groupIndex) {
+          var groupRouteIndexes = groupedRoutes[groupIndex];
+
+          groupRouteIndexes.forEach(function (routeIndex, offsetIndex) {
+            state.routeTimers.push(
+              window.setTimeout(function () {
+                animateGlobalMarketsCountryRoute(section, routeIndex);
+              }, totalDelay + offsetIndex * 220)
+            );
+          });
+
+          totalDelay += 1650 + groupRouteIndexes.length * 220;
+        });
+
+        state.loopTimer = window.setTimeout(function () {
+          if (state.inView) {
+            playGlobalMarketsCountryMap(section);
+          }
+        }, totalDelay + 2200);
+      }
+
+      function syncGlobalMarketsCountryMap() {
+        var languagesSection = document.querySelector(".LanguagesSection");
+        var svgNode = languagesSection && languagesSection.querySelector ? languagesSection.querySelector('svg[viewBox="0 0 800 400"]') : null;
+        var routes;
+        var state;
+
+        if (!languagesSection || !svgNode) {
+          return;
+        }
+
+        if (languagesSection.__crestlineCountryMapState) {
+          clearGlobalMarketsCountryMapTimers(languagesSection);
+          if (languagesSection.__crestlineCountryMapState.observer) {
+            languagesSection.__crestlineCountryMapState.observer.disconnect();
+          }
+        }
+
+        routes = getGlobalMarketsCountryRoutes();
+        svgNode.style.boxSizing = "border-box";
+        svgNode.style.paddingLeft = "1rem";
+        svgNode.style.paddingRight = "1rem";
+        buildGlobalMarketsCountryMap(svgNode, routes);
+
+        state = {
+          routes: routes,
+          svg: svgNode,
+          routeTimers: [],
+          timelines: [],
+          loopTimer: 0,
+          observer: null,
+          inView: false
+        };
+
+        languagesSection.__crestlineCountryMapState = state;
+        resetGlobalMarketsCountryMap(languagesSection);
+
+        if ("IntersectionObserver" in window) {
+          state.observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.target !== languagesSection) {
+                return;
+              }
+
+              if (entry.isIntersecting) {
+                if (!state.inView) {
+                  state.inView = true;
+                  playGlobalMarketsCountryMap(languagesSection);
+                }
+              } else {
+                state.inView = false;
+                clearGlobalMarketsCountryMapTimers(languagesSection);
+                resetGlobalMarketsCountryMap(languagesSection);
+              }
+            });
+          }, {
+            threshold: 0.35
+          });
+
+          state.observer.observe(languagesSection);
+        } else {
+          state.inView = true;
+          playGlobalMarketsCountryMap(languagesSection);
+        }
+      }
+
+      function ensureLanguagesSectionProfileButton(section) {
+        var intro = section && section.querySelector ? section.querySelector(".max-w-7xl.mx-auto.text-center") : null;
+        var paragraph = intro && intro.querySelector ? intro.querySelector("p") : null;
+        var button = intro && intro.querySelector ? intro.querySelector("[data-language-profile-download]") : null;
+        var buttonHtml =
+          '<span>See Company Profile</span>' +
+          '<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:1.2em;height:1.2em;">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">' +
+              '<path d="M8 2V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>' +
+              '<path d="M4.8 7.1L8 10.3L11.2 7.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>' +
+              '<path d="M3 13H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>' +
+            '</svg>' +
+          '</span>';
+
+        if (!intro || !paragraph) {
+          return;
+        }
+
+        if (!button) {
+          button = document.createElement("a");
+          paragraph.insertAdjacentElement("afterend", button);
+        }
+
+        button.setAttribute("data-language-profile-download", "1");
+        button.setAttribute("href", "/files/CrestlineCompanyProfile.pdf");
+        button.setAttribute("download", "CrestlineCompanyProfile.pdf");
+        button.setAttribute("aria-label", "Download Crestline company profile PDF");
+        button.innerHTML = buttonHtml;
+
+        button.style.display = "inline-flex";
+        button.style.alignItems = "center";
+        button.style.justifyContent = "center";
+        button.style.gap = "10px";
+        button.style.marginTop = "24px";
+        button.style.marginBottom = "24px";
+        button.style.padding = "16px 30px";
+        button.style.borderRadius = "999px";
+        button.style.background = "#00b14c";
+        button.style.color = "#ffffff";
+        button.style.textDecoration = "none";
+        button.style.fontSize = "16px";
+        button.style.fontWeight = "600";
+        button.style.lineHeight = "1";
+        button.style.boxShadow = "0 14px 30px rgba(0, 177, 76, 0.24)";
       }
 
       function applyHomepageCopy() {
@@ -7875,9 +8421,6 @@
         if (clientsSection) {
           setText(findByText(clientsSection, "h2", ["Our Best Clients", "Global Markets & Renowned Brands"]), "Global Markets & Renowned Brands");
         }
-        applyClientLogoResponsiveLayout();
-        queueClientSectionPinSetup(260);
-        queueClientSectionAlignment(220);
 
         var languagesSection = document.querySelector(".LanguagesSection");
         if (languagesSection) {
@@ -7889,14 +8432,25 @@
               "p",
               [
                 "Break free from traditional boundaries. Work from anywhere, at the comfort of your own studio apartment. Perfect for Nomads and Travellers.",
-                "With decades of export experience and a subsidiary presence through Fabric Plus Inc. in Dallas since 2002, Crestline supports international buyers with responsive communication and dependable delivery."
+                "With decades of export experience and a subsidiary presence through Fabric Plus Inc. in Dallas since 2002, Crestline supports international buyers with responsive communication and dependable delivery.",
+                "With decades of export experience, Crestline supports international buyers with responsive communication and dependable delivery."
               ]
             ),
-            "With decades of export experience and a subsidiary presence through Fabric Plus Inc. in Dallas since 2002, Crestline supports international buyers with responsive communication and dependable delivery."
+            "With decades of export experience, Crestline supports international buyers with responsive communication and dependable delivery."
           );
           setText(languageHeadings[0], "40+");
+          if (languageHeadings[0]) {
+            languageHeadings[0].style.color = "#00b14c";
+          }
           setHtml(languageHeadings[1], "Years of <br> Expertise");
+          ensureLanguagesSectionProfileButton(languagesSection);
+          syncGlobalMarketsCountryMap();
         }
+
+        ensureHomepageSectionOrder();
+        applyClientLogoResponsiveLayout();
+        queueClientSectionPinSetup(260);
+        queueClientSectionAlignment(220);
 
         var pricingSection = document.getElementById("pricing");
         if (pricingSection) {
