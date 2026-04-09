@@ -355,6 +355,96 @@
       color: #00274D;
     }
 
+    .wm-home-certifications-section {
+      position: relative;
+      z-index: 2;
+      padding: 0 0 clamp(3.5rem, 5vw, 4.75rem);
+    }
+
+    .wm-home-certifications-inner {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      padding: clamp(2.2rem, 3.5vw, 3rem) clamp(1.25rem, 2.8vw, 2.4rem);
+      border-radius: 0;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      background: linear-gradient(180deg, rgba(232, 242, 251, 0.84) 0%, rgba(244, 247, 250, 0.68) 100%);
+      box-shadow: rgba(0, 177, 76, 0.24) 0px -14px 30px, rgba(0, 177, 76, 0.24) 0px 14px 30px;
+      overflow: hidden;
+    }
+
+    .wm-home-certifications-heading {
+      max-width: min(100%, 720px);
+      margin: 0 auto;
+      font-family: inherit;
+      font-size: clamp(1.875rem, 1.42rem + 2.27vw, 3rem);
+      line-height: 1.08;
+      font-weight: 400;
+      letter-spacing: -2px;
+      color: #00274D;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .wm-home-certifications-marquee {
+      width: 100%;
+      overflow: hidden;
+      padding: 0.35rem 0 0.15rem;
+      mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+
+    .wm-home-certifications-track {
+      display: flex;
+      width: max-content;
+      animation: wm-home-certifications-scroll 18s linear infinite;
+      will-change: transform;
+    }
+
+    .wm-home-certifications-marquee:hover .wm-home-certifications-track {
+      animation-play-state: paused;
+    }
+
+    .wm-home-certifications-group {
+      display: flex;
+      align-items: center;
+      gap: clamp(1.4rem, 2.6vw, 2rem);
+      padding-right: clamp(1.4rem, 2.6vw, 2rem);
+      flex-shrink: 0;
+    }
+
+    .wm-home-certifications-logo {
+      width: clamp(220px, 20vw, 296px);
+      height: clamp(118px, 12vw, 156px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .wm-home-certifications-logo img {
+      max-width: 100%;
+      max-height: clamp(96px, 10vw, 128px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    @keyframes wm-home-certifications-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .wm-home-about-card.wm-home-about-card--reveal-ready,
       .wm-home-about-card.wm-home-about-card--reveal-ready.wm-home-about-card--visible {
@@ -362,6 +452,11 @@
         transform: none;
         filter: none;
         transition: none;
+      }
+
+      .wm-home-certifications-track {
+        animation: none;
+        transform: none;
       }
     }
 
@@ -382,6 +477,29 @@
 
       .wm-home-about-card--mission {
         margin-top: 0;
+      }
+
+      .wm-home-certifications-section {
+        padding: 0 0 3rem;
+      }
+
+      .wm-home-certifications-inner {
+        border-radius: 0;
+        padding: 1.8rem 1rem 2rem;
+      }
+
+      .wm-home-certifications-group {
+        gap: 1rem;
+        padding-right: 1rem;
+      }
+
+      .wm-home-certifications-logo {
+        width: 196px;
+        height: 112px;
+      }
+
+      .wm-home-certifications-logo img {
+        max-height: 88px;
       }
 
       .clients-static-mobile-spacer {
@@ -8228,6 +8346,59 @@
         setHtml(button, buttonHtml);
       }
 
+      function getHomeCertificationsMarkup() {
+        var certifications = [
+          { src: "/images/certifications/gots-1-light.png", alt: "GOTS certification" },
+          { src: "/images/certifications/grs-2-light.png", alt: "GRS certification" },
+          { src: "/images/certifications/oeko-3-light.png", alt: "OEKO-TEX certification" },
+          { src: "/images/certifications/sedex-4-light.png", alt: "Sedex certification" },
+          { src: "/images/certifications/cTPAT-5-light.png", alt: "CTPAT certification" },
+          { src: "/images/certifications/BetterCotton-6-light.png", alt: "Better Cotton certification" }
+        ];
+
+        function renderLogo(logo) {
+          return (
+            '<div class="wm-home-certifications-logo">' +
+              '<img src="' + logo.src + '" alt="' + logo.alt + '" loading="lazy">' +
+            '</div>'
+          );
+        }
+
+        var logosMarkup = certifications.map(renderLogo).join("");
+
+        return (
+          '<div class="wm-home-certifications-inner">' +
+            '<h2 class="wm-home-certifications-heading">Responsible Production for Global Brands</h2>' +
+            '<div class="wm-home-certifications-marquee" aria-label="Crestline certification logos">' +
+              '<div class="wm-home-certifications-track">' +
+                '<div class="wm-home-certifications-group">' + logosMarkup + '</div>' +
+                '<div class="wm-home-certifications-group" aria-hidden="true">' + logosMarkup + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+
+      function ensureHomeCertificationsSection() {
+        var aboutSection = document.querySelector("[data-crestline-home-about='1']");
+        var certificationsSection = document.querySelector("[data-crestline-home-certifications='1']");
+
+        if (!aboutSection || !aboutSection.parentNode) {
+          return;
+        }
+
+        if (!certificationsSection) {
+          certificationsSection = document.createElement("section");
+          certificationsSection.setAttribute("data-crestline-home-certifications", "1");
+          aboutSection.insertAdjacentElement("afterend", certificationsSection);
+        } else if (aboutSection.nextElementSibling !== certificationsSection) {
+          aboutSection.insertAdjacentElement("afterend", certificationsSection);
+        }
+
+        certificationsSection.className = "wm-home-certifications-section";
+        setHtml(certificationsSection, getHomeCertificationsMarkup());
+      }
+
       function removeLegacyIntegrationsSection() {
         var removed = false;
 
@@ -8264,6 +8435,7 @@
 
       function ensureLegacyIntegrationsRemoved() {
         removeLegacyIntegrationsSection();
+        ensureHomeCertificationsSection();
 
         if (legacyIntegrationsObserver || !document.body || !("MutationObserver" in window)) {
           return;
@@ -8271,6 +8443,7 @@
 
         legacyIntegrationsObserver = new MutationObserver(function () {
           removeLegacyIntegrationsSection();
+          ensureHomeCertificationsSection();
         });
 
         legacyIntegrationsObserver.observe(document.body, {
