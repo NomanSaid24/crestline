@@ -5242,21 +5242,6 @@
           </svg></div>
       </div>
     </section>
-    <section class="">
-      <div class="max-w-[1100px] m-auto px-3 sm:px-8">
-        <div class="flex flex-col justify gap-[1rem]">
-          <h2
-            class="text-[32.9px] leading-[43.51px] md:text-[42.81px] !font-normal lg:!leading-[48.93px] w-full text-center text-black"
-            style="letter-spacing:-2px">100+ Integrations</h2>
-          <p class="max-w-[654px] text-center text-[14px] lg:text-[21.13px] text-normal text-[#181055] m-auto">Enhance
-            your experience with powerful add-ons tailored to elevate your performance.</p><button
-            class="m-auto text-[9.7px] lg:text-[19.41px] text-[#363F5E] bg-white rounded-full px-4 lg:px-8 py-2 lg:py-4 font-medium lg:font-semibold shadow-lg !mb-4">Show
-            more 100+ integrations</button>
-        </div><img alt="Integrations" loading="lazy" width="4619" height="2224" decoding="async" data-nimg="1"
-          class=" m-auto w-[1140px]  lg:scale-100 lg:max-h-[80vh]" style="color:transparent"
-          src="/images/c-suite-ui/Integrations.webp">
-      </div>
-    </section>
     <div class="pin-spacer"
       style="order: 0; place-self: auto; grid-area: auto; z-index: 10; float: none; flex-shrink: 1; display: block; margin: 0px; inset: 0px; position: relative; flex-basis: auto; overflow: visible; box-sizing: border-box; width: 1920px; height: 1688px; padding: 0px 0px 898px;">
       <section
@@ -7573,14 +7558,12 @@
       }
 
       function ensureHomepageSectionOrder() {
-        var globalSectionImage = document.querySelector('img[src="/images/c-suite-ui/Integrations.webp"]');
-        var overviewSection = globalSectionImage && globalSectionImage.closest ? globalSectionImage.closest("section") : null;
         var languagesSection = document.querySelector(".LanguagesSection");
         var clientContainer;
         var clientSection;
         var clientHolder;
 
-        if (!overviewSection || !languagesSection || !overviewSection.parentNode) {
+        if (!languagesSection || !languagesSection.parentNode) {
           return;
         }
 
@@ -7590,12 +7573,8 @@
         clientSection = clientContainer && clientContainer.closest ? clientContainer.closest("section") : null;
         clientHolder = getPinSpacer(clientSection) || clientSection;
 
-        if (!clientHolder || clientHolder === overviewSection || clientHolder === languagesSection) {
+        if (!clientHolder || clientHolder === languagesSection) {
           return;
-        }
-
-        if (overviewSection.nextElementSibling !== clientHolder) {
-          overviewSection.insertAdjacentElement("afterend", clientHolder);
         }
 
         if (clientHolder.nextElementSibling !== languagesSection) {
@@ -8249,9 +8228,61 @@
         setHtml(button, buttonHtml);
       }
 
+      function removeLegacyIntegrationsSection() {
+        var removed = false;
+
+        Array.prototype.forEach.call(document.querySelectorAll('img[src="/images/c-suite-ui/Integrations.webp"]'), function (imageNode) {
+          var section = imageNode.closest ? imageNode.closest("section") : null;
+          if (section && section.parentNode) {
+            section.parentNode.removeChild(section);
+            removed = true;
+          }
+        });
+
+        Array.prototype.forEach.call(document.querySelectorAll("section"), function (section) {
+          var heading = section.querySelector("h2");
+          var button = section.querySelector("button, a");
+          var headingText = normalize(heading && heading.textContent);
+          var buttonText = normalize(button && button.textContent);
+
+          if (
+            headingText === "100+ Integrations" ||
+            buttonText === "Show more 100+ integrations" ||
+            (headingText === "Serving Global Markets" && buttonText === "See Company Overview")
+          ) {
+            if (section.parentNode) {
+              section.parentNode.removeChild(section);
+              removed = true;
+            }
+          }
+        });
+
+        return removed;
+      }
+
+      var legacyIntegrationsObserver = null;
+
+      function ensureLegacyIntegrationsRemoved() {
+        removeLegacyIntegrationsSection();
+
+        if (legacyIntegrationsObserver || !document.body || !("MutationObserver" in window)) {
+          return;
+        }
+
+        legacyIntegrationsObserver = new MutationObserver(function () {
+          removeLegacyIntegrationsSection();
+        });
+
+        legacyIntegrationsObserver.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+
       function applyHomepageCopy() {
         var heroImageVersion = "/images/hero/crestline-hero-bg.png?v=hero20260314c";
         applyMobilePerformanceMode();
+        ensureLegacyIntegrationsRemoved();
         Array.from(document.querySelectorAll(".wm-hero-bg-image")).forEach(function (imageNode) {
           if (imageNode.getAttribute("src") !== heroImageVersion) {
             imageNode.setAttribute("src", heroImageVersion);
@@ -8490,24 +8521,6 @@
             "These values guide how we manufacture, inspect, and support lasting customer partnerships across every order."
           );
           setText(findByText(valuesSection, "button", ["Show more 300 + add-ons", "Built on Integrity"]), "Built on Integrity");
-        }
-
-        var globalSectionImage = document.querySelector('img[src="/images/c-suite-ui/Integrations.webp"]');
-        var globalSection = globalSectionImage ? globalSectionImage.closest("section") : null;
-        if (globalSection) {
-          setText(findByText(globalSection, "h2", ["100+ Integrations", "Serving Global Markets"]), "Serving Global Markets");
-          setText(
-            findByText(
-              globalSection,
-              "p",
-              [
-                "Enhance your experience with powerful add-ons tailored to elevate your performance.",
-                "From Karachi to customers abroad, Crestline supports the global promotional industry with dependable manufacturing, export experience, and tailored product development."
-              ]
-            ),
-            "From Karachi to customers abroad, Crestline supports the global promotional industry with dependable manufacturing, export experience, and tailored product development."
-          );
-          bindButton(findByText(globalSection, "button", ["Show more 100+ integrations", "See Company Overview"]), "See Company Overview", "/about");
         }
 
         var clientsSection = document.getElementById("clientContainer");
