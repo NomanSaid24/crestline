@@ -225,7 +225,8 @@
       gap: 1.5rem;
     }
 
-    .wm-home-about-heading {
+    .wm-home-about-heading,
+    [data-crestline-home-about="1"] .wm-home-about-heading {
       max-width: 874px;
       margin: 0 auto;
       font-family: inherit;
@@ -233,7 +234,7 @@
       line-height: clamp(2.625rem, 2.1rem + 2.62vw, 4.46875rem);
       font-weight: 400;
       letter-spacing: -2px;
-      color: #00274D;
+      color: #00b14c !important;
     }
 
     .wm-home-about-copy {
@@ -246,20 +247,29 @@
       color: rgb(71 77 77 / var(--tw-text-opacity, 1));
     }
 
-    .wm-home-about-cta {
+    .wm-home-about-cta,
+    [data-crestline-home-about="1"] a[href="/contact-us"] {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       margin-top: 0.5rem;
       padding: 0.28rem 0.28rem 0.28rem 0.78rem;
       border-radius: 999px;
-      background: linear-gradient(90deg, #26ADE3 0%, rgba(38, 173, 227, 0.16) 100%);
+      background: linear-gradient(90deg, #00b14c 0%, #11c85a 100%) !important;
       color: #ffffff;
       font-family: 'Denim Ink', Arial, sans-serif;
       font-size: 0.82rem;
       font-weight: 500;
       text-decoration: none;
       white-space: nowrap;
+      box-shadow: 0 14px 30px rgba(0, 177, 76, 0.24) !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .wm-home-about-cta:hover,
+    [data-crestline-home-about="1"] a[href="/contact-us"]:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 34px rgba(0, 177, 76, 0.28);
     }
 
     .wm-home-about-cta-icon {
@@ -271,6 +281,62 @@
       border-radius: 999px;
       background: #ffffff;
       flex-shrink: 0;
+    }
+
+    .wm-home-about-cta-icon path,
+    [data-crestline-home-about="1"] a[href="/contact-us"] path {
+      fill: #00b14c !important;
+    }
+
+    .wm-green-pill-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.28rem 0.28rem 0.28rem 0.78rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #00b14c 0%, #11c85a 100%);
+      color: #ffffff;
+      font-family: 'Denim Ink', Arial, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 14px 30px rgba(0, 177, 76, 0.24);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      line-height: 1;
+      border: none;
+      cursor: pointer;
+    }
+
+    .wm-green-pill-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 34px rgba(0, 177, 76, 0.28);
+    }
+
+    .wm-green-pill-button-text {
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .wm-green-pill-button-icon {
+      width: 30.96px;
+      height: 30.96px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #00b14c;
+      flex-shrink: 0;
+    }
+
+    .wm-green-pill-button-icon svg {
+      display: block;
+    }
+
+    .wm-green-pill-button--nav {
+      font-size: 0.9rem;
+      padding-left: 0.95rem;
     }
 
     .wm-home-about-cards {
@@ -328,14 +394,15 @@
       justify-self: end;
     }
 
-    .wm-home-about-card-title {
+    .wm-home-about-card-title,
+    [data-crestline-home-about="1"] .wm-home-about-card-title {
       margin: 0;
       font-family: inherit;
       font-size: clamp(2rem, 1.72rem + 1.4vw, 2.675rem);
       line-height: 1.08;
       font-weight: 400;
       letter-spacing: -2px;
-      color: #00274D;
+      color: #00b14c !important;
     }
 
     .wm-home-about-card-copy {
@@ -346,14 +413,15 @@
       color: #00274D;
     }
 
-    .wm-home-about-card-tags {
+    .wm-home-about-card-tags,
+    [data-crestline-home-about="1"] .wm-home-about-card-tags {
       margin: 0.2rem 0 0;
       font-size: clamp(0.82rem, 0.76rem + 0.18vw, 0.95rem);
       line-height: 1.5;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #00274D;
+      color: #00b14c !important;
     }
 
     .wm-home-certifications-section {
@@ -386,7 +454,7 @@
       line-height: 1.08;
       font-weight: 400;
       letter-spacing: -2px;
-      color: #00274D;
+      color: #00b14c;
       text-align: center;
       text-wrap: balance;
     }
@@ -476,7 +544,7 @@
       line-height: 1.08;
       font-weight: 400;
       letter-spacing: -2px;
-      color: #00274D;
+      color: #00b14c;
       text-wrap: balance;
     }
 
@@ -1120,7 +1188,7 @@
       line-height: 0.98;
       font-weight: 400;
       letter-spacing: -0.06em;
-      color: #00274D;
+      color: #00b14c;
       text-wrap: balance;
     }
 
@@ -1484,7 +1552,7 @@
       line-height: 0.98;
       font-weight: 500;
       letter-spacing: -0.05em;
-      color: #00274D;
+      color: #00b14c;
     }
 
     .home-contact-intro {
@@ -1574,7 +1642,11 @@
       font-size: clamp(1.7rem, 2.8vw, 2.35rem);
       line-height: 1.02;
       letter-spacing: -0.04em;
-      color: #00274D;
+      color: #00b14c;
+    }
+
+    [data-process-overview-copy] h2 {
+      color: #00b14c !important;
     }
 
     .home-contact-form-copy {
@@ -1645,15 +1717,7 @@
     }
 
     .home-contact-submit {
-      border: none;
-      cursor: pointer;
       justify-content: center;
-    }
-
-    .home-contact-submit .wm-hero-button-icon {
-      font-size: 1rem;
-      line-height: 1;
-      color: #26ADE3;
     }
 
     @media screen and (max-width: 991px) {
@@ -2334,7 +2398,7 @@
             </defs>
           </svg></button></div>
       <div class="flex md:w-[700px] xl:w-[800px] justify-between">
-        <div class="flex lg:order-2 space-x-2 lg:space-x-0 rtl:space-x-reverse relative z-20"><a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-[#00b14c] text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-[#00b14c] dark:bg-[#00b14c] dark:focus:ring-cyan-800 dark:enabled:hover:bg-[#00b14c] rounded-full hidden lg:block"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a></div>
+        <div class="flex lg:order-2 space-x-2 lg:space-x-0 rtl:space-x-reverse relative z-20"><a href="/contact-us" type="button" class="wm-green-pill-button wm-green-pill-button--nav hidden lg:inline-flex"><span class="wm-green-pill-button-text">Get Quotation</span><span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path></svg></span></a></div>
         <div class="items-center justify-center hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">
           <ul
             class="flex flex-col xl:p-0 font-medium false xl:space-x-3 rtl:space-x-reverse lg:flex-row xl:mt-0 xl:border-0 false text-gray-900 false dark:bg-gray-800 xl:dark:bg-gray-900 dark:border-gray-700 text-center text-[15px] lg:max-w-[1100px] font-normal">
@@ -2347,7 +2411,7 @@
             <li><a
                 class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 href="/contact-us">Contact</a></li>
-            <div class="xl:hidden gap-4 items-center flex flex-col mt-2"><a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-[#00b14c] text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-[#00b14c] dark:bg-[#00b14c] dark:focus:ring-cyan-800 dark:enabled:hover:bg-[#00b14c] rounded-full block lg:hidden"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a></div>
+            <div class="xl:hidden gap-4 items-center flex flex-col mt-2"><a href="/contact-us" type="button" class="wm-green-pill-button wm-green-pill-button--nav lg:hidden"><span class="wm-green-pill-button-text">Get Quotation</span><span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path></svg></span></a></div>
           </ul>
         </div>
       </div>
@@ -2433,22 +2497,22 @@
     </div>
     <section class="wm-home-about-section" data-crestline-home-about="1">
       <div class="wm-home-about-inner">
-        <h2 class="wm-home-about-heading">About Us</h2>
+        <h2 class="wm-home-about-heading" style="color:#00b14c">About Us</h2>
         <p class="wm-home-about-copy">Founded in 1982, Crestline (SMC-PVT) Limited is a trusted manufacturer and exporter of custom promotional textiles, specializing in premium cotton and poly/cotton products for the global promotional industry.</p>
-        <a class="wm-home-about-cta" href="/contact-us">Get Quotation<span class="wm-home-about-cta-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path>
+        <a class="wm-home-about-cta" href="/contact-us" style="background:linear-gradient(90deg, #00b14c 0%, #11c85a 100%);box-shadow:0 14px 30px rgba(0, 177, 76, 0.24)">Get Quotation<span class="wm-home-about-cta-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path>
             </svg></span></a>
       </div>
       <div class="wm-home-about-cards" aria-label="Crestline Vision and Mission">
         <article class="wm-home-about-card wm-home-about-card--vision">
-          <h3 class="wm-home-about-card-title">Our Vision</h3>
+          <h3 class="wm-home-about-card-title" style="color:#00b14c">Our Vision</h3>
           <p class="wm-home-about-card-copy">To be the leading provider of responsible, high-quality promotional textiles for global brands. Crestline combines premium materials, compliance-focused manufacturing, and dependable service to support long-term customer partnerships across global markets.</p>
-          <p class="wm-home-about-card-tags">QUALITY - CONSISTENCY - SUSTAINABILITY</p>
+          <p class="wm-home-about-card-tags" style="color:#00b14c">QUALITY - CONSISTENCY - SUSTAINABILITY</p>
         </article>
         <article class="wm-home-about-card wm-home-about-card--mission">
-          <h3 class="wm-home-about-card-title">Our Mission</h3>
+          <h3 class="wm-home-about-card-title" style="color:#00b14c">Our Mission</h3>
           <p class="wm-home-about-card-copy">Our mission is to deliver quality, responsibly made textile products at scale while maintaining ethical standards and dependable production timelines. We work closely with customers to develop tailored solutions that align with brand requirements, product specifications, and market needs.</p>
-          <p class="wm-home-about-card-tags">SCALE - COMPLIANCE - SUSTAINABILITY - PARTNERSHIP</p>
+          <p class="wm-home-about-card-tags" style="color:#00b14c">SCALE - COMPLIANCE - SUSTAINABILITY - PARTNERSHIP</p>
         </article>
       </div>
     </section>
@@ -2460,7 +2524,7 @@
                 <div>
                   <h2
                     class="text-[32.9px] md:text-[42.81px] !font-normal lg:!leading-[48.93px] text-[#00274D] py-4 lg:text-[42.81px] leading-[48.93px]"
-                    style="letter-spacing:-2px">An Overview Of How We Operate</h2>
+                    style="letter-spacing:-2px;color:#00b14c">An Overview Of How We Operate</h2>
                   <p class="text-[12.98px] text-center lg:text-justify">From concept sampling to final branding,
                     Crestline follows a clear four-step process to turn custom promotional textile ideas into finished
                     products with precision and consistency.</p>
@@ -3611,12 +3675,12 @@
       <div class="flex flex-col items-center relative z-20">
         <h2
           class="text-[32.9px] leading-[43.51px] md:text-[42.81px] !font-normal lg:!leading-[48.93px] text-[#00274D] text-center"
-          style="letter-spacing:-2px">An Overview of</h2>
+          style="letter-spacing:-2px;color:#00b14c">An Overview of</h2>
         <h2
           class="text-[32.9px] leading-[43.51px] md:text-[42.81px] !font-normal lg:!leading-[48.93px] text-[#00274D] text-center"
-          style="letter-spacing:-2px">Our Products Range.</h2>
+          style="letter-spacing:-2px;color:#00b14c">Our Products Range.</h2>
         <a class="unitteams-download-button" data-unitteams-catalogue-download="1" href="/files/ProductCatalogue.pdf"
-          download="ProductCatalogue.pdf" aria-label="Download Crestline product catalogue PDF"><span>Download Product
+          download="ProductCatalogue.pdf" aria-label="Download Crestline product catalogue PDF"><span>Download Products
             Catalogue</span><span class="unitteams-download-button-icon" aria-hidden="true"><svg width="12" height="12"
               viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 2V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -6612,7 +6676,7 @@
       </div>
     </section>
   </div>
-  <footer class=" bg-[#FFFFFF29] relative mt-[15vh] p-8 py-[10vh] rounded-t-[36px]"
+  <footer class=" bg-[#FFFFFF29] relative mt-[15vh] p-8 pt-[10vh] pb-[4vh] rounded-t-[36px]"
     style="backdrop-filter:blur(130px);box-shadow:0px -8px 247.3px 0px #29ADE41A">
     <div class=" max-w-[1300px] m-auto relative z-10">
       <div class="grid gap-6 grid-cols-1 lg:grid-cols-[30%_30%_35%] justify-between">
@@ -6620,8 +6684,28 @@
           class="w-3/4 mx-auto sm:mx-[initial] flex md:block text-center md:text-left items-center md:items-start flex-col">
           <a href="/"><img alt="Crestline Logo" width="99" height="26" decoding="async" data-nimg="1"
               class="w-[85px] h-[65px]" style="color:transparent" src="/images/branding/crestline-logo.png"></a>
-          <div class="mt-3 font-normal text-sm text-[#343C6A]">we has the full types of potential for your start-up
-            business.</div>
+          <div class="mt-3 font-normal text-sm text-[#343C6A]">Custom promotional textiles manufactured with quality,
+            consistency, and responsible production since 1982.</div>
+          <div class="mt-5 flex gap-2 justify-center md:justify-start" data-home-footer-socials>
+            <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
+                stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z">
+                </path>
+              </svg></div>
+            <a class="rounded-full text-white p-1 inline-flex" style="background-color:#00b14c" href="https://www.linkedin.com/company/crestline-smc-pvt-limited/" target="_blank" rel="noopener noreferrer" aria-label="Crestline LinkedIn"><svg stroke="currentColor" fill="currentColor"
+                stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
+                </path>
+              </svg></a>
+            <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
+                stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
+                </path>
+              </svg></div>
+          </div>
         </div>
         <div>
           <div class="grid grid-cols-2 text-sm font-normal">
@@ -6650,34 +6734,25 @@
           </div>
         </div>
         <div class="">
-          <p class="text-[32px] font-normal text-[#00274D] leading-[32px] text-center md:text-left">Join the Crestline
-            Community</p>
-          <div
-            class="border my-10 w-full rounded-full border-global flex relative md:h-[56px] items-center text-[#00274D]">
-            <input type="text" placeholder="Enter Your Email"
-              class="border-none outline-none focus:!outline-0 focus:outline-none focus:border-none focus:ring-0 bg-transparent w-full pl-5"><button
-              class=" bg-[linear-gradient(133deg,_white,_#26ADE3)] px-14 py-3 md:py-5 text-sm md:text-[18px] font-normal rounded-full flex-shrink-0 absolute right-0">Join
-              Us</button>
-          </div>
-          <div class="flex gap-2 justify-center md:justify-start">
-            <div class="rounded-full bg-global text-white p-1"><svg stroke="currentColor" fill="currentColor"
-                stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
-                </path>
-              </svg></div>
-            <div class="rounded-full bg-global text-white p-1"><svg stroke="currentColor" fill="currentColor"
-                stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
-                </path>
-              </svg></div>
-            <div class="rounded-full bg-global text-white p-1"><svg stroke="currentColor" fill="currentColor"
-                stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-                </path>
-              </svg></div>
+          <p class="text-[32px] font-normal leading-[32px] text-center md:text-left" style="color:#00b14c">Contact Info</p>
+          <div class="mt-8 text-center md:text-left text-[#343C6A]" style="display:flex;flex-direction:column;row-gap:18px">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Address</p>
+              <p class="text-sm leading-7" style="margin-top:4px">Plot # 227, Sector 24, Korangi Industrial Area, Karachi-74900,
+                Pakistan.</p>
+            </div>
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Phone</p>
+              <p class="text-sm leading-7" style="margin-top:4px">(+92) 3301933319</p>
+            </div>
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Email</p>
+              <p class="text-sm leading-7" style="margin-top:4px">info@crestlinepromotion.com</p>
+            </div>
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Working Days/Hours</p>
+              <p class="text-sm leading-7" style="margin-top:4px">Mon - Sat / 10:00 AM - 6:00 PM</p>
+            </div>
           </div>
         </div>
       </div>
@@ -7800,6 +7875,8 @@
       var lastHomepageCopyMode = "";
       var homepageCopyTimer = 0;
       var homepageScrollTriggerRefreshTimer = 0;
+      var homepageGreenAccentTimer = 0;
+      var homepageGreenAccentObserver = null;
       var clientSectionAlignmentTimer = 0;
       var clientSectionAlignmentPasses = 0;
       var clientSectionPinSetupTimer = 0;
@@ -8537,8 +8614,8 @@
         var button = intro && intro.querySelector ? intro.querySelector("[data-language-profile-download]") : null;
         var buttonHtml =
           '<span>See Company Profile</span>' +
-          '<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:1.2em;height:1.2em;">' +
-            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">' +
+          '<span class="unitteams-download-button-icon" aria-hidden="true">' +
+            '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">' +
               '<path d="M8 2V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>' +
               '<path d="M4.8 7.1L8 10.3L11.2 7.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>' +
               '<path d="M3 13H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>' +
@@ -8559,29 +8636,17 @@
         button.setAttribute("download", "CrestlineCompanyProfile.pdf");
         button.setAttribute("aria-label", "Download Crestline company profile PDF");
         button.innerHTML = buttonHtml;
-
-        button.style.display = "inline-flex";
-        button.style.alignItems = "center";
+        button.className = "unitteams-download-button";
         button.style.justifyContent = "center";
-        button.style.gap = "10px";
         button.style.marginTop = "24px";
         button.style.marginBottom = "24px";
-        button.style.padding = "16px 30px";
-        button.style.borderRadius = "999px";
-        button.style.background = "#00b14c";
-        button.style.color = "#ffffff";
-        button.style.textDecoration = "none";
-        button.style.fontSize = "16px";
-        button.style.fontWeight = "600";
-        button.style.lineHeight = "1";
-        button.style.boxShadow = "0 14px 30px rgba(0, 177, 76, 0.24)";
       }
 
       function ensureUnitTeamsCatalogueButton(section) {
         var header = section && section.querySelector ? section.querySelector(".flex.flex-col.items-center.relative.z-20") : null;
         var button = header && header.querySelector ? header.querySelector("[data-unitteams-catalogue-download]") : null;
         var buttonHtml =
-          '<span>Download Product Catalogue</span>' +
+          '<span>Download Products Catalogue</span>' +
           '<span class="unitteams-download-button-icon" aria-hidden="true">' +
             '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">' +
               '<path d="M8 2V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>' +
@@ -8749,6 +8814,65 @@
 
       var legacyIntegrationsObserver = null;
 
+      function enforceHomepageGreenAccents() {
+        var aboutSection = document.querySelector('[data-crestline-home-about="1"]');
+        var processOverviewHeading = document.querySelector("[data-process-overview-copy] h2");
+
+        if (aboutSection) {
+          var aboutHeading = aboutSection.querySelector(".wm-home-about-heading, h2");
+          var aboutAccentNodes = aboutSection.querySelectorAll(".wm-home-about-card-title, .wm-home-about-card-tags");
+          var aboutCta = aboutSection.querySelector('a[href="/contact-us"]');
+
+          if (aboutHeading) {
+            aboutHeading.style.setProperty("color", "#00b14c", "important");
+          }
+
+          Array.prototype.forEach.call(aboutAccentNodes, function (node) {
+            if (node) {
+              node.style.setProperty("color", "#00b14c", "important");
+            }
+          });
+
+          if (aboutCta) {
+            aboutCta.classList.add("wm-home-about-cta");
+            aboutCta.style.setProperty("background", "linear-gradient(90deg, #00b14c 0%, #11c85a 100%)", "important");
+            aboutCta.style.setProperty("box-shadow", "0 14px 30px rgba(0, 177, 76, 0.24)", "important");
+
+            Array.prototype.forEach.call(aboutCta.querySelectorAll("path"), function (path) {
+              if (path.hasAttribute("fill")) {
+                path.setAttribute("fill", "#00b14c");
+              }
+            });
+          }
+        }
+
+        if (processOverviewHeading) {
+          processOverviewHeading.style.setProperty("color", "#00b14c", "important");
+        }
+      }
+
+      function queueHomepageGreenAccents(delay) {
+        window.clearTimeout(homepageGreenAccentTimer);
+        homepageGreenAccentTimer = window.setTimeout(function () {
+          enforceHomepageGreenAccents();
+        }, delay || 0);
+      }
+
+      function ensureHomepageGreenAccentObserver() {
+        if (homepageGreenAccentObserver || !document.body || !("MutationObserver" in window)) {
+          return;
+        }
+
+        homepageGreenAccentObserver = new MutationObserver(function () {
+          queueHomepageGreenAccents(60);
+        });
+
+        homepageGreenAccentObserver.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+
       function ensureLegacyIntegrationsRemoved() {
         removeLegacyIntegrationsSection();
         ensureHomeCertificationsSection();
@@ -8843,6 +8967,11 @@
 
           setText(unitHeadings[0], "An Overview of");
           setText(unitHeadings[1], "Our Products Range.");
+          Array.prototype.forEach.call(unitHeadings, function (heading) {
+            if (heading) {
+              heading.style.color = "#00b14c";
+            }
+          });
 
           setText(loaderWords[0], "Custom");
           setText(loaderWords[1], "Textile");
@@ -8871,6 +9000,47 @@
         if (typeof window.renderHomeCategoriesSection === "function") {
           window.renderHomeCategoriesSection();
         }
+
+        var aboutSection = document.querySelector('[data-crestline-home-about="1"]');
+        if (aboutSection) {
+          var aboutHeading = aboutSection.querySelector(".wm-home-about-heading");
+          var aboutAccentNodes = aboutSection.querySelectorAll(".wm-home-about-card-title, .wm-home-about-card-tags");
+          var aboutCta = aboutSection.querySelector(".wm-home-about-cta");
+
+          if (aboutHeading) {
+            aboutHeading.style.color = "#00b14c";
+          }
+
+          Array.prototype.forEach.call(aboutAccentNodes, function (node) {
+            if (node) {
+              node.style.color = "#00b14c";
+            }
+          });
+
+          if (aboutCta) {
+            aboutCta.style.background = "linear-gradient(90deg, #00b14c 0%, #11c85a 100%)";
+            aboutCta.style.boxShadow = "0 14px 30px rgba(0, 177, 76, 0.24)";
+          }
+        }
+
+        var processOverviewHeading = document.querySelector("[data-process-overview-copy] h2");
+        if (processOverviewHeading) {
+          processOverviewHeading.style.color = "#00b14c";
+        }
+
+        Array.prototype.forEach.call(
+          document.querySelectorAll(".wm-home-certifications-heading, .wm-home-values-heading, .wm-founded-journey-heading, .home-contact-title, .home-contact-form-title"),
+          function (node) {
+            if (node) {
+              node.style.color = "#00b14c";
+            }
+          }
+        );
+
+        queueHomepageGreenAccents(0);
+        queueHomepageGreenAccents(240);
+        queueHomepageGreenAccents(900);
+        ensureHomepageGreenAccentObserver();
 
         var processLabels = document.querySelectorAll("#cubeanim5Para span");
         if (processLabels.length === 4) {
@@ -8917,6 +9087,9 @@
 
           setText(capacityBadge, "Production Capacity & Lead Times");
           setText(capacityHeading, "Built to deliver large-scale orders with dependable lead times");
+          if (capacityHeading) {
+            capacityHeading.style.color = "#00b14c";
+          }
           setText(
             capacityText,
             "Crestline produces 750,000 to 1,000,000 pieces per month, depending on product mix, with standard lead times of 45 days for natural fabric and 75 days for dyed fabric."
@@ -9039,13 +9212,21 @@
           clientsSection = clientsSection.closest("section");
         }
         if (clientsSection) {
-          setText(findByText(clientsSection, "h2", ["Our Best Clients", "Global Markets & Renowned Brands"]), "Global Markets & Renowned Brands");
+          var clientsHeading = findByText(clientsSection, "h2", ["Our Best Clients", "Global Markets & Renowned Brands"]);
+          setText(clientsHeading, "Global Markets & Renowned Brands");
+          if (clientsHeading) {
+            clientsHeading.style.color = "#00b14c";
+          }
         }
 
         var languagesSection = document.querySelector(".LanguagesSection");
         if (languagesSection) {
           var languageHeadings = languagesSection.querySelectorAll("h3");
-          setText(findByText(languagesSection, "h2", ["Support Multiple Languages", "Serving Global Markets"]), "Serving Global Markets");
+          var languagesHeading = findByText(languagesSection, "h2", ["Support Multiple Languages", "Serving Global Markets"]);
+          setText(languagesHeading, "Serving Global Markets");
+          if (languagesHeading) {
+            languagesHeading.style.color = "#00b14c";
+          }
           setText(
             findByText(
               languagesSection,
@@ -9066,6 +9247,22 @@
           ensureLanguagesSectionProfileButton(languagesSection);
           syncGlobalMarketsCountryMap();
         }
+
+        Array.prototype.forEach.call(document.querySelectorAll('nav a[href="/contact-us"]'), function (node) {
+          if (normalize(node.textContent) !== "Get Quotation") {
+            return;
+          }
+
+          node.className = node.closest('[class*="xl:hidden"]')
+            ? "wm-green-pill-button wm-green-pill-button--nav lg:hidden"
+            : "wm-green-pill-button wm-green-pill-button--nav hidden lg:inline-flex";
+
+          setHtml(
+            node,
+            '<span class="wm-green-pill-button-text">Get Quotation</span>' +
+            '<span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path></svg></span>'
+          );
+        });
 
         ensureHomepageSectionOrder();
         applyClientLogoResponsiveLayout();
@@ -9110,13 +9307,23 @@
                         '</div>' +
                         '<label class="home-contact-field">Inquiry Details<textarea class="home-contact-textarea" name="help" placeholder="Tell us about the product, quantity, material, branding, and required delivery timeline." required></textarea></label>' +
                         '<div class="home-contact-form-actions">' +
-                          '<button class="wm-hero-button home-contact-submit" type="submit"><span class="wm-hero-button-text">Submit</span><span class="wm-hero-button-icon" aria-hidden="true">&rarr;</span></button>' +
+                          '<button class="wm-green-pill-button home-contact-submit" type="submit"><span class="wm-green-pill-button-text">Submit</span><span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M9.5 4.5L13 8L9.5 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button>' +
                         '</div>' +
                       '</form>' +
                     '</div>' +
                   '</div>' +
                 '</div>' +
               '</div>';
+          }
+
+          var contactSubmitButton = pricingSection.querySelector('[data-home-contact-section] button[type="submit"]');
+          if (contactSubmitButton) {
+            contactSubmitButton.className = "wm-green-pill-button home-contact-submit";
+            setHtml(
+              contactSubmitButton,
+              '<span class="wm-green-pill-button-text">Submit</span>' +
+              '<span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M9.5 4.5L13 8L9.5 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>'
+            );
           }
         }
 
@@ -9125,9 +9332,15 @@
           var footerLists = footer.querySelectorAll("ul");
           var footerInputs = footer.querySelectorAll("input");
           var footerButtons = footer.querySelectorAll("button");
+          var currentYear = new Date().getFullYear();
+          var footerSocialHtml =
+            '<div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></div>' +
+            '<a class="rounded-full text-white p-1 inline-flex" style="background-color:#00b14c" href="https://www.linkedin.com/company/crestline-smc-pvt-limited/" target="_blank" rel="noopener noreferrer" aria-label="Crestline LinkedIn"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg></a>' +
+            '<div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path></svg></div>';
 
           var footerGrid = footer.querySelector(".grid");
           var brandColumn = footerGrid ? footerGrid.children[0] : null;
+          var footerContactColumn = footerGrid ? footerGrid.children[2] : null;
           if (brandColumn) {
             var brandLink = brandColumn.querySelector('a[href="/"]');
             var brandBlurb = brandColumn.querySelector(".mt-3");
@@ -9179,38 +9392,56 @@
             var quoteNodes = Array.prototype.filter.call(brandColumn.querySelectorAll("a, button"), function (node) {
               return normalize(node.textContent) === "Get Quotation";
             });
-            var footerQuoteButton = brandColumn.querySelector("[data-home-footer-quote]") || quoteNodes[0] || null;
-
-            if (!footerQuoteButton) {
-              footerQuoteButton = document.createElement("a");
-              if (brandBlurb) {
-                brandBlurb.insertAdjacentElement("afterend", footerQuoteButton);
-              } else {
-                brandColumn.appendChild(footerQuoteButton);
-              }
-            }
-
-            footerQuoteButton.setAttribute("data-home-footer-quote", "1");
-            if (footerQuoteButton.tagName === "A") {
-              footerQuoteButton.href = "/contact-us";
-            }
-            footerQuoteButton.className =
-              "rounded-full w-fit inline-flex text-[12.98px] gap-2 bg-gradient-to-r from-[#26ADE3] to-[#26ADE329] text-white items-center p-1 pl-[8px] font-extralight mt-5 mx-auto md:mx-0";
-            setHtml(
-              footerQuoteButton,
-              'Get Quotation<div class="w-[30.96px] h-[30.96px] flex items-center justify-center bg-white rounded-full"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></div>'
-            );
 
             Array.prototype.forEach.call(quoteNodes, function (node) {
-              if (node !== footerQuoteButton) {
-                node.remove();
-              }
+              node.remove();
             });
+
+            var footerSocials = brandColumn.querySelector("[data-home-footer-socials]");
+            if (!footerSocials) {
+              footerSocials = document.createElement("div");
+              footerSocials.setAttribute("data-home-footer-socials", "1");
+              if (brandBlurb) {
+                brandBlurb.insertAdjacentElement("afterend", footerSocials);
+              } else {
+                brandColumn.appendChild(footerSocials);
+              }
+            }
+
+            footerSocials.className = "mt-5 flex gap-2 justify-center md:justify-start";
+            setHtml(footerSocials, footerSocialHtml);
           }
-          setText(
-            findByText(footer, "p", ["Start Your Next Custom Project", "Start Your Next Custom Project"]),
-            "Start Your Next Custom Project"
-          );
+
+          if (footerContactColumn) {
+            footerContactColumn.className = "";
+            setHtml(
+              footerContactColumn,
+              '<p class="text-[32px] font-normal leading-[32px] text-center md:text-left" style="color:#00b14c">Contact Info</p>' +
+              '<div class="mt-8 text-center md:text-left text-[#343C6A]" style="display:flex;flex-direction:column;row-gap:18px">' +
+                '<div>' +
+                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Address</p>' +
+                  '<p class="text-sm leading-7" style="margin-top:4px">Plot # 227, Sector 24, Korangi Industrial Area, Karachi-74900, Pakistan.</p>' +
+                '</div>' +
+                '<div>' +
+                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Phone</p>' +
+                  '<p class="text-sm leading-7" style="margin-top:4px">(+92) 3301933319</p>' +
+                '</div>' +
+                '<div>' +
+                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Email</p>' +
+                  '<p class="text-sm leading-7" style="margin-top:4px">info@crestlinepromotion.com</p>' +
+                '</div>' +
+                '<div>' +
+                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Working Days/Hours</p>' +
+                  '<p class="text-sm leading-7" style="margin-top:4px">Mon - Sat / 10:00 AM - 6:00 PM</p>' +
+                '</div>' +
+              '</div>' +
+              '<p data-home-footer-credit="1" class="mt-16 lg:mt-20 text-sm text-[#343C6A] text-center md:text-left">' +
+                '&copy; ' +
+                currentYear +
+                ' Crestline Promotion - A site by <a href="http://techure.me/portfolio/" target="_blank" rel="noopener noreferrer" style="color:#00b14c;text-decoration:none">Techure</a>.' +
+              '</div>'
+            );
+          }
 
           if (footerLists[0]) {
             setHtml(
@@ -9228,13 +9459,27 @@
               '<li class="mb-4 text-[#343C6A]"><a href="/general-information">General Information</a></li>' +
               '<li class="mb-4 text-[#343C6A]"><a href="/services">Services</a></li>' +
               '<li class="mb-4 text-[#343C6A]"><a href="/customer-satisfaction">Customer Satisfaction</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/contact-us">Get Quotation</a></li>'
+              '<li class="mb-4 text-[#343C6A]"><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>'
             );
           }
 
-          setPlaceholder(footerInputs[0], "Enter Your Email");
-          bindButton(footerButtons[0], "Subscribe", "/contact-us");
+          var footerInner = footer.firstElementChild;
+          if (footerInner) {
+            var footerCredit = footerInner.querySelector("[data-home-footer-credit]");
+            if (!footerCredit) {
+              footerCredit = document.createElement("p");
+              footerCredit.setAttribute("data-home-footer-credit", "1");
+              footerInner.appendChild(footerCredit);
+            }
+
+            footerCredit.className = "mt-16 lg:mt-20 text-sm text-[#343C6A] text-center md:text-left";
+            setHtml(
+              footerCredit,
+              "&copy; " +
+                currentYear +
+                ' Crestline Promotion - A site by <a href="http://techure.me/portfolio/" target="_blank" rel="noopener noreferrer" style="color:#00b14c;text-decoration:none">Techure</a>.'
+            );
+          }
         }
 
         queueHomepageScrollTriggerRefresh(180);

@@ -263,6 +263,10 @@
       "crestline-home-about-inline-style",
       ".wm-home-about-section{position:relative;z-index:2;padding:clamp(4.5rem,7vw,6.5rem) 1rem clamp(4.75rem,7vw,6.75rem)}.wm-home-about-inner{max-width:919px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.5rem}.wm-home-about-heading{max-width:874px;margin:0 auto;font-family:inherit;font-size:clamp(1.875rem,1.42rem + 2.27vw,3.4375rem);line-height:clamp(2.625rem,2.1rem + 2.62vw,4.46875rem);font-weight:400;letter-spacing:-2px;color:#00274D}.wm-home-about-copy{max-width:919px;margin:.5rem auto 0;font-family:inherit;font-size:clamp(.9375rem,.82rem + .59vw,1.333rem);line-height:1.3;font-weight:400;color:rgb(71 77 77/var(--tw-text-opacity,1))}.wm-home-about-cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:.5rem;padding:.28rem .28rem .28rem .78rem;border-radius:999px;background:linear-gradient(90deg,#26ADE3 0%,rgba(38,173,227,.16) 100%);color:#fff;font-family:'Denim Ink',Arial,sans-serif;font-size:.82rem;font-weight:500;text-decoration:none;white-space:nowrap}.wm-home-about-cta-icon{width:30.96px;height:30.96px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#fff;flex-shrink:0}.wm-home-about-cards{max-width:1273px;margin:clamp(3rem,6vw,5rem) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:'vision .' '. mission';column-gap:clamp(1.5rem,3vw,2.5rem);row-gap:clamp(1rem,2vw,1.5rem);align-items:start}.wm-home-about-card{width:min(100%,560px);padding:clamp(1.75rem,2vw,2.4rem);border-radius:32px;border:5px solid #fff;background:linear-gradient(311.9deg,#FFFFFF 24.13%,rgba(255,255,255,.04) 137.99%);backdrop-filter:blur(44.5px);box-shadow:0 18px 60px rgba(143,136,237,.12);display:flex;flex-direction:column;gap:1rem;color:#00274D;text-align:left}.wm-home-about-card.wm-home-about-card--reveal-ready{opacity:0;transform:translate3d(0,56px,0) scale(.98);filter:blur(10px);transition:opacity .72s ease,transform .72s cubic-bezier(.22,1,.36,1),filter .72s ease;will-change:opacity,transform,filter}.wm-home-about-card.wm-home-about-card--reveal-ready.wm-home-about-card--visible{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}.wm-home-about-card--vision{grid-area:vision;justify-self:start}.wm-home-about-card--mission{grid-area:mission;justify-self:end}.wm-home-about-card-title{margin:0;font-family:inherit;font-size:clamp(2rem,1.72rem + 1.4vw,2.675rem);line-height:1.08;font-weight:400;letter-spacing:-2px;color:#00274D}.wm-home-about-card-copy{margin:0;font-size:clamp(.9rem,.84rem + .18vw,1rem);line-height:1.7;font-weight:400;color:#00274D}.wm-home-about-card-tags{margin:.2rem 0 0;font-size:clamp(.82rem,.76rem + .18vw,.95rem);line-height:1.5;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#00274D}@media (prefers-reduced-motion:reduce){.wm-home-about-card.wm-home-about-card--reveal-ready,.wm-home-about-card.wm-home-about-card--reveal-ready.wm-home-about-card--visible{opacity:1;transform:none;filter:none;transition:none}}@media (max-width:768px){.wm-home-about-cards{grid-template-columns:1fr;grid-template-areas:'vision' 'mission'}.wm-home-about-card,.wm-home-about-card--vision,.wm-home-about-card--mission{width:100%;justify-self:stretch}.wm-home-about-card--mission{margin-top:0}}"
     );
+    ensureStyle(
+      "crestline-home-green-accent-inline-style",
+      '.wm-home-about-heading,.wm-home-about-card-title,.wm-home-about-card-tags,[data-process-overview-copy] h2{color:#00b14c!important}.wm-home-about-cta{background:linear-gradient(90deg,#00b14c 0%,#11c85a 100%)!important;box-shadow:0 14px 30px rgba(0,177,76,.24)!important}.wm-home-about-cta-icon path{fill:#00b14c!important}'
+    );
   }
 
   function ensureFloatingWhatsApp() {
@@ -599,6 +603,7 @@
   function updateFooter() {
     var footer = document.querySelector("footer");
     var linksMarkup;
+    var currentYear = new Date().getFullYear();
     if (!footer) {
       return;
     }
@@ -734,6 +739,25 @@
         }
       }
     }
+
+    var footerInner = footer.firstElementChild;
+    if (footerInner) {
+      var footerCredit = footerInner.querySelector("[data-crestline-footer-credit]");
+
+      if (!footerCredit) {
+        footerCredit = document.createElement("p");
+        footerCredit.setAttribute("data-crestline-footer-credit", "1");
+        footerInner.appendChild(footerCredit);
+      }
+
+      footerCredit.className = "mt-10 text-sm text-[#343C6A] text-center md:text-left";
+      setHtml(
+        footerCredit,
+        "&copy; " +
+          currentYear +
+          ' Crestline Promotion - A site by <a href="http://techure.me/portfolio/" target="_blank" rel="noopener noreferrer" style="color:#00b14c;text-decoration:none">Techure</a>.'
+      );
+    }
   }
 
   function removeMenuLink(link) {
@@ -788,20 +812,20 @@
   function buildHomeAboutMarkup() {
     return (
       '<div class="wm-home-about-inner">' +
-      '<h2 class="wm-home-about-heading">About Us</h2>' +
+      '<h2 class="wm-home-about-heading" style="color:#00b14c">About Us</h2>' +
       '<p class="wm-home-about-copy">Founded in 1982, Crestline (SMC-PVT) Limited is a trusted manufacturer and exporter of custom promotional textiles, specializing in premium cotton and poly/cotton products for the global promotional industry.</p>' +
-      '<a class="wm-home-about-cta" href="/contact-us">Get Quotation<span class="wm-home-about-cta-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#29ADE4"></path></svg></span></a>' +
+      '<a class="wm-home-about-cta" href="/contact-us" style="background:linear-gradient(90deg, #00b14c 0%, #11c85a 100%);box-shadow:0 14px 30px rgba(0, 177, 76, 0.24)">Get Quotation<span class="wm-home-about-cta-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path></svg></span></a>' +
       "</div>" +
       '<div class="wm-home-about-cards" aria-label="Crestline Vision and Mission">' +
       '<article class="wm-home-about-card wm-home-about-card--vision">' +
-      '<h3 class="wm-home-about-card-title">Our Vision</h3>' +
+      '<h3 class="wm-home-about-card-title" style="color:#00b14c">Our Vision</h3>' +
       '<p class="wm-home-about-card-copy">To be the leading provider of responsible, high-quality promotional textiles for global brands. Crestline combines premium materials, compliance-focused manufacturing, and dependable service to support long-term customer partnerships across global markets.</p>' +
-      '<p class="wm-home-about-card-tags">QUALITY - CONSISTENCY - SUSTAINABILITY</p>' +
+      '<p class="wm-home-about-card-tags" style="color:#00b14c">QUALITY - CONSISTENCY - SUSTAINABILITY</p>' +
       "</article>" +
       '<article class="wm-home-about-card wm-home-about-card--mission">' +
-      '<h3 class="wm-home-about-card-title">Our Mission</h3>' +
+      '<h3 class="wm-home-about-card-title" style="color:#00b14c">Our Mission</h3>' +
       '<p class="wm-home-about-card-copy">Our mission is to deliver quality, responsibly made textile products at scale while maintaining ethical standards and dependable production timelines. We work closely with customers to develop tailored solutions that align with brand requirements, product specifications, and market needs.</p>' +
-      '<p class="wm-home-about-card-tags">SCALE - COMPLIANCE - SUSTAINABILITY - PARTNERSHIP</p>' +
+      '<p class="wm-home-about-card-tags" style="color:#00b14c">SCALE - COMPLIANCE - SUSTAINABILITY - PARTNERSHIP</p>' +
       "</article>" +
       "</div>"
     );
@@ -1015,11 +1039,16 @@
     var processCard = document.getElementById("cubeAnimation");
     var processRow = processCard ? processCard.firstElementChild : null;
     var leftColumn = processRow ? processRow.firstElementChild : null;
+    var overviewHeading = leftColumn ? leftColumn.querySelector("h2") : null;
     var guide = processCard ? processCard.querySelector("[data-process-step-guide]") : null;
     var existingHint = leftColumn ? leftColumn.querySelector("[data-process-step-hint]") : null;
 
     if (!processCard || !leftColumn) {
       return;
+    }
+
+    if (overviewHeading) {
+      overviewHeading.style.setProperty("color", "#00b14c", "important");
     }
 
     Array.prototype.forEach.call(leftColumn.querySelectorAll("a"), function (link) {

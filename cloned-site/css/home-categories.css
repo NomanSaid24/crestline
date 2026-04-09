@@ -35,7 +35,7 @@
 }
 
 .home-category-header h2 {
-  color: #00274d;
+  color: #00b14c;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
@@ -135,7 +135,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: #29ade4;
+  color: #00b14c;
   font-size: 0.94rem;
 }
 
