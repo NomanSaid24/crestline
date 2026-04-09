@@ -466,9 +466,6 @@
     }
 
     grid.innerHTML = categories.map(function (category) {
-      var categoryProducts = catalog[category.name] || [];
-      var featuredProduct = categoryProducts[0] || null;
-      var featuredName = featuredProduct && featuredProduct.name ? featuredProduct.name : "Representative product range";
       return [
         '<button type="button" class="home-category-card" data-category="',
         escapeXml(category.name),
@@ -483,13 +480,9 @@
         ' category preview">',
         "</div>",
         '<div class="home-category-card-copy">',
-        '<span class="home-category-card-kicker">Representative Range</span>',
         "<h3>",
         escapeXml(category.name),
         "</h3>",
-        '<p class="home-category-card-featured">',
-        escapeXml(featuredName),
-        "</p>",
         '<p class="home-category-card-summary">',
         escapeXml(category.summary),
         "</p>",

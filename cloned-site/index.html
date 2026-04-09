@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/site-shell.css?v=20260317a">
   <link rel="stylesheet" href="/css/home-categories.css?v=20260327b">
   <link rel="stylesheet" href="/css/products-catalog.css?v=20260324a">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="preload" as="script" fetchpriority="low" href="/_next/static/chunks/webpack-2f253dca8e70be4f.js">
   <script>window.__crestlineCustomClientPin = true;</script>
   <script src="/_next/static/chunks/4bd1b696-d1afaf9361c0b921.js" async=""></script>
@@ -435,6 +436,219 @@
       display: block;
     }
 
+    .wm-home-values-section {
+      position: relative;
+      z-index: 2;
+      max-width: 1328px;
+      margin: 0 auto;
+      padding: clamp(4rem, 5vw, 5rem) 1rem clamp(4.25rem, 5vw, 5.5rem);
+    }
+
+    .wm-home-values-static {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(2.2rem, 3vw, 3rem);
+    }
+
+    .wm-home-values-header {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .wm-home-values-badge {
+      padding: 0.35rem 0.95rem;
+      border: 1px solid #26ade3;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      line-height: 1;
+      color: #00274D;
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .wm-home-values-heading {
+      margin: 0;
+      font-size: clamp(2rem, 1.4rem + 2.5vw, 3.4375rem);
+      line-height: 1.08;
+      font-weight: 400;
+      letter-spacing: -2px;
+      color: #00274D;
+      text-wrap: balance;
+    }
+
+    .wm-home-values-copy {
+      margin: 0;
+      max-width: 860px;
+      font-size: clamp(1rem, 0.93rem + 0.28vw, 1.15rem);
+      line-height: 1.7;
+      color: #00274D;
+    }
+
+    .wm-home-values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(2.6rem, 3vw, 3.2rem) clamp(1rem, 2.3vw, 1.75rem);
+      align-items: stretch;
+    }
+
+    .wm-home-values-card {
+      position: relative;
+      min-height: 100%;
+      padding: clamp(1.85rem, 2vw, 2.25rem) clamp(1.35rem, 1.9vw, 1.8rem) clamp(4.8rem, 5vw, 5.4rem);
+      border: 1px solid rgba(41, 173, 228, 0.3);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(148, 216, 244, 0.92) 0%, rgba(205, 236, 248, 0.88) 100%);
+      box-shadow: 0 18px 54px rgba(41, 173, 228, 0.16);
+      backdrop-filter: blur(28px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      overflow: visible;
+    }
+
+    .wm-home-values-card-icon {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 50%);
+      width: 86px;
+      height: 86px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #00b14c;
+      border: 4px solid rgba(186, 232, 202, 0.85);
+      box-shadow: 0 14px 30px rgba(0, 177, 76, 0.24);
+      flex-shrink: 0;
+    }
+
+    .wm-home-values-card-icon svg {
+      width: 35px;
+      height: 35px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .wm-home-values-card-icon i {
+      display: block;
+      font-size: 35px;
+      line-height: 1;
+    }
+
+    .wm-home-values-card-title {
+      margin: 0 0 1rem;
+      font-size: clamp(1.28rem, 1.05rem + 0.8vw, 1.72rem);
+      line-height: 1.25;
+      font-weight: 700;
+      color: #2d2d2d;
+      text-wrap: balance;
+    }
+
+    .wm-home-values-card-copy {
+      margin: 0;
+      font-size: clamp(0.98rem, 0.92rem + 0.2vw, 1.06rem);
+      line-height: 1.85;
+      color: #6b7280;
+    }
+
+    .wm-capacity-wave-stage {
+      position: relative;
+      min-height: clamp(300px, 34vw, 430px);
+      margin-top: clamp(0.75rem, 2vw, 1.75rem);
+      overflow: visible;
+    }
+
+    .wm-capacity-wave-bars {
+      inset: 0;
+      min-height: 100% !important;
+      margin-top: 0 !important;
+      align-items: center !important;
+    }
+
+    .wm-capacity-wave-grid {
+      position: relative;
+      min-height: clamp(300px, 34vw, 430px);
+      height: 100%;
+      margin-top: 0 !important;
+      position: absolute !important;
+      inset: 0;
+      z-index: 10;
+      width: min(1100px, calc(100% - 1.5rem));
+      max-width: 1100px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding: 0;
+    }
+
+    .wm-capacity-wave-slot {
+      width: clamp(150px, 18vw, 250px);
+      height: clamp(118px, 13vw, 175px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wm-capacity-wave-grid > :nth-child(1) {
+      position: absolute;
+      top: clamp(0.25rem, 1vw, 0.75rem);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .wm-capacity-wave-grid > :nth-child(2) {
+      position: absolute;
+      top: 46%;
+      left: 0;
+      width: 100% !important;
+      max-width: none !important;
+      transform: translateY(-50%);
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 clamp(1rem, 5vw, 5rem);
+      gap: clamp(1rem, 4vw, 3rem);
+    }
+
+    .wm-capacity-wave-grid > :nth-child(3) {
+      position: absolute;
+      bottom: clamp(0.25rem, 1vw, 0.75rem);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .wm-capacity-wave-image {
+      width: auto !important;
+      height: auto !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    .wm-capacity-wave-image[data-wave-product="1"] {
+      transform: translateY(-34px) !important;
+    }
+
+    .wm-capacity-wave-image[data-wave-product="2"] {
+      transform: translateY(-18px) !important;
+    }
+
+    .wm-capacity-wave-image[data-wave-product="3"] {
+      transform: translateY(-24px) !important;
+    }
+
+    .wm-capacity-wave-image[data-wave-product="4"] {
+      transform: translateY(-18px) !important;
+    }
+
     @keyframes wm-home-certifications-scroll {
       from {
         transform: translateX(0);
@@ -500,6 +714,64 @@
 
       .wm-home-certifications-logo img {
         max-height: 88px;
+      }
+
+      .wm-home-values-section {
+        padding: 3.5rem 1rem 4rem;
+      }
+
+      .wm-home-values-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .wm-home-values-card {
+        padding: 1.5rem 1.15rem 4.6rem;
+        border-radius: 26px;
+      }
+
+      .wm-home-values-card-icon {
+        width: 78px;
+        height: 78px;
+      }
+
+      .wm-home-values-card-icon svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .wm-home-values-card-icon i {
+        font-size: 30px;
+      }
+
+      .wm-capacity-wave-grid {
+        min-height: 240px;
+        width: min(100%, calc(100% - 0.5rem));
+      }
+
+      .wm-capacity-wave-slot {
+        width: 140px;
+        height: 110px;
+      }
+
+      .wm-capacity-wave-grid > :nth-child(2) {
+        padding: 0 0.6rem;
+      }
+
+      .wm-capacity-wave-image[data-wave-product="1"] {
+        transform: translateY(-24px) !important;
+      }
+
+      .wm-capacity-wave-image[data-wave-product="2"] {
+        transform: translateY(-12px) !important;
+      }
+
+      .wm-capacity-wave-image[data-wave-product="3"] {
+        transform: translateY(-16px) !important;
+      }
+
+      .wm-capacity-wave-image[data-wave-product="4"] {
+        transform: translateY(-12px) !important;
       }
 
       .clients-static-mobile-spacer {
@@ -3426,13 +3698,7 @@
     </section>
     <section class="lg:h-[932px]" id="cyavoice">
       <div class="m-auto overflow-visible lg:overflow-hidden">
-        <div class="flex items-center justify-center flex-col m-auto z-20 max-w-[1440px] px-8 relative"><img
-            alt="C-Suite UI" loading="lazy" width="220" height="110" decoding="async" data-nimg="1"
-            class="absolute max-w-[189px] left-8 lg:left-4 top-[94%] origin-left scale-50 lg:scale-100 lg:top-8 opacity-50 z-10 "
-            style="color:transparent" src="/images/c-suite-ui/cyavoicewidget1.png"><img alt="C-Suite UI" loading="lazy"
-            width="220" height="110" decoding="async" data-nimg="1"
-            class="absolute max-w-[189px] -right-8 lg:right-20 scale-50 lg:scale-100 top-[91%] lg:top-[initial] lg:bottom-16 opacity-50 z-10 "
-            style="color:transparent" src="/images/c-suite-ui/cyavoicewidget2.png">
+        <div class="flex items-center justify-center flex-col m-auto z-20 max-w-[1440px] px-8 relative">
           <div
             class="border-solid border-global border-2 px-3 py-1 rounded-full text-[8px] xs:text-[10.93px] lg:text-[22.89px] mb-4 mx-4 relative z-20">
             Speak, Command, Achieve with CYA Voice</div>
@@ -3444,15 +3710,10 @@
             CYA Voice is a next-gen AI assistant designed for seamless voice interactions, intelligent task
             management,
             multilingual support, and personalized user experiences.</p>
-          <div class="my-3 flex gap-5 mt-7 font-medium text-[18.35px] scale-[0.6] lg:scale-100"><button
-              class="[backdrop-filter: blur(27.52px);] shadow-xl shadow-[#343C6A25] border border-r border-b [background:_linear-gradient(107.03deg,_#00D4FF_38.27%,_#E7F1FF_105.3%);] w-[181px] rounded-full py-3 text-white">Learn
-              More</button><a href="/contact-us" target="_blank"
-              class="[backdrop-filter: blur(27.52px);] shadow-xl shadow-[#343C6A25] border border-r border-b [background:_linear-gradient(78.99deg,_#343C6A_45.02%,_#ECECEC_104.74%);] w-[181px] rounded-full py-3 text-center text-white">Get
-              Demo</a></div>
         </div>
-        <div class="relative ">
+        <div class="relative wm-capacity-wave-stage">
           <div
-            class="flex gap-[1px] lg:gap-[5px]  m-auto items-center md:items-start mt-[-5rem] md:mt-[initial] lg:top-6 justify-between absolute w-full h-full min-h-[245px]">
+            class="wm-capacity-wave-bars flex gap-[1px] lg:gap-[5px]  m-auto items-center md:items-start mt-[-5rem] md:mt-[initial] lg:top-6 justify-between absolute w-full h-full min-h-[245px]">
             <div class="h-32 rounded-full"
               style="width: 12px; background-color: rgba(41, 173, 227, 0.47); opacity: 0.8; translate: none; rotate: none; scale: none; transform: translate3d(0px, 0px, 0px) scale(1, 1.0524);">
             </div>
@@ -3635,26 +3896,26 @@
             </div>
           </div>
           <div
-            class="grid grid-rows-[20%_20%_20%] scale-[0.8] xs:scale-100 content-center w-4/5 lg:w-screen m-auto mt-7 sm:mt-0 lg:mt-10 items-center justify-center relative z-10 max-w-[1100px] lg:min-h-[236px] pl-4">
-            <div class="grid justify-center"><img alt="Settings workflow audio card" loading="lazy" width="250" height="120" decoding="async"
-                data-nimg="1" class="img1 h-full w-full max-w-[130px] md:max-w-[250px]"
+            class="wm-capacity-wave-grid grid grid-rows-[20%_20%_20%] scale-[0.8] xs:scale-100 content-center w-4/5 lg:w-screen m-auto mt-7 sm:mt-0 lg:mt-10 items-center justify-center relative z-10 max-w-[1100px] lg:min-h-[236px] pl-4">
+            <div class="wm-capacity-wave-slot grid justify-center"><img alt="Cotton bag product card 1" loading="lazy" width="250" height="120" decoding="async"
+                data-nimg="1" data-wave-product="1" class="img1 wm-capacity-wave-image h-full w-full max-w-[130px] md:max-w-[250px]"
                 style="color: transparent; translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"
-                src="/images/home-wave/settings-wave-home.png?v=20260316a"></div>
+                src="/images/products/bag1.png"></div>
             <div
               class="grid items-center grid-cols-2 grid-rows-1 w-[378px] md:w-[95vw] lg:w-screen max-w-[980px] justify-center ">
-              <div class="grid items-end justify-start"><img alt="People workflow audio card" loading="lazy" width="250" height="120"
-                  decoding="async" data-nimg="1" class="lg:m-auto img2 h-full w-full max-w-[130px] md:max-w-[250px]"
+              <div class="wm-capacity-wave-slot grid items-end justify-start"><img alt="Cotton bag product card 2" loading="lazy" width="250" height="120"
+                  decoding="async" data-nimg="1" data-wave-product="2" class="lg:m-auto img2 wm-capacity-wave-image h-full w-full max-w-[130px] md:max-w-[250px]"
                   style="color: transparent; translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"
-                  src="/images/home-wave/people-wave-home.png?v=20260316a"></div>
-              <div class="grid items-start justify-end"><img alt="Work workflow audio card" loading="lazy" width="250" height="120"
-                  decoding="async" data-nimg="1" class="lg:m-auto img2 h-full w-full max-w-[130px] md:max-w-[250px]"
+                  src="/images/products/bag2.png"></div>
+              <div class="wm-capacity-wave-slot grid items-start justify-end"><img alt="Cotton bag product card 3" loading="lazy" width="250" height="120"
+                  decoding="async" data-nimg="1" data-wave-product="3" class="lg:m-auto img2 wm-capacity-wave-image h-full w-full max-w-[130px] md:max-w-[250px]"
                   style="color: transparent; translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"
-                  src="/images/home-wave/work-wave-home.png?v=20260316a"></div>
+                  src="/images/products/bag3.png"></div>
             </div>
-            <div class="grid justify-center"><img alt="Meeting reminder audio card" loading="lazy" width="250" height="120" decoding="async"
-                data-nimg="1" class=" sm:mr-6 img3 h-full w-full max-w-[130px] md:max-w-[250px]"
+            <div class="wm-capacity-wave-slot grid justify-center"><img alt="Cotton bag product card 4" loading="lazy" width="250" height="120" decoding="async"
+                data-nimg="1" data-wave-product="4" class=" sm:mr-6 img3 wm-capacity-wave-image h-full w-full max-w-[130px] md:max-w-[250px]"
                 style="color: transparent; translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"
-                src="/images/home-wave/meeting-home.png?v=20260316a"></div>
+                src="/images/products/bag4.png"></div>
           </div>
         </div>
       </div>
@@ -8346,6 +8607,61 @@
         setHtml(button, buttonHtml);
       }
 
+      function getHomeValuesCardIcon(iconName) {
+        if (iconName === "globe") {
+          return '<i class="fas fa-globe-americas" aria-hidden="true"></i>';
+        }
+
+        if (iconName === "handshake") {
+          return '<i class="fas fa-handshake" aria-hidden="true"></i>';
+        }
+
+        return '<i class="fas fa-box-open" aria-hidden="true"></i>';
+      }
+
+      function getHomeValuesMarkup() {
+        var cards = [
+          {
+            icon: "globe",
+            title: "100% Eco Friendly & Ethical Standards",
+            copy: "We offer smart reusable alternatives to replace everyday plastic shopping bags. Certifications such as OEKO-TEX and GOTS help ensure our products have a minimal impact on the environment."
+          },
+          {
+            icon: "handshake",
+            title: "Over 35 Years of Trust & Experience",
+            copy: "We have been serving the promotional textile industry for decades, and we understand what global buyers need to keep programs moving with confidence and consistency."
+          },
+          {
+            icon: "box",
+            title: "Quality Service & Product",
+            copy: "Our main USP is the quality of our products. It is a major differentiating factor that helps Crestline stand apart across sourcing, production, and delivery."
+          }
+        ];
+
+        function renderCard(card) {
+          return (
+            '<article class="wm-home-values-card">' +
+              '<div class="wm-home-values-card-icon">' + getHomeValuesCardIcon(card.icon) + '</div>' +
+              '<h3 class="wm-home-values-card-title">' + card.title + '</h3>' +
+              '<p class="wm-home-values-card-copy">' + card.copy + '</p>' +
+            '</article>'
+          );
+        }
+
+        return (
+          '<div class="wm-home-values-static" data-home-values-static-inner="1">' +
+            '<div class="wm-home-values-header">' +
+              '<div class="wm-home-values-badge">Our Values</div>' +
+              '<h2 class="wm-home-values-heading">Confidence, Quality & Responsibility</h2>' +
+              '<p class="wm-home-values-copy">These values guide how we manufacture, inspect, and support lasting customer partnerships across every order.</p>' +
+            '</div>' +
+            '<div class="wm-home-values-grid">' +
+              cards.map(renderCard).join("") +
+            '</div>' +
+          '</div>'
+        );
+      }
+
       function getHomeCertificationsMarkup() {
         var certifications = [
           { src: "/images/certifications/gots-1-light.png", alt: "GOTS certification" },
@@ -8569,6 +8885,10 @@
         var capacitySection = document.getElementById("cyavoice");
         if (capacitySection) {
           var capacityCards = capacitySection.querySelectorAll(".img1, .img2, .img3");
+          var capacityWidgets = capacitySection.querySelectorAll('img[src*="cyavoicewidget"]');
+          var capacityGrid = capacityCards.length ? capacityCards[0].parentNode && capacityCards[0].parentNode.parentNode : null;
+          var capacityStage = capacityGrid && capacityGrid.parentNode ? capacityGrid.parentNode : null;
+          var capacityBars = capacityStage && capacityStage.firstElementChild ? capacityStage.firstElementChild : null;
           var capacityBadge = findByText(
             capacitySection,
             "div",
@@ -8593,7 +8913,7 @@
               "Crestline produces 750,000 to 1,000,000 pieces per month, depending on product mix, with standard lead times of 45 days for natural fabric and 75 days for dyed fabric."
             ]
           );
-          var capacityButtons = capacitySection.querySelectorAll("button, a");
+          var capacityCtaRow = capacitySection.querySelector(".my-3.flex");
 
           setText(capacityBadge, "Production Capacity & Lead Times");
           setText(capacityHeading, "Built to deliver large-scale orders with dependable lead times");
@@ -8602,21 +8922,50 @@
             "Crestline produces 750,000 to 1,000,000 pieces per month, depending on product mix, with standard lead times of 45 days for natural fabric and 75 days for dyed fabric."
           );
 
-          if (capacityCards.length === 4) {
-            capacityCards[0].src = "/images/home-wave/settings-wave-home.png?v=20260316a";
-            capacityCards[0].alt = "Settings workflow audio card";
-            capacityCards[1].src = "/images/home-wave/people-wave-home.png?v=20260316a";
-            capacityCards[1].alt = "People workflow audio card";
-            capacityCards[2].src = "/images/home-wave/work-wave-home.png?v=20260316a";
-            capacityCards[2].alt = "Work workflow audio card";
-            capacityCards[3].src = "/images/home-wave/meeting-home.png?v=20260316a";
-            capacityCards[3].alt = "Meeting reminder audio card";
+          Array.prototype.forEach.call(capacityWidgets, function (widget) {
+            if (widget && widget.parentNode) {
+              widget.parentNode.removeChild(widget);
+            }
+          });
+
+          if (capacityCtaRow && capacityCtaRow.parentNode) {
+            capacityCtaRow.parentNode.removeChild(capacityCtaRow);
           }
 
-          bindButton(capacityButtons[0], "Contact Us", "/contact-us");
-          updateLink(capacityButtons[1], "/contact-us", "Get Quotation");
-          if (capacityButtons[1]) {
-            capacityButtons[1].removeAttribute("target");
+          if (capacityCards.length === 4) {
+            if (capacityStage) {
+              capacityStage.classList.add("wm-capacity-wave-stage");
+            }
+
+            if (capacityBars) {
+              capacityBars.classList.add("wm-capacity-wave-bars");
+            }
+
+            if (capacityGrid) {
+              capacityGrid.classList.add("wm-capacity-wave-grid");
+            }
+
+            Array.prototype.forEach.call(capacityCards, function (card, index) {
+              if (card.parentNode) {
+                card.parentNode.classList.add("wm-capacity-wave-slot");
+              }
+
+              card.classList.add("wm-capacity-wave-image");
+              card.setAttribute("data-wave-product", String(index + 1));
+            });
+
+            capacityCards[0].src = "/images/products/bag1.png";
+            capacityCards[0].alt = "Cotton bag product card 1";
+            capacityCards[0].setAttribute("data-wave-product", "1");
+            capacityCards[1].src = "/images/products/bag2.png";
+            capacityCards[1].alt = "Cotton bag product card 2";
+            capacityCards[1].setAttribute("data-wave-product", "2");
+            capacityCards[2].src = "/images/products/bag3.png";
+            capacityCards[2].alt = "Cotton bag product card 3";
+            capacityCards[2].setAttribute("data-wave-product", "3");
+            capacityCards[3].src = "/images/products/bag4.png";
+            capacityCards[3].alt = "Cotton bag product card 4";
+            capacityCards[3].setAttribute("data-wave-product", "4");
           }
         }
 
@@ -8680,20 +9029,9 @@
 
         var valuesSection = document.getElementById("addons");
         if (valuesSection) {
-          setText(findByText(valuesSection, "div", ["Add-ons integration", "Our Values"]), "Our Values");
-          setText(findByText(valuesSection, "h2", ["300+ Add-Ons", "Confidence, Quality & Responsibility"]), "Confidence, Quality & Responsibility");
-          setText(
-            findByText(
-              valuesSection,
-              "p",
-              [
-                "Enhance your experience with powerful add-ons tailored to elevate your performance.",
-                "These values guide how we manufacture, inspect, and support lasting customer partnerships across every order."
-              ]
-            ),
-            "These values guide how we manufacture, inspect, and support lasting customer partnerships across every order."
-          );
-          setText(findByText(valuesSection, "button", ["Show more 300 + add-ons", "Built on Integrity"]), "Built on Integrity");
+          valuesSection.className = "wm-home-values-section";
+          valuesSection.setAttribute("data-home-values-static", "1");
+          setHtml(valuesSection, getHomeValuesMarkup());
         }
 
         var clientsSection = document.getElementById("clientContainer");
