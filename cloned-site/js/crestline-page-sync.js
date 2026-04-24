@@ -267,6 +267,14 @@
       "crestline-home-green-accent-inline-style",
       '.wm-home-about-heading,.wm-home-about-card-title,.wm-home-about-card-tags,[data-process-overview-copy] h2{color:#00b14c!important}.wm-home-about-cta{background:linear-gradient(90deg,#00b14c 0%,#11c85a 100%)!important;box-shadow:0 14px 30px rgba(0,177,76,.24)!important}.wm-home-about-cta-icon path{fill:#00b14c!important}'
     );
+    ensureStyle(
+      "crestline-side-contact-widget-submit-inline-style",
+      ".wm-side-contact-widget__form-submit{display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;gap:.5rem!important;align-self:flex-start!important;width:max-content!important;max-width:100%!important;min-height:3.05rem!important;height:auto!important;margin-top:4px!important;padding:.28rem .28rem .28rem .78rem!important;border:none!important;border-radius:999px!important;background:linear-gradient(90deg,#00b14c 0%,#11c85a 100%)!important;color:#fff!important;font-family:'Denim Ink',Arial,sans-serif!important;font-size:.82rem!important;font-weight:500!important;line-height:1!important;white-space:nowrap!important;box-shadow:0 14px 30px rgba(0,177,76,.24)!important;cursor:pointer!important;transition:transform .25s ease,box-shadow .25s ease!important;filter:none!important}.wm-side-contact-widget__form-submit::after{content:'\\2192';width:30.96px;height:30.96px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#fff;color:#00b14c;flex-shrink:0;font-size:1rem;font-weight:700}.wm-side-contact-widget__form-submit:hover,.wm-side-contact-widget__form-submit:focus-visible{transform:translateY(-1px)!important;box-shadow:0 18px 34px rgba(0,177,76,.28)!important;filter:none!important;outline:none!important}@media (max-width:768px){.wm-side-contact-widget__form-submit{padding:.25rem .25rem .25rem .72rem!important;font-size:.78rem!important;min-height:2.7rem!important}.wm-side-contact-widget__form-submit::after{width:28px;height:28px;font-size:.95rem}}"
+    );
+    ensureStyle(
+      "crestline-side-contact-widget-status-inline-style",
+      ".wm-side-contact-widget__field-honeypot{position:absolute!important;left:-9999px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}.wm-side-contact-widget__form-status{min-height:18px;color:#64748b;font-size:12px;line-height:1.45;margin-top:2px}.wm-side-contact-widget__form-status[data-state=\"success\"]{color:#00b14c}.wm-side-contact-widget__form-status[data-state=\"error\"]{color:#dc2626}.wm-side-contact-widget__form-status[data-state=\"pending\"]{color:#475569}.wm-side-contact-widget__form-submit[disabled]{opacity:.82;cursor:progress!important}"
+    );
   }
 
   function ensureFloatingWhatsApp() {
@@ -282,13 +290,16 @@
       '<h3 class="wm-side-contact-widget__form-title">Contact Form</h3>',
       '<button type="button" class="wm-side-contact-widget__form-close" aria-label="Close contact form">&times;</button>',
       "</div>",
-      '<form class="wm-side-contact-widget__form-fields" novalidate>',
+      '<form class="wm-side-contact-widget__form-fields" method="post" action="/contact-submit.php" accept-charset="UTF-8" novalidate>',
+      '<input class="wm-side-contact-widget__field-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">',
+      '<input type="hidden" name="source" value="floating-widget">',
       '<input class="wm-side-contact-widget__field-input" type="text" name="name" placeholder="Name*" aria-label="Name" required>',
       '<input class="wm-side-contact-widget__field-input" type="email" name="email" placeholder="Email*" aria-label="Email" required>',
       '<input class="wm-side-contact-widget__field-input" type="text" name="company" placeholder="Company / Brand*" aria-label="Company / Brand" required>',
       '<input class="wm-side-contact-widget__field-input" type="text" name="country" placeholder="Country / Market*" aria-label="Country / Market" required>',
       '<textarea class="wm-side-contact-widget__field-textarea" name="help" placeholder="Inquiry Details*" aria-label="Inquiry Details" required></textarea>',
       '<button type="submit" class="wm-side-contact-widget__form-submit">Submit</button>',
+      '<div class="wm-side-contact-widget__form-status" aria-live="polite"></div>',
       "</form>",
       "</div>",
       '<div class="wm-side-contact-widget__rail">',
@@ -337,6 +348,21 @@
       var formPanel = widget.querySelector(".wm-side-contact-widget__form");
       var closeButton = widget.querySelector(".wm-side-contact-widget__form-close");
       var form = widget.querySelector(".wm-side-contact-widget__form form");
+      var formStatus = widget.querySelector(".wm-side-contact-widget__form-status");
+      var submitButton = widget.querySelector(".wm-side-contact-widget__form-submit");
+
+      function setFormStatus(state, message) {
+        if (!formStatus) {
+          return;
+        }
+
+        formStatus.textContent = message || "";
+        if (state) {
+          formStatus.setAttribute("data-state", state);
+        } else {
+          formStatus.removeAttribute("data-state");
+        }
+      }
 
       function setCollapsed(collapsed) {
         widget.classList.toggle("wm-side-contact-widget--collapsed", collapsed);
@@ -436,32 +462,70 @@
       }
 
       if (form) {
-        form.addEventListener("submit", function (event) {
-          var formData;
-          var draft;
+        form.method = "POST";
+        form.action = "/contact-submit.php";
+        form.acceptCharset = "UTF-8";
 
+        form.addEventListener("submit", function (event) {
           event.preventDefault();
 
           if (typeof form.reportValidity === "function" && !form.reportValidity()) {
             return;
           }
 
-          formData = new FormData(form);
-          draft = {
-            name: normalize(formData.get("name")),
-            email: normalize(formData.get("email")),
-            company: normalize(formData.get("company")),
-            country: normalize(formData.get("country")),
-            help: normalize(formData.get("help"))
-          };
+          var formData = new FormData(form);
+          setFormStatus("pending", "Sending your inquiry...");
 
-          try {
-            window.sessionStorage.setItem("crestlineFloatingInquiryDraft", JSON.stringify(draft));
-          } catch (error) {
-            // Ignore storage failures and still send the user to the main contact page.
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.setAttribute("aria-busy", "true");
           }
 
-          window.location.href = "/contact-us?source=floating-widget";
+          fetch(form.getAttribute("action") || "/contact-submit.php", {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Accept": "application/json",
+              "X-Requested-With": "XMLHttpRequest"
+            },
+            credentials: "same-origin"
+          })
+            .then(function (response) {
+              return response
+                .json()
+                .catch(function () {
+                  return {};
+                })
+                .then(function (payload) {
+                  if (!response.ok || !payload || payload.ok !== true) {
+                    throw new Error(
+                      payload && payload.message
+                        ? payload.message
+                        : "We could not send your inquiry right now. Please try again."
+                    );
+                  }
+
+                  form.reset();
+                  setFormStatus("success", payload.message || "Your inquiry has been sent successfully.");
+                  window.setTimeout(function () {
+                    closeContact();
+                  }, 1400);
+                });
+            })
+            .catch(function (error) {
+              setFormStatus(
+                "error",
+                error && error.message
+                  ? error.message
+                  : "We could not send your inquiry right now. Please try again."
+              );
+            })
+            .finally(function () {
+              if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.removeAttribute("aria-busy");
+              }
+            });
         });
       }
 
@@ -501,32 +565,6 @@
       '<a class="flex items-center space-x-3 rtl:space-x-reverse" href="/">' +
       '<img alt="Crestline Logo" width="99" height="26" class="w-[130px] h-[26px]" src="/images/branding/crestline-logo.png">' +
       "</a>" +
-      '<button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-lg border-none outline-none lg:hidden focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">' +
-      '<span class="sr-only">Open main menu</span>' +
-      '<svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-      '<path d="M0.113985 2.2438C0.113985 1.33509 0.850497 0.601562 1.76289 0.601562H19.3513C20.2636 0.601562 21.0002 1.33509 21.0002 2.2438C21.0002 3.1525 20.2636 3.88603 19.3513 3.88603H1.76289C0.850497 3.88603 0.113985 3.1525 0.113985 2.2438ZM19.3513 18.1187H1.76289C0.850497 18.1187 0.113985 18.8522 0.113985 19.7609C0.113985 20.6696 0.850497 21.4032 1.76289 21.4032H19.3513C20.2636 21.4032 21.0002 20.6696 21.0002 19.7609C21.0002 18.8522 20.2636 18.1187 19.3513 18.1187ZM19.2373 9.36014H1.64891C0.736513 9.36014 0 10.0937 0 11.0024C0 11.9111 0.736513 12.6446 1.64891 12.6446H19.2373C20.1497 12.6446 20.8862 11.9111 20.8862 11.0024C20.8862 10.0937 20.1497 9.36014 19.2373 9.36014Z" fill="white" fill-opacity="0.2"></path>' +
-      '<path d="M0.113985 2.2438C0.113985 1.33509 0.850497 0.601562 1.76289 0.601562H19.3513C20.2636 0.601562 21.0002 1.33509 21.0002 2.2438C21.0002 3.1525 20.2636 3.88603 19.3513 3.88603H1.76289C0.850497 3.88603 0.113985 3.1525 0.113985 2.2438ZM19.3513 18.1187H1.76289C0.850497 18.1187 0.113985 18.8522 0.113985 19.7609C0.113985 20.6696 0.850497 21.4032 1.76289 21.4032H19.3513C20.2636 21.4032 21.0002 20.6696 21.0002 19.7609C21.0002 18.8522 20.2636 18.1187 19.3513 18.1187ZM19.2373 9.36014H1.64891C0.736513 9.36014 0 10.0937 0 11.0024C0 11.9111 0.736513 12.6446 1.64891 12.6446H19.2373C20.1497 12.6446 20.8862 11.9111 20.8862 11.0024C20.8862 10.0937 20.1497 9.36014 19.2373 9.36014Z" fill="url(#paint0_linear_1375_7667)"></path>' +
-      "<defs>" +
-      '<linearGradient id="paint0_linear_1375_7667" x1="6.86973" y1="1.31886" x2="17.2515" y2="29.2865" gradientUnits="userSpaceOnUse">' +
-      '<stop stop-color="#00D4FF"></stop>' +
-      '<stop offset="1" stop-color="#8F88ED"></stop>' +
-      "</linearGradient>" +
-      "</defs>" +
-      "</svg>" +
-      "</button>" +
-      "</div>" +
-      '<div class="flex md:w-[700px] xl:w-[800px] justify-between">' +
-      '<div class="flex lg:order-2 space-x-2 lg:space-x-0 rtl:space-x-reverse relative z-20">' +
-      '<a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-[#00b14c] text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-[#00b14c] dark:bg-[#00b14c] dark:focus:ring-cyan-800 dark:enabled:hover:bg-[#00b14c] rounded-full hidden lg:block"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a>' +
-      "</div>" +
-      '<div class="items-center justify-center hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">' +
-      '<ul class="flex flex-col xl:p-0 font-medium xl:space-x-3 rtl:space-x-reverse lg:flex-row xl:mt-0 xl:border-0 text-gray-900 dark:bg-gray-800 xl:dark:bg-gray-900 dark:border-gray-700 text-center text-[15px] lg:max-w-[1100px] font-normal">' +
-      '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/">Home</a></li>' +
-      '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/about">About Us</a></li>' +
-      '<li><a class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" href="/contact-us">Contact</a></li>' +
-      '<div class="xl:hidden gap-4 items-center flex flex-col mt-2"><a href="/contact-us" type="button" class="group relative items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-[#00b14c] text-white focus:ring-4 focus:ring-cyan-300 enabled:hover:bg-[#00b14c] dark:bg-[#00b14c] dark:focus:ring-cyan-800 dark:enabled:hover:bg-[#00b14c] rounded-full block lg:hidden"><span class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-sm"><span class="leading-0 text-[15px] font-extralight text-center !p-0 w-full">Get Quotation</span></span></a></div>' +
-      "</ul>" +
-      "</div>" +
       "</div>" +
       "</div>"
     );
@@ -814,7 +852,6 @@
       '<div class="wm-home-about-inner">' +
       '<h2 class="wm-home-about-heading" style="color:#00b14c">About Us</h2>' +
       '<p class="wm-home-about-copy">Founded in 1982, Crestline (SMC-PVT) Limited is a trusted manufacturer and exporter of custom promotional textiles, specializing in premium cotton and poly/cotton products for the global promotional industry.</p>' +
-      '<a class="wm-home-about-cta" href="/contact-us" style="background:linear-gradient(90deg, #00b14c 0%, #11c85a 100%);box-shadow:0 14px 30px rgba(0, 177, 76, 0.24)">Get Quotation<span class="wm-home-about-cta-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path></svg></span></a>' +
       "</div>" +
       '<div class="wm-home-about-cards" aria-label="Crestline Vision and Mission">' +
       '<article class="wm-home-about-card wm-home-about-card--vision">' +

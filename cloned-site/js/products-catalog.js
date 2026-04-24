@@ -151,8 +151,7 @@
     modalColors: document.getElementById("productModalColors"),
     modalFeatures: document.getElementById("productModalFeatures"),
     modalImage: document.getElementById("productModalImage"),
-    modalThumbs: document.getElementById("productModalThumbs"),
-    inquiryLink: document.getElementById("productInquiryLink")
+    modalThumbs: document.getElementById("productModalThumbs")
   };
 
   function resolveCategory(value) {
@@ -445,7 +444,6 @@
     elements.modalSize.textContent = product.size;
     elements.modalColors.textContent = product.colors;
     elements.modalFeatures.textContent = product.features;
-    elements.inquiryLink.href = "/contact-us";
     setModalImage(product, 0);
     elements.modal.hidden = false;
     document.body.style.overflow = "hidden";

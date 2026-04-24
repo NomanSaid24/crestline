@@ -14,6 +14,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="preload" as="script" fetchpriority="low" href="/_next/static/chunks/webpack-2f253dca8e70be4f.js">
   <script>window.__crestlineCustomClientPin = true;</script>
+  <script>
+    (function () {
+      var path = window.location.pathname.replace(/\/+$/, "") || "/";
+      if (path === "/") {
+        document.documentElement.classList.add("wm-home-sync-pending");
+        window.__crestlineHomeSyncPending = true;
+      }
+    })();
+  </script>
   <script src="/_next/static/chunks/4bd1b696-d1afaf9361c0b921.js" async=""></script>
   <script src="/_next/static/chunks/517-eabd41823c139ab4.js" async=""></script>
   <script src="/_next/static/chunks/main-app-8ea9f158c3227cb3.js" async=""></script>
@@ -1015,6 +1024,28 @@
       transform: none !important;
     }
 
+    .UnitTeams .wm-unitteams-center-logo {
+      position: absolute !important;
+      left: 50% !important;
+      top: 30% !important;
+      width: auto !important;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      transform: translate(-50%, -50%) !important;
+      z-index: 25;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .UnitTeams .wm-unitteams-center-logo img {
+      width: clamp(120px, 13vw, 170px);
+      height: auto;
+      max-width: 100%;
+    }
+
     .wm-hero-bg-dark {
       position: absolute;
       inset: 0;
@@ -1145,6 +1176,7 @@
     .wm-founded-journey-sticky {
       position: relative;
       min-height: calc(100vh - var(--wm-founded-nav-offset));
+      min-height: calc(100svh - var(--wm-founded-nav-offset));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1165,6 +1197,7 @@
       position: relative;
       width: min(1500px, 98vw);
       height: min(760px, calc(100vh - var(--wm-founded-nav-offset) - 28px));
+      height: min(760px, calc(100svh - var(--wm-founded-nav-offset) - 28px));
       margin: 0 auto;
       z-index: 1;
     }
@@ -1429,24 +1462,26 @@
     @media (max-width: 1023px) {
       .wm-founded-journey-section {
         min-height: auto;
-        padding: clamp(4rem, 9vw, 5rem) 1rem clamp(4rem, 10vw, 5rem);
+        padding: clamp(4rem, 9vw, 5rem) 1rem clamp(3rem, 8vw, 4rem);
       }
 
       .wm-founded-journey-sticky {
-        min-height: auto;
-        display: block;
+        min-height: calc(100vh - var(--wm-founded-nav-offset));
+        min-height: calc(100svh - var(--wm-founded-nav-offset));
+        display: flex;
         padding: 0;
-        overflow: visible;
+        overflow: hidden;
       }
 
       .wm-founded-journey-header {
         min-height: auto;
-        padding: 1.5rem 0 2rem;
+        padding: 1.25rem 0 1.75rem;
       }
 
       .wm-founded-journey-canvas {
-        width: min(460px, 100%);
-        height: auto;
+        width: min(100%, 100vw);
+        height: min(620px, calc(100vh - var(--wm-founded-nav-offset) - 12px));
+        height: min(620px, calc(100svh - var(--wm-founded-nav-offset) - 12px));
       }
 
       .wm-founded-journey-intro {
@@ -1466,11 +1501,47 @@
       }
 
       .wm-founded-journey-desktop {
-        display: none;
+        display: block;
       }
 
       .wm-founded-journey-mobile {
-        display: block;
+        display: none;
+      }
+
+      .wm-founded-journey-track {
+        height: min(470px, calc(100% - 12px));
+      }
+
+      .wm-founded-journey-event {
+        width: 240px;
+      }
+
+      .wm-founded-journey-copy-slot--top {
+        bottom: calc(50% + 94px);
+      }
+
+      .wm-founded-journey-copy-slot--bottom {
+        top: calc(50% + 94px);
+      }
+
+      .wm-founded-journey-year {
+        font-size: clamp(1.28rem, 4.8vw, 1.65rem);
+      }
+
+      .wm-founded-journey-description {
+        max-width: 230px;
+        font-size: 0.95rem;
+        line-height: 1.45;
+      }
+
+      .wm-founded-journey-node {
+        width: 84px;
+        height: 84px;
+      }
+
+      .wm-founded-journey-icon {
+        width: 38px;
+        height: 38px;
       }
     }
 
@@ -1716,14 +1787,55 @@
       line-height: 1.7;
     }
 
+    .home-contact-form-status {
+      min-height: 1.4rem;
+      margin-top: 0.35rem;
+      color: #64748B;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .home-contact-form-status[data-state="success"] {
+      color: #00b14c;
+    }
+
+    .home-contact-form-status[data-state="error"] {
+      color: #dc2626;
+    }
+
+    .home-contact-form-status[data-state="pending"] {
+      color: #475569;
+    }
+
     .home-contact-submit {
       justify-content: center;
+    }
+
+    .home-contact-submit[disabled] {
+      opacity: 0.82;
+      cursor: progress;
     }
 
     @media screen and (max-width: 991px) {
       .home-contact-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    @media screen and (max-width: 1023px) {
+      nav .wm-green-pill-button--nav {
+        display: none !important;
+      }
+    }
+
+    nav [data-collapse-toggle="navbar-sticky"],
+    nav #navbar-sticky,
+    nav .wm-green-pill-button--nav {
+      display: none !important;
+    }
+
+    .wm-hero-button {
+      display: none !important;
     }
 
     @media screen and (max-width: 767px) {
@@ -1749,6 +1861,12 @@
     .pin-spacer:has(#clientContainer) {
       position: relative;
       z-index: 0 !important;
+    }
+
+    .pin-spacer:has(#clientContainer),
+    .pin-spacer:has(#clientContainer) > section,
+    section:has(#clientContainer) {
+      display: none !important;
     }
 
     .pin-spacer:has(#clientContainer) > section,
@@ -1854,10 +1972,20 @@
       visibility: hidden;
     }
 
+    html.wm-home-sync-pending {
+      overflow: hidden;
+      background: #e2eefb;
+    }
+
+    html.wm-home-sync-pending body {
+      visibility: hidden;
+    }
+
     /* Hide nav during loading — display:none is required because the nav uses
        backdrop-filter (backdrop-blur), which renders even under visibility:hidden.
        display:none removes it from the render tree entirely, stopping the blur effect. */
-    html.wm-loading nav {
+    html.wm-loading nav,
+    html.wm-home-sync-pending nav {
       display: none !important;
     }
   </style>
@@ -2132,7 +2260,7 @@
 
       /* -- Progress bar -- */
       var bar = document.createElement('div');
-      bar.style.cssText = 'background:#000;width:0.45rem;height:0;position:absolute;bottom:0;right:0.6rem;z-index:10;';
+      bar.style.cssText = 'background:#00b14c;width:0.7rem;height:0;position:absolute;bottom:0;right:0;z-index:10;';
       loader.appendChild(bar);
 
       /* Start bar animation immediately (full loader duration, pre-calculated) */
@@ -2188,7 +2316,7 @@
           'font-weight:700',
           'line-height:0.92',
           'letter-spacing:-0.03em',
-          'color:#000',
+          'color:#00b14c',
           'text-transform:uppercase',
           'white-space:nowrap',
           'margin:0',
@@ -2205,12 +2333,41 @@
 
       /* -- Guard: prevent React hydration from yanking the loader -- */
       var done = false;
+      var homeRevealWaitStartedAt = 0;
       function ensureLoader() {
         if (done) return;
         if (!document.getElementById('wmLoader')) document.documentElement.appendChild(loader);
       }
       document.documentElement.appendChild(loader);
       var guardInterval = setInterval(ensureLoader, 50);
+
+      function finalizeLoaderReveal() {
+        done = true;
+        classGuard.disconnect();
+        clearInterval(guardInterval);
+        loader.style.display = 'none';
+        document.documentElement.style.background = '';
+        document.documentElement.classList.remove('wm-loading');
+      }
+
+      function waitForHomepageSyncReveal() {
+        var path = window.location.pathname.replace(/\/+$/, '') || '/';
+
+        if (!homeRevealWaitStartedAt) {
+          homeRevealWaitStartedAt = Date.now();
+        }
+
+        if (
+          path === '/' &&
+          document.documentElement.classList.contains('wm-home-sync-pending') &&
+          Date.now() - homeRevealWaitStartedAt < 5000
+        ) {
+          setTimeout(waitForHomepageSyncReveal, 60);
+          return;
+        }
+
+        finalizeLoaderReveal();
+      }
 
       /* -- Animation timing constants -- */
       var TRAVEL = 480;   /* wrapper travel per zone (ms) */
@@ -2348,12 +2505,7 @@
                   { duration: TRAVEL + 100, easing: EASE, fill: 'forwards' }
                 );
                 setTimeout(function () {
-                  done = true;
-                  classGuard.disconnect();                            /* stop guarding */
-                  clearInterval(guardInterval);
-                  loader.style.display = 'none';
-                  document.documentElement.style.background = '';
-                  document.documentElement.classList.remove('wm-loading'); /* show page */
+                  waitForHomepageSyncReveal();
                 }, TRAVEL + 200);
               }, EL_TOTAL);
 
@@ -2378,43 +2530,12 @@
           href="/"><img alt="Crestline Logo" width="99" height="17" decoding="async" data-nimg="1"
             class="hidden w-[99px] h-[17px]" style="color:transparent" src="/images/branding/crestline-logo.png"><img
             alt="Crestline Logo" width="99" height="26" decoding="async" data-nimg="1" class=" w-[130px] h-[26px]"
-            style="color:transparent" src="/images/branding/crestline-logo.png"></a><button data-collapse-toggle="navbar-sticky"
-          type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 false rounded-lg border-none outline-none lg:hidden  focus:outline-none"
-          aria-controls="navbar-sticky" aria-expanded="false"><span class="sr-only">Open main menu</span><svg width="21"
-            height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M0.113985 2.2438C0.113985 1.33509 0.850497 0.601562 1.76289 0.601562H19.3513C20.2636 0.601562 21.0002 1.33509 21.0002 2.2438C21.0002 3.1525 20.2636 3.88603 19.3513 3.88603H1.76289C0.850497 3.88603 0.113985 3.1525 0.113985 2.2438ZM19.3513 18.1187H1.76289C0.850497 18.1187 0.113985 18.8522 0.113985 19.7609C0.113985 20.6696 0.850497 21.4032 1.76289 21.4032H19.3513C20.2636 21.4032 21.0002 20.6696 21.0002 19.7609C21.0002 18.8522 20.2636 18.1187 19.3513 18.1187ZM19.2373 9.36014H1.64891C0.736513 9.36014 0 10.0937 0 11.0024C0 11.9111 0.736513 12.6446 1.64891 12.6446H19.2373C20.1497 12.6446 20.8862 11.9111 20.8862 11.0024C20.8862 10.0937 20.1497 9.36014 19.2373 9.36014Z"
-              fill="white" fill-opacity="0.2"></path>
-            <path
-              d="M0.113985 2.2438C0.113985 1.33509 0.850497 0.601562 1.76289 0.601562H19.3513C20.2636 0.601562 21.0002 1.33509 21.0002 2.2438C21.0002 3.1525 20.2636 3.88603 19.3513 3.88603H1.76289C0.850497 3.88603 0.113985 3.1525 0.113985 2.2438ZM19.3513 18.1187H1.76289C0.850497 18.1187 0.113985 18.8522 0.113985 19.7609C0.113985 20.6696 0.850497 21.4032 1.76289 21.4032H19.3513C20.2636 21.4032 21.0002 20.6696 21.0002 19.7609C21.0002 18.8522 20.2636 18.1187 19.3513 18.1187ZM19.2373 9.36014H1.64891C0.736513 9.36014 0 10.0937 0 11.0024C0 11.9111 0.736513 12.6446 1.64891 12.6446H19.2373C20.1497 12.6446 20.8862 11.9111 20.8862 11.0024C20.8862 10.0937 20.1497 9.36014 19.2373 9.36014Z"
-              fill="url(#paint0_linear_1375_7667)"></path>
-            <defs>
-              <linearGradient id="paint0_linear_1375_7667" x1="6.86973" y1="1.31886" x2="17.2515" y2="29.2865"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#00D4FF"></stop>
-                <stop offset="1" stop-color="#8F88ED"></stop>
-              </linearGradient>
-            </defs>
-          </svg></button></div>
+            style="color:transparent" src="/images/branding/crestline-logo.png"></a></div>
+      <!--
       <div class="flex md:w-[700px] xl:w-[800px] justify-between">
-        <div class="flex lg:order-2 space-x-2 lg:space-x-0 rtl:space-x-reverse relative z-20"><a href="/contact-us" type="button" class="wm-green-pill-button wm-green-pill-button--nav hidden lg:inline-flex"><span class="wm-green-pill-button-text">Get Quotation</span><span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path></svg></span></a></div>
-        <div class="items-center justify-center hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">
-          <ul
-            class="flex flex-col xl:p-0 font-medium false xl:space-x-3 rtl:space-x-reverse lg:flex-row xl:mt-0 xl:border-0 false text-gray-900 false dark:bg-gray-800 xl:dark:bg-gray-900 dark:border-gray-700 text-center text-[15px] lg:max-w-[1100px] font-normal">
-            <li><a
-                class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                href="/">Home</a></li>
-            <li><a
-                class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                href="/about">About Us</a></li>
-            <li><a
-                class="block py-2 lg:px-2 rounded-sm md:hover:bg-transparent md:hover:text-[#26ade3] transition-all transition-1000 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                href="/contact-us">Contact</a></li>
-            <div class="xl:hidden gap-4 items-center flex flex-col mt-2"><a href="/contact-us" type="button" class="wm-green-pill-button wm-green-pill-button--nav lg:hidden"><span class="wm-green-pill-button-text">Get Quotation</span><span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path></svg></span></a></div>
-          </ul>
-        </div>
+        nav menu and quotation button intentionally commented out
       </div>
+      -->
     </div>
   </nav>
   <div
@@ -2472,9 +2593,11 @@
                       </p>
                     </div>
                     <div class="wm-hero-spacer" aria-hidden="true"></div>
+                    <!--
                     <a href="/contact-us" class="wm-hero-button">
                       <span class="wm-hero-button-text">Contact Us</span>
                     </a>
+                    -->
                   </div>
                 </div>
               </div>
@@ -2499,9 +2622,6 @@
       <div class="wm-home-about-inner">
         <h2 class="wm-home-about-heading" style="color:#00b14c">About Us</h2>
         <p class="wm-home-about-copy">Founded in 1982, Crestline (SMC-PVT) Limited is a trusted manufacturer and exporter of custom promotional textiles, specializing in premium cotton and poly/cotton products for the global promotional industry.</p>
-        <a class="wm-home-about-cta" href="/contact-us" style="background:linear-gradient(90deg, #00b14c 0%, #11c85a 100%);box-shadow:0 14px 30px rgba(0, 177, 76, 0.24)">Get Quotation<span class="wm-home-about-cta-icon" aria-hidden="true"><svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.7077 1.57031C6.7077 1.15667 6.37238 0.821354 5.95874 0.821354C5.5451 0.821354 5.20978 1.15667 5.20978 1.57031L6.7077 1.57031ZM5.42915 16.0805C5.72163 16.3729 6.19585 16.3729 6.48833 16.0805L11.2547 11.3141C11.5472 11.0216 11.5472 10.5474 11.2547 10.2549C10.9622 9.96245 10.488 9.96245 10.1955 10.2549L5.95874 14.4917L1.72199 10.2549C1.4295 9.96245 0.95529 9.96245 0.662804 10.2549C0.370318 10.5474 0.370318 11.0216 0.662804 11.3141L5.42915 16.0805ZM5.95874 1.57031L5.20978 1.57031L5.20978 15.5509L5.95874 15.5509L6.7077 15.5509L6.7077 1.57031L5.95874 1.57031Z" fill="#00b14c"></path>
-            </svg></span></a>
       </div>
       <div class="wm-home-about-cards" aria-label="Crestline Vision and Mission">
         <article class="wm-home-about-card wm-home-about-card--vision">
@@ -3690,59 +3810,10 @@
               <path d="M3 13H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
             </svg></span></a>
       </div>
-      <div class="m-auto max-w-[1000px] h-[638px] flex items-start justify-center relative z-20"><img alt="dashboard"
-          id="dashboardUTF" loading="lazy" width="1066" height="758" decoding="async" data-nimg="1"
-          class="w-auto h-auto transform [rotate:2deg] opacity-90 scale-[1.8] translate-x-[-8px] xs:translate-x-[-11px] xs:translate-y-[28px] md:translate-x-0 lg:translate-y-0 md:scale-100 origin-top"
-          style="color: transparent; opacity: 0.9;" src="/images/c-suite-ui/unitteams-mobile.webp">
-        <div
-          class="absolute flex items-center justify-center w-full h-full max-w-[300px] max-h-[638px] opacity-90 transform -rotate-[42deg] skew-x-[10deg] skew-y-[10deg] translate-x-[0] translate-y-[-108px] scale-[0.38]"
-          id="loaderLikeUTANIM"
-          style="transform: rotate(-42deg) skew(10deg, 10deg) translate(3px, 21px) scale(0.75) translate(60px, -70px); opacity: 0.9;">
-          <h3 class="flex gap-2 text-lg text-center text-black font-thin animate-fadeOut delay-[1.5s] absolute"><span
-              class="opacity-0 animate-slideUp delay-0 inline-block transform translate-y-[100%]">Pioneering</span><span
-              class="opacity-0 animate-slideUp delay-300 font-bold inline-block transform translate-y-[100%]">Creative</span><span
-              class="opacity-0 animate-slideUp delay-500 inline-block transform translate-y-[100%]">Excellence</span>
-          </h3>
-          <div class="relative w-fit flex ">
-            <div
-              class="z-20 opacity-0 absolute w-[8%] bg-global transform translate-x-full slideUpBoxAnimation h-full loaderBox"
-              id="loaderBox" style="max-height: 200px;"></div><img alt="Flowbite Logo" id="LogoImg" loading="lazy"
-              width="200" height="40" decoding="async" data-nimg="1" class="z-10 opacity-0 animate-imageFade relative"
-              src="/images/branding/crestline-logo.png" style="color: transparent;">
-          </div>
-        </div>
-        <div class="absolute left-[2%] lg:left-[-4%] top-[5%]">
-          <div
-            class="bg-gradient-to-r from-white to-[#E8FAFF73] w-fit p-1  lg:p-3 !pl-5 rounded-full my-3 flex gap-2 items-center false"
-            id="btnComp1"
-            style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
-            <p class=" font-normal text-[8.04px] lg:text-[15.36px] leading-5 text-[#475569]">Promote viral advertising
-              new text</p><span class="bg-[#00b14c] rounded-full w-[38px] h-[17px] lg:w-[73px] lg:h-[33px]"></span>
-          </div>
-        </div>
-        <div class="absolute right-[1%] lg:right-[10%] top-[11%] lg:top-[10%] btnComp">
-          <div
-            class="bg-gradient-to-r from-white to-[#E8FAFF73] w-fit p-1  lg:p-3 !pl-5 rounded-full my-3 flex gap-2 items-center false"
-            id="btnComp2"
-            style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
-            <p class=" font-normal text-[8.04px] lg:text-[15.36px] leading-5 text-[#475569]">Promote viral advertising
-            </p><span class="bg-[#00b14c] rounded-full w-[38px] h-[17px] lg:w-[73px] lg:h-[33px]"></span>
-          </div>
-        </div>
-        <div class="absolute right-[-5%] lg:right-[-7%] top-[19%] lg:top-[30%] btnComp">
-          <div
-            class="bg-gradient-to-r from-white to-[#E8FAFF73] w-fit p-1  lg:p-3 !pl-5 rounded-full my-3 flex gap-2 items-center false"
-            id="btnComp3"
-            style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
-            <p class=" font-normal text-[8.04px] lg:text-[15.36px] leading-5 text-[#475569]">Promote viral advertising
-            </p><span class="bg-[#00b14c] rounded-full w-[38px] h-[17px] lg:w-[73px] lg:h-[33px]"></span>
-          </div>
-        </div>
-        <div
-          class="flex flex-col absolute text-[#475569] lg:text-[#475569] text-[14px] lg:text-[15.36px] w-full lg:w-2/5 left-[6%] sm:left-0 xl:left-[-4%] top-[60%] lg:top-[50%]"
-          id="descUT" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
-          <img alt="logo" loading="lazy" width="32" height="32" decoding="async" data-nimg="1" style="color:transparent"
-            src="/images/branding/crestline-logo.png">
+      <div class="m-auto max-w-[1000px] h-[638px] flex items-start justify-center relative z-20">
+        <div class="wm-unitteams-center-logo" id="descUT">
+          <img alt="logo" loading="lazy" width="160" height="42" decoding="async" data-nimg="1"
+            style="color:transparent" src="/images/branding/crestline-logo.png">
           <p style="display:none"></p>
         </div>
       </div>
@@ -6679,67 +6750,13 @@
   <footer class=" bg-[#FFFFFF29] relative mt-[15vh] p-8 pt-[10vh] pb-[4vh] rounded-t-[36px]"
     style="backdrop-filter:blur(130px);box-shadow:0px -8px 247.3px 0px #29ADE41A">
     <div class=" max-w-[1300px] m-auto relative z-10">
-      <div class="grid gap-6 grid-cols-1 lg:grid-cols-[30%_30%_35%] justify-between">
-        <div
-          class="w-3/4 mx-auto sm:mx-[initial] flex md:block text-center md:text-left items-center md:items-start flex-col">
-          <a href="/"><img alt="Crestline Logo" width="99" height="26" decoding="async" data-nimg="1"
-              class="w-[85px] h-[65px]" style="color:transparent" src="/images/branding/crestline-logo.png"></a>
-          <div class="mt-3 font-normal text-sm text-[#343C6A]">Custom promotional textiles manufactured with quality,
-            consistency, and responsible production since 1982.</div>
-          <div class="mt-5 flex gap-2 justify-center md:justify-start" data-home-footer-socials>
-            <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
-                stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z">
-                </path>
-              </svg></div>
-            <a class="rounded-full text-white p-1 inline-flex" style="background-color:#00b14c" href="https://www.linkedin.com/company/crestline-smc-pvt-limited/" target="_blank" rel="noopener noreferrer" aria-label="Crestline LinkedIn"><svg stroke="currentColor" fill="currentColor"
-                stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
-                </path>
-              </svg></a>
-            <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
-                stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-                </path>
-              </svg></div>
-          </div>
-        </div>
-        <div>
-          <div class="grid grid-cols-2 text-sm font-normal">
-            <div>
-              <p class=" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium ">Quick Links</p>
-              <ul class="">
-                <li class="mb-4 text-[#343C6A]"><a href="#" class="">About Us</a></li>
-                <li class="mb-4 text-[#343C6A]"><a href="#" class="">Our Services</a></li>
-                <li class="mb-4 text-[#343C6A]"><a href="#" class="">Community</a></li>
-                <li class="mb-4 text-[#343C6A]"><a href="#" class="">Testimonials</a></li>
-                <li class="mb-4 text-[#343C6A]"><a href="#" class="">FAQ</a></li>
-              </ul>
-            </div>
-            <div class="flex justify-end md:block">
-              <div>
-                <p class=" mb-4 lg:mb-8 text-[#343C6A] font-bold lg:font-medium ">Company</p>
-                <ul class="">
-                  <li class="mb-4 text-[#343C6A]"><a href="#" class="">About Us</a></li>
-                  <li class="mb-4 text-[#343C6A]"><a href="#" class="">Contact Us</a></li>
-                  <li class="mb-4 text-[#343C6A]"><a href="#" class="">Career Tips</a></li>
-                  <li class="mb-4 text-[#343C6A]"><a href="#" class="">Career</a></li>
-                </ul>
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="">
+      <div class="wm-home-footer-layout" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:40px">
+        <div style="flex:1 1 560px;max-width:760px">
           <p class="text-[32px] font-normal leading-[32px] text-center md:text-left" style="color:#00b14c">Contact Info</p>
           <div class="mt-8 text-center md:text-left text-[#343C6A]" style="display:flex;flex-direction:column;row-gap:18px">
             <div>
               <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Address</p>
-              <p class="text-sm leading-7" style="margin-top:4px">Plot # 227, Sector 24, Korangi Industrial Area, Karachi-74900,
-                Pakistan.</p>
+              <p class="text-sm leading-7" style="margin-top:4px">Plot # 227, Sector 24, Korangi Industrial Area, Karachi-74900, Pakistan.</p>
             </div>
             <div>
               <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Phone</p>
@@ -6753,7 +6770,32 @@
               <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Working Days/Hours</p>
               <p class="text-sm leading-7" style="margin-top:4px">Mon - Sat / 10:00 AM - 6:00 PM</p>
             </div>
+            <div class="mt-2 flex gap-2 justify-center md:justify-start" data-home-footer-socials>
+              <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
+                  stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z">
+                  </path>
+                </svg></div>
+              <a class="rounded-full text-white p-1 inline-flex" style="background-color:#00b14c" href="https://www.linkedin.com/company/crestline-smc-pvt-limited/" target="_blank" rel="noopener noreferrer" aria-label="Crestline LinkedIn"><svg stroke="currentColor" fill="currentColor"
+                  stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
+                  </path>
+                </svg></a>
+              <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
+                  stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
+                  </path>
+                </svg></div>
+            </div>
           </div>
+        </div>
+        <div style="margin-left:auto;align-self:flex-end;text-align:right">
+          <p data-home-footer-credit="1" class="text-sm text-[#343C6A]" style="text-align:right">
+            &copy; 2026 Crestline Promotion - A site by <a href="http://techure.me/portfolio/" target="_blank" rel="noopener noreferrer" style="color:#00b14c;text-decoration:none">Techure</a>.
+          </p>
         </div>
       </div>
     </div>
@@ -6829,6 +6871,128 @@
         }
       }
 
+      function setHomeContactStatus(node, state, message) {
+        if (!node) {
+          return;
+        }
+
+        node.textContent = message || "";
+
+        if (state) {
+          node.setAttribute("data-state", state);
+        } else {
+          node.removeAttribute("data-state");
+        }
+      }
+
+      function ensureHiddenField(form, name, value) {
+        var input = form ? form.querySelector('input[name="' + name + '"]') : null;
+
+        if (!form) {
+          return null;
+        }
+
+        if (!input) {
+          input = document.createElement("input");
+          input.type = "hidden";
+          input.name = name;
+          form.appendChild(input);
+        }
+
+        input.value = value;
+        return input;
+      }
+
+      function bindHomeContactServerForm(form) {
+        if (!form) {
+          return;
+        }
+
+        form.setAttribute("action", "/contact-submit.php");
+        form.setAttribute("method", "post");
+        form.setAttribute("accept-charset", "UTF-8");
+        ensureHiddenField(form, "website", "");
+        ensureHiddenField(form, "source", "home-quick-inquiry");
+
+        if (form.getAttribute("data-home-contact-server-bound") === "1") {
+          return;
+        }
+
+        var submitButton = form.querySelector('button[type="submit"]');
+        var statusNode = form.querySelector(".home-contact-form-status");
+
+        if (!statusNode) {
+          statusNode = document.createElement("div");
+          statusNode.className = "home-contact-form-status";
+          statusNode.setAttribute("aria-live", "polite");
+          form.appendChild(statusNode);
+        }
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          if (typeof form.reportValidity === "function" && !form.reportValidity()) {
+            return;
+          }
+
+          var formData = new FormData(form);
+          setHomeContactStatus(statusNode, "pending", "Sending your inquiry...");
+
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.setAttribute("aria-busy", "true");
+          }
+
+          fetch(form.getAttribute("action") || "/contact-submit.php", {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Accept": "application/json",
+              "X-Requested-With": "XMLHttpRequest"
+            },
+            credentials: "same-origin"
+          })
+            .then(function (response) {
+              return response
+                .json()
+                .catch(function () {
+                  return {};
+                })
+                .then(function (payload) {
+                  if (!response.ok || !payload || payload.ok !== true) {
+                    throw new Error(
+                      payload && payload.message
+                        ? payload.message
+                        : "We could not send your inquiry right now. Please try again."
+                    );
+                  }
+
+                  form.reset();
+                  ensureHiddenField(form, "website", "");
+                  ensureHiddenField(form, "source", "home-quick-inquiry");
+                  setHomeContactStatus(statusNode, "success", payload.message || "Your inquiry has been sent successfully.");
+                });
+            })
+            .catch(function (error) {
+              setHomeContactStatus(
+                statusNode,
+                "error",
+                error && error.message
+                  ? error.message
+                  : "We could not send your inquiry right now. Please try again."
+              );
+            })
+            .finally(function () {
+              if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.removeAttribute("aria-busy");
+              }
+            });
+        });
+
+        form.setAttribute("data-home-contact-server-bound", "1");
+      }
+
       function hideSection(node) {
         var section = node && node.closest ? node.closest("section") : null;
         if (!section) {
@@ -6837,6 +7001,19 @@
         section.setAttribute("hidden", "hidden");
         section.style.display = "none";
         section.style.visibility = "hidden";
+      }
+
+      function removeClientLogoSection() {
+        var clientContainer = document.getElementById("clientContainer");
+        var section = clientContainer && clientContainer.closest ? clientContainer.closest("section") : null;
+        var spacer = section && section.parentElement && section.parentElement.classList.contains("pin-spacer")
+          ? section.parentElement
+          : null;
+        var target = spacer || section;
+
+        if (target && target.parentNode) {
+          target.parentNode.removeChild(target);
+        }
       }
 
       function applyClientLogoResponsiveLayout() {
@@ -7178,7 +7355,7 @@
         });
       }
 
-      var FOUNDED_JOURNEY_VERSION = "gsap-horizontal-v9-header-before-pin";
+      var FOUNDED_JOURNEY_VERSION = "gsap-horizontal-v17-mobile-reload-fix";
 
       function clampNumber(value, min, max) {
         return Math.min(Math.max(value, min), max);
@@ -7610,14 +7787,174 @@
           section._foundedJourneyMedia.revert();
           section._foundedJourneyMedia = null;
         }
+
+        if (section) {
+          section._foundedJourneyMode = "";
+        }
       }
 
-      function queueFoundedJourneyInit(section, immediate) {
-        if (!section || section._foundedJourneyMedia) {
+      function getFoundedJourneyMode() {
+        return window.innerWidth <= 1023 ? "compact" : "desktop";
+      }
+
+      function getFoundedJourneyPreviousLayoutNode(section) {
+        var previousSection = section && section.previousElementSibling;
+        return getPinSpacer(previousSection) || previousSection || null;
+      }
+
+      function isFoundedJourneyNearViewport(section) {
+        var rect;
+        var viewportHeight;
+
+        if (!section || typeof section.getBoundingClientRect !== "function") {
+          return true;
+        }
+
+        rect = section.getBoundingClientRect();
+        viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+
+        return rect.top <= viewportHeight * 1.65 && rect.bottom >= -viewportHeight * 0.4;
+      }
+
+      function getFoundedJourneyLayoutSignature(section) {
+        var previousLayoutNode = getFoundedJourneyPreviousLayoutNode(section);
+        var sticky = section && section.querySelector ? section.querySelector("[data-founded-pin]") : null;
+        var spacer = getPinSpacer(section);
+        return [
+          getFoundedJourneyMode(),
+          window.innerWidth || 0,
+          window.innerHeight || 0,
+          Math.round(section ? section.offsetTop || 0 : 0),
+          Math.round(section ? section.offsetHeight || 0 : 0),
+          Math.round(previousLayoutNode ? previousLayoutNode.offsetHeight || 0 : 0),
+          Math.round(sticky ? sticky.offsetHeight || 0 : 0),
+          Math.round(spacer ? spacer.offsetHeight || 0 : 0)
+        ].join(":");
+      }
+
+      function ensureFoundedJourneyLoadBinding(section) {
+        if (!section || section._foundedJourneyLoadBound) {
+          return;
+        }
+
+        section._foundedJourneyLoadBound = true;
+        window.addEventListener("load", function () {
+          section._foundedJourneyLoadBound = false;
+          queueFoundedJourneyInit(section, true);
+        }, { once: true });
+      }
+
+      function ensureFoundedJourneyFontBinding(section) {
+        if (
+          !section ||
+          section._foundedJourneyFontBound ||
+          !document.fonts ||
+          !document.fonts.ready ||
+          document.fonts.status === "loaded"
+        ) {
+          return;
+        }
+
+        section._foundedJourneyFontBound = true;
+        document.fonts.ready.then(function () {
+          section._foundedJourneyFontBound = false;
+          queueFoundedJourneyInit(section, true, true);
+        }).catch(function () {
+          section._foundedJourneyFontBound = false;
+        });
+      }
+
+      function ensureFoundedJourneyVisibilityObserver(section) {
+        if (!section || section._foundedJourneyVisibilityObserver || !("IntersectionObserver" in window)) {
+          return;
+        }
+
+        section._foundedJourneyVisibilityObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting && entry.intersectionRatio <= 0) {
+              return;
+            }
+
+            section._foundedJourneyHasEntered = true;
+            queueFoundedJourneyInit(section, true, true);
+          });
+        }, {
+          rootMargin: "140% 0px 140% 0px",
+          threshold: [0, 0.01]
+        });
+
+        section._foundedJourneyVisibilityObserver.observe(section);
+      }
+
+      function ensureFoundedJourneyLayoutObserver(section) {
+        if (!section || section._foundedJourneyLayoutObserver || !("ResizeObserver" in window)) {
+          return;
+        }
+
+        var observer = new ResizeObserver(function () {
+          if (section._foundedJourneyMedia) {
+            queueHomepageScrollTriggerRefresh(120);
+          } else {
+            queueFoundedJourneyInit(section);
+          }
+        });
+        var previousSection = section.previousElementSibling;
+        var previousLayoutNode = getFoundedJourneyPreviousLayoutNode(section);
+        var nav = document.querySelector("nav");
+        var spacer = getPinSpacer(section);
+
+        observer.observe(section);
+        if (previousSection) {
+          observer.observe(previousSection);
+        }
+        if (previousLayoutNode && previousLayoutNode !== previousSection) {
+          observer.observe(previousLayoutNode);
+        }
+        if (nav) {
+          observer.observe(nav);
+        }
+        if (spacer) {
+          observer.observe(spacer);
+        }
+
+        section._foundedJourneyLayoutObserver = observer;
+      }
+
+      function queueFoundedJourneyInit(section, immediate, force) {
+        var requiredStablePasses;
+
+        if (!section) {
+          return;
+        }
+
+        ensureFoundedJourneyLayoutObserver(section);
+        ensureFoundedJourneyVisibilityObserver(section);
+
+        if (getFoundedJourneyMode() === "compact" && !isFoundedJourneyNearViewport(section) && !section._foundedJourneyHasEntered) {
+          return;
+        }
+
+        if (document.readyState !== "complete") {
+          ensureFoundedJourneyLoadBinding(section);
+          return;
+        }
+
+        ensureFoundedJourneyFontBinding(section);
+
+        requiredStablePasses = getFoundedJourneyMode() === "compact" ? 2 : 1;
+
+        if (
+          !force &&
+          section._foundedJourneyMedia &&
+          section._foundedJourneyMode === getFoundedJourneyMode() &&
+          section.getAttribute("data-founded-journey-version") === FOUNDED_JOURNEY_VERSION
+        ) {
+          queueHomepageScrollTriggerRefresh(0);
           return;
         }
 
         section._foundedJourneyRetryCount = section._foundedJourneyRetryCount || 0;
+        section._foundedJourneyStablePasses = section._foundedJourneyStablePasses || 0;
 
         if (section._foundedJourneyRetryCount > 24) {
           return;
@@ -7626,9 +7963,25 @@
         window.clearTimeout(section._foundedJourneyRetryTimer || 0);
 
         section._foundedJourneyRetryTimer = window.setTimeout(function () {
+          var signature = getFoundedJourneyLayoutSignature(section);
+
           section._foundedJourneyRetryTimer = 0;
+
+          if (section._foundedJourneyLastSignature !== signature) {
+            section._foundedJourneyLastSignature = signature;
+            section._foundedJourneyStablePasses = 0;
+          } else {
+            section._foundedJourneyStablePasses += 1;
+          }
+
+          if (section._foundedJourneyStablePasses < requiredStablePasses) {
+            section._foundedJourneyRetryCount += 1;
+            queueFoundedJourneyInit(section, false, force);
+            return;
+          }
+
           section._foundedJourneyRetryCount += 1;
-          initFoundedJourney(section);
+          initFoundedJourney(section, force);
         }, immediate ? 0 : Math.min(120 * Math.pow(1.35, section._foundedJourneyRetryCount), 1200));
       }
 
@@ -7642,12 +7995,23 @@
             typeof sharedRuntime.gsap.registerPlugin === "function"
           ) {
             sharedRuntime.gsap.registerPlugin(sharedRuntime.ScrollTrigger);
+            if (
+              !window.__crestlineScrollTriggerConfigured &&
+              typeof sharedRuntime.ScrollTrigger.config === "function"
+            ) {
+              sharedRuntime.ScrollTrigger.config({ ignoreMobileResize: false });
+              window.__crestlineScrollTriggerConfigured = true;
+            }
             return sharedRuntime;
           }
         }
 
         if (window.gsap && window.ScrollTrigger) {
           window.gsap.registerPlugin(window.ScrollTrigger);
+          if (!window.__crestlineScrollTriggerConfigured && typeof window.ScrollTrigger.config === "function") {
+            window.ScrollTrigger.config({ ignoreMobileResize: false });
+            window.__crestlineScrollTriggerConfigured = true;
+          }
           window.__crestlineFoundedJourneyGsapRuntime = {
             gsap: window.gsap,
             ScrollTrigger: window.ScrollTrigger
@@ -7689,6 +8053,10 @@
           }
 
           gsapInstance.registerPlugin(ScrollTriggerInstance);
+          if (!window.__crestlineScrollTriggerConfigured && typeof ScrollTriggerInstance.config === "function") {
+            ScrollTriggerInstance.config({ ignoreMobileResize: false });
+            window.__crestlineScrollTriggerConfigured = true;
+          }
           window.__crestlineFoundedJourneyGsapRuntime = {
             gsap: gsapInstance,
             ScrollTrigger: ScrollTriggerInstance
@@ -7699,15 +8067,26 @@
         }
       }
 
-      function initFoundedJourney(section) {
+      function initFoundedJourney(section, force) {
         var gsapRuntime = getFoundedJourneyGsapRuntime();
+        var currentMode = getFoundedJourneyMode();
 
         if (!section) {
           return;
         }
 
         if (!gsapRuntime) {
-          queueFoundedJourneyInit(section);
+          queueFoundedJourneyInit(section, false, force);
+          return;
+        }
+
+        if (
+          !force &&
+          section._foundedJourneyMedia &&
+          section._foundedJourneyMode === currentMode &&
+          section.getAttribute("data-founded-journey-version") === FOUNDED_JOURNEY_VERSION
+        ) {
+          queueHomepageScrollTriggerRefresh(0);
           return;
         }
 
@@ -7715,6 +8094,9 @@
         window.clearTimeout(section._foundedJourneyRetryTimer || 0);
         section._foundedJourneyRetryTimer = 0;
         section._foundedJourneyRetryCount = 0;
+        section._foundedJourneyStablePasses = 0;
+        section._foundedJourneyLastSignature = "";
+        section._foundedJourneyMode = currentMode;
 
         var gsapInstance = gsapRuntime.gsap;
         var ScrollTriggerInstance = gsapRuntime.ScrollTrigger;
@@ -7722,13 +8104,39 @@
 
         section._foundedJourneyMedia = media;
 
-        media.add("(min-width: 1024px)", function () {
+        function createPinnedFoundedJourney(options) {
           var sticky = section.querySelector("[data-founded-pin]");
           var desktop = section.querySelector("[data-founded-desktop]");
           var viewport = section.querySelector("[data-founded-viewport]");
           var track = section.querySelector("[data-founded-track]");
           var progress = section.querySelector("[data-founded-progress]");
           var events = gsapInstance.utils.toArray(section.querySelectorAll("[data-founded-event]"));
+          var compact = !!(options && options.compact);
+          var timing = compact
+            ? {
+                starts: [0.18, 0.46, 0.74],
+                swaps: [
+                  [0.28, 0.32],
+                  [0.56, 0.6],
+                  [0.84, 0.88]
+                ],
+                total: 1,
+                endDistance: function (layout) {
+                  return Math.max(Math.abs(layout.shifts[layout.shifts.length - 1] || 0) * 1.75, layout.viewportWidth * 2.95, 2200);
+                }
+              }
+            : {
+                starts: [0.36, 0.64, 0.92],
+                swaps: [
+                  [0.46, 0.5],
+                  [0.74, 0.78],
+                  [1.02, 1.06]
+                ],
+                total: 1.18,
+                endDistance: function (layout) {
+                  return Math.max(layout.viewportWidth * 4.15, 3600);
+                }
+              };
 
           if (!sticky || !desktop || !viewport || !track || !progress || !events.length) {
             return;
@@ -7743,7 +8151,7 @@
             });
             var lineStart = points[0];
             var maxShift = Math.max(trackWidth - viewportWidth, 0);
-            var preferredFocusX = viewportWidth * 0.5;
+            var preferredFocusX = viewportWidth * (compact ? 0.54 : 0.5);
             var shifts = points.map(function (point, index) {
               return index === 0 ? 0 : clampNumber(preferredFocusX - point, -maxShift, 0);
             });
@@ -7751,7 +8159,16 @@
               return Math.max(point - lineStart, 0);
             });
             section.style.setProperty("--wm-founded-nav-offset", navOffset + "px");
-            section.style.setProperty("--wm-founded-copy-width", Math.round(clampNumber(viewportWidth * 0.22, 250, 300)) + "px");
+            section.style.setProperty(
+              "--wm-founded-copy-width",
+              Math.round(
+                clampNumber(
+                  viewportWidth * (viewportWidth < 768 ? 0.52 : 0.22),
+                  viewportWidth < 768 ? 170 : 250,
+                  viewportWidth < 768 ? 220 : 300
+                )
+              ) + "px"
+            );
 
             return {
               navOffset: navOffset,
@@ -7771,7 +8188,7 @@
                 return "top top+=" + readLayout().navOffset;
               },
               end: function () {
-                return "+=" + Math.max(readLayout().viewportWidth * 4.15, 3600);
+                return "+=" + timing.endDistance(readLayout());
               },
               scrub: 1,
               pin: true,
@@ -7789,63 +8206,65 @@
             setFoundedJourneyEventState(gsapInstance, eventNode, index === 0);
           });
 
-          desktopTimeline.to({}, { duration: 0.36 }, 0);
+          desktopTimeline.to({}, { duration: timing.starts[0] }, 0);
 
           desktopTimeline.to(progress, {
             width: function () {
               return readLayout().widths[1];
             },
             duration: 0.18
-          }, 0.36);
+          }, timing.starts[0]);
           desktopTimeline.to(track, {
             x: function () {
               return readLayout().shifts[1];
             },
             duration: 0.18
-          }, 0.36);
-          tweenFoundedJourneyEvent(desktopTimeline, events[0], false, 0.46);
-          tweenFoundedJourneyEvent(desktopTimeline, events[1], true, 0.5);
+          }, timing.starts[0]);
+          tweenFoundedJourneyEvent(desktopTimeline, events[0], false, timing.swaps[0][0]);
+          tweenFoundedJourneyEvent(desktopTimeline, events[1], true, timing.swaps[0][1]);
 
           desktopTimeline.to(progress, {
             width: function () {
               return readLayout().widths[2];
             },
             duration: 0.18
-          }, 0.64);
+          }, timing.starts[1]);
           desktopTimeline.to(track, {
             x: function () {
               return readLayout().shifts[2];
             },
             duration: 0.18
-          }, 0.64);
-          tweenFoundedJourneyEvent(desktopTimeline, events[1], false, 0.74);
-          tweenFoundedJourneyEvent(desktopTimeline, events[2], true, 0.78);
+          }, timing.starts[1]);
+          tweenFoundedJourneyEvent(desktopTimeline, events[1], false, timing.swaps[1][0]);
+          tweenFoundedJourneyEvent(desktopTimeline, events[2], true, timing.swaps[1][1]);
 
           desktopTimeline.to(progress, {
             width: function () {
               return readLayout().widths[3];
             },
             duration: 0.18
-          }, 0.92);
+          }, timing.starts[2]);
           desktopTimeline.to(track, {
             x: function () {
               return readLayout().shifts[3];
             },
             duration: 0.18
-          }, 0.92);
-          tweenFoundedJourneyEvent(desktopTimeline, events[2], false, 1.02);
-          tweenFoundedJourneyEvent(desktopTimeline, events[3], true, 1.06);
-          desktopTimeline.to({}, { duration: 0.14 }, 1.18);
+          }, timing.starts[2]);
+          tweenFoundedJourneyEvent(desktopTimeline, events[2], false, timing.swaps[2][0]);
+          tweenFoundedJourneyEvent(desktopTimeline, events[3], true, timing.swaps[2][1]);
+          desktopTimeline.to({}, { duration: Math.max(timing.total - timing.swaps[2][1], 0.12) }, timing.total);
 
           return function () {
             desktopTimeline.kill();
           };
+        }
+
+        media.add("(min-width: 1024px)", function () {
+          return createPinnedFoundedJourney({ compact: false });
         });
 
         media.add("(max-width: 1023px)", function () {
-          Array.prototype.forEach.call(section.querySelectorAll("[data-founded-mobile-item]"), function (item) {
-            item.classList.add("is-visible");
-          });
+          return createPinnedFoundedJourney({ compact: true });
         });
 
         window.requestAnimationFrame(function () {
@@ -7867,7 +8286,13 @@
           setHtml(section, buildFoundedJourneyMarkup());
         }
 
-        initFoundedJourney(section);
+        ensureFoundedJourneyLayoutObserver(section);
+        ensureFoundedJourneyVisibilityObserver(section);
+
+        if (getFoundedJourneyMode() === "compact" && !isFoundedJourneyNearViewport(section)) {
+          return;
+        }
+
         queueFoundedJourneyInit(section, true);
       }
 
@@ -7881,9 +8306,84 @@
       var clientSectionAlignmentPasses = 0;
       var clientSectionPinSetupTimer = 0;
       var clientSectionPinSetupPasses = 0;
+      var homepageRevealCheckTimer = 0;
+      var homepageRevealStablePasses = 0;
+      var homepageRevealDeadline = 0;
 
       function isMobilePerformanceMode() {
         return window.innerWidth <= MOBILE_PERFORMANCE_BREAKPOINT;
+      }
+
+      function isHomePath() {
+        return (window.location.pathname.replace(/\/+$/, "") || "/") === "/";
+      }
+
+      function releaseHomepageRevealGate() {
+        if (!document.documentElement.classList.contains("wm-home-sync-pending")) {
+          return;
+        }
+
+        document.documentElement.classList.remove("wm-home-sync-pending");
+        window.__crestlineHomeSyncPending = false;
+      }
+
+      function isHomepageRevealReady() {
+        var aboutSection = document.querySelector('[data-crestline-home-about="1"]');
+        var foundedSection = document.querySelector('[data-founded-journey="1"]');
+        var certificationsSection = document.querySelector('[data-crestline-home-certifications="1"]');
+        var valuesSection = document.querySelector('[data-home-values-static="1"]');
+        var contactSection = document.querySelector('[data-home-contact-section="1"]');
+        var unitTeams = document.querySelector(".UnitTeams");
+        var languagesSection = document.querySelector(".LanguagesSection");
+        var legacyIntegration = document.querySelector('img[src="/images/c-suite-ui/Integrations.webp"]');
+        var clientSection = document.getElementById("clientContainer");
+
+        return !!(
+          aboutSection &&
+          foundedSection &&
+          certificationsSection &&
+          valuesSection &&
+          contactSection &&
+          unitTeams &&
+          languagesSection &&
+          unitTeams.querySelector('[data-unitteams-catalogue-download]') &&
+          !unitTeams.querySelector("#dashboardUTF") &&
+          !unitTeams.querySelector("#loaderLikeUTANIM") &&
+          !unitTeams.querySelector("#btnComp1, #btnComp2, #btnComp3") &&
+          languagesSection.querySelector('[data-language-profile-download]') &&
+          !legacyIntegration &&
+          !clientSection
+        );
+      }
+
+      function queueHomepageRevealCheck(delay) {
+        if (!isHomePath() || !document.documentElement.classList.contains("wm-home-sync-pending")) {
+          return;
+        }
+
+        if (!homepageRevealDeadline) {
+          homepageRevealDeadline = Date.now() + 5000;
+        }
+
+        window.clearTimeout(homepageRevealCheckTimer);
+        homepageRevealCheckTimer = window.setTimeout(function () {
+          if (!document.documentElement.classList.contains("wm-home-sync-pending")) {
+            return;
+          }
+
+          if (isHomepageRevealReady()) {
+            homepageRevealStablePasses += 1;
+          } else {
+            homepageRevealStablePasses = 0;
+          }
+
+          if (homepageRevealStablePasses >= 2 || Date.now() >= homepageRevealDeadline) {
+            releaseHomepageRevealGate();
+            return;
+          }
+
+          queueHomepageRevealCheck(120);
+        }, delay || 0);
       }
 
       function getPinSpacer(node) {
@@ -8693,7 +9193,7 @@
           },
           {
             icon: "handshake",
-            title: "Over 35 Years of Trust & Experience",
+            title: "Over 40 Years of Trust & Experience",
             copy: "We have been serving the promotional textile industry for decades, and we understand what global buyers need to keep programs moving with confidence and consistency."
           },
           {
@@ -8762,18 +9262,20 @@
 
       function ensureHomeCertificationsSection() {
         var aboutSection = document.querySelector("[data-crestline-home-about='1']");
+        var foundedSection = document.querySelector("[data-founded-journey='1']");
+        var anchorSection = foundedSection || aboutSection;
         var certificationsSection = document.querySelector("[data-crestline-home-certifications='1']");
 
-        if (!aboutSection || !aboutSection.parentNode) {
+        if (!anchorSection || !anchorSection.parentNode) {
           return;
         }
 
         if (!certificationsSection) {
           certificationsSection = document.createElement("section");
           certificationsSection.setAttribute("data-crestline-home-certifications", "1");
-          aboutSection.insertAdjacentElement("afterend", certificationsSection);
-        } else if (aboutSection.nextElementSibling !== certificationsSection) {
-          aboutSection.insertAdjacentElement("afterend", certificationsSection);
+          anchorSection.insertAdjacentElement("afterend", certificationsSection);
+        } else if (anchorSection.nextElementSibling !== certificationsSection) {
+          anchorSection.insertAdjacentElement("afterend", certificationsSection);
         }
 
         certificationsSection.className = "wm-home-certifications-section";
@@ -8833,16 +9335,8 @@
             }
           });
 
-          if (aboutCta) {
-            aboutCta.classList.add("wm-home-about-cta");
-            aboutCta.style.setProperty("background", "linear-gradient(90deg, #00b14c 0%, #11c85a 100%)", "important");
-            aboutCta.style.setProperty("box-shadow", "0 14px 30px rgba(0, 177, 76, 0.24)", "important");
-
-            Array.prototype.forEach.call(aboutCta.querySelectorAll("path"), function (path) {
-              if (path.hasAttribute("fill")) {
-                path.setAttribute("fill", "#00b14c");
-              }
-            });
+          if (aboutCta && aboutCta.parentNode) {
+            aboutCta.parentNode.removeChild(aboutCta);
           }
         }
 
@@ -8904,6 +9398,7 @@
 
         hideSection(document.querySelector(".VirtualDevices"));
         hideSection(document.querySelector(".dynamic-reporting"));
+        removeClientLogoSection();
 
         document.title = "Crestline";
 
@@ -8936,6 +9431,7 @@
 
         var featureSection = document.getElementById("featureSection");
         ensureFoundedJourneySection(featureSection);
+        ensureHomeCertificationsSection();
 
         var virtualDevices = document.querySelector(".VirtualDevices");
         if (virtualDevices) {
@@ -8964,6 +9460,10 @@
           var unitButtonBadges = unitTeams.querySelectorAll('[id^="btnComp"] span');
           var unitDescriptionWrap = unitTeams.querySelector("#descUT");
           var unitDescription = unitTeams.querySelector("#descUT p");
+          var unitPhoneImage = unitTeams.querySelector("#dashboardUTF");
+          var unitLoader = unitTeams.querySelector("#loaderLikeUTANIM");
+          var unitRibbonNodes = unitTeams.querySelectorAll("#btnComp1, #btnComp2, #btnComp3");
+          var unitLogoImage = unitTeams.querySelector("#descUT img");
 
           setText(unitHeadings[0], "An Overview of");
           setText(unitHeadings[1], "Our Products Range.");
@@ -8985,13 +9485,37 @@
             badge.style.background = "#00b14c";
           });
 
+          if (unitPhoneImage && unitPhoneImage.parentNode) {
+            unitPhoneImage.parentNode.removeChild(unitPhoneImage);
+          }
+
+          if (unitLoader && unitLoader.parentNode) {
+            unitLoader.parentNode.removeChild(unitLoader);
+          }
+
+          Array.prototype.forEach.call(unitRibbonNodes, function (ribbonNode) {
+            var ribbonWrap = ribbonNode && ribbonNode.parentNode;
+            if (ribbonWrap && ribbonWrap.parentNode) {
+              ribbonWrap.parentNode.removeChild(ribbonWrap);
+            } else if (ribbonNode && ribbonNode.parentNode) {
+              ribbonNode.parentNode.removeChild(ribbonNode);
+            }
+          });
+
           if (unitDescriptionWrap) {
+            unitDescriptionWrap.classList.add("wm-unitteams-center-logo");
+            unitDescriptionWrap.removeAttribute("style");
             unitDescriptionWrap.style.gap = "0";
           }
 
           if (unitDescription) {
             setText(unitDescription, "");
             unitDescription.style.display = "none";
+          }
+
+          if (unitLogoImage) {
+            unitLogoImage.setAttribute("width", "160");
+            unitLogoImage.setAttribute("height", "42");
           }
 
           ensureUnitTeamsCatalogueButton(unitTeams);
@@ -9017,9 +9541,8 @@
             }
           });
 
-          if (aboutCta) {
-            aboutCta.style.background = "linear-gradient(90deg, #00b14c 0%, #11c85a 100%)";
-            aboutCta.style.boxShadow = "0 14px 30px rgba(0, 177, 76, 0.24)";
+          if (aboutCta && aboutCta.parentNode) {
+            aboutCta.parentNode.removeChild(aboutCta);
           }
         }
 
@@ -9207,18 +9730,6 @@
           setHtml(valuesSection, getHomeValuesMarkup());
         }
 
-        var clientsSection = document.getElementById("clientContainer");
-        if (clientsSection) {
-          clientsSection = clientsSection.closest("section");
-        }
-        if (clientsSection) {
-          var clientsHeading = findByText(clientsSection, "h2", ["Our Best Clients", "Global Markets & Renowned Brands"]);
-          setText(clientsHeading, "Global Markets & Renowned Brands");
-          if (clientsHeading) {
-            clientsHeading.style.color = "#00b14c";
-          }
-        }
-
         var languagesSection = document.querySelector(".LanguagesSection");
         if (languagesSection) {
           var languageHeadings = languagesSection.querySelectorAll("h3");
@@ -9253,9 +9764,17 @@
             return;
           }
 
-          node.className = node.closest('[class*="xl:hidden"]')
-            ? "wm-green-pill-button wm-green-pill-button--nav lg:hidden"
-            : "wm-green-pill-button wm-green-pill-button--nav hidden lg:inline-flex";
+          if (node.closest("#navbar-sticky")) {
+            var mobileWrapper = node.closest("li") || node.parentElement;
+            if (mobileWrapper && mobileWrapper.parentNode) {
+              mobileWrapper.parentNode.removeChild(mobileWrapper);
+            } else {
+              node.remove();
+            }
+            return;
+          }
+
+          node.className = "wm-green-pill-button wm-green-pill-button--nav hidden lg:inline-flex";
 
           setHtml(
             node,
@@ -9277,15 +9796,12 @@
                 '<div class="home-contact-grid">' +
                   '<div class="home-contact-copy">' +
                     '<h2 class="home-contact-title">Start your next custom textile inquiry.</h2>' +
-                    '<p class="home-contact-intro">Use the quick form to share your brief, timeline, and market details. We will carry everything into the full contact page so your team can continue the inquiry without retyping it.</p>' +
                     '<div class="home-contact-highlights">' +
                       '<div class="home-contact-highlight">' +
-                        '<div class="home-contact-highlight-label">Fast response</div>' +
                         '<div class="home-contact-highlight-value">48 hours</div>' +
-                        '<div class="home-contact-highlight-copy">Quotation guidance and MOQ direction are typically shared within two business days.</div>' +
+                        '<div class="home-contact-highlight-copy">Quotation guidance and MOQ will be shared within two business days.</div>' +
                       '</div>' +
                       '<div class="home-contact-highlight">' +
-                        '<div class="home-contact-highlight-label">Manufacturing depth</div>' +
                         '<div class="home-contact-highlight-value">40+ years</div>' +
                         '<div class="home-contact-highlight-copy">Custom promotional textiles produced with quality, consistency, and responsible manufacturing.</div>' +
                       '</div>' +
@@ -9294,9 +9810,9 @@
                   '<div class="home-contact-form-panel">' +
                     '<div class="home-contact-form-card">' +
                       '<h3 class="home-contact-form-title">Tell us what you need.</h3>' +
-                      '<p class="home-contact-form-copy">This quick form opens the full contact page with your details already filled in.</p>' +
-                      '<form class="home-contact-form" method="GET" action="/contact-us">' +
+                      '<form class="home-contact-form" method="post" action="/contact-submit.php" accept-charset="UTF-8">' +
                         '<input type="hidden" name="source" value="home-quick-inquiry">' +
+                        '<input type="hidden" name="website" value="">' +
                         '<div class="home-contact-form-row">' +
                           '<label class="home-contact-field">Name<input class="home-contact-input" type="text" name="name" placeholder="Your name" required></label>' +
                           '<label class="home-contact-field">Email<input class="home-contact-input" type="email" name="email" placeholder="you@company.com" required></label>' +
@@ -9309,6 +9825,7 @@
                         '<div class="home-contact-form-actions">' +
                           '<button class="wm-green-pill-button home-contact-submit" type="submit"><span class="wm-green-pill-button-text">Submit</span><span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M9.5 4.5L13 8L9.5 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button>' +
                         '</div>' +
+                        '<div class="home-contact-form-status" aria-live="polite"></div>' +
                       '</form>' +
                     '</div>' +
                   '</div>' +
@@ -9325,13 +9842,14 @@
               '<span class="wm-green-pill-button-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M9.5 4.5L13 8L9.5 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>'
             );
           }
+
+          bindHomeContactServerForm(
+            pricingSection.querySelector('[data-home-contact-section] form.home-contact-form')
+          );
         }
 
         var footer = document.querySelector("footer");
         if (footer) {
-          var footerLists = footer.querySelectorAll("ul");
-          var footerInputs = footer.querySelectorAll("input");
-          var footerButtons = footer.querySelectorAll("button");
           var currentYear = new Date().getFullYear();
           var footerSocialHtml =
             '<div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></div>' +
@@ -9339,150 +9857,48 @@
             '<div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path></svg></div>';
 
           var footerGrid = footer.querySelector(".grid");
-          var brandColumn = footerGrid ? footerGrid.children[0] : null;
-          var footerContactColumn = footerGrid ? footerGrid.children[2] : null;
-          if (brandColumn) {
-            var brandLink = brandColumn.querySelector('a[href="/"]');
-            var brandBlurb = brandColumn.querySelector(".mt-3");
-
-            if (!brandLink || !brandBlurb) {
-              brandColumn.innerHTML = "";
-
-              brandLink = document.createElement("a");
-              brandLink.setAttribute("href", "/");
-
-              var brandImg = document.createElement("img");
-              brandImg.setAttribute("alt", "Crestline Logo");
-              brandImg.setAttribute("src", "/images/branding/crestline-logo.png");
-              brandImg.setAttribute("width", "99");
-              brandImg.setAttribute("height", "26");
-              brandImg.setAttribute("decoding", "async");
-              brandImg.setAttribute("data-nimg", "1");
-              brandImg.className = "footer-crestline-logo";
-              brandImg.style.color = "transparent";
-              brandImg.style.width = "85px";
-              brandImg.style.height = "65px";
-              brandImg.style.maxWidth = "none";
-              brandImg.style.objectFit = "contain";
-              brandImg.style.display = "block";
-              brandLink.appendChild(brandImg);
-
-              brandBlurb = document.createElement("div");
-              brandBlurb.className = "mt-3 font-normal text-sm text-[#343C6A]";
-
-              brandColumn.appendChild(brandLink);
-              brandColumn.appendChild(brandBlurb);
-            } else {
-              var existingBrandImg = brandLink.querySelector("img");
-              if (existingBrandImg) {
-                existingBrandImg.setAttribute("src", "/images/branding/crestline-logo.png");
-                existingBrandImg.style.width = "85px";
-                existingBrandImg.style.height = "65px";
-                existingBrandImg.style.maxWidth = "none";
-                existingBrandImg.style.objectFit = "contain";
-                existingBrandImg.style.display = "block";
-              }
-            }
-
-            setText(
-              brandBlurb,
-              "Custom promotional textiles manufactured with quality, consistency, and responsible production since 1982."
-            );
-
-            var quoteNodes = Array.prototype.filter.call(brandColumn.querySelectorAll("a, button"), function (node) {
-              return normalize(node.textContent) === "Get Quotation";
-            });
-
-            Array.prototype.forEach.call(quoteNodes, function (node) {
-              node.remove();
-            });
-
-            var footerSocials = brandColumn.querySelector("[data-home-footer-socials]");
-            if (!footerSocials) {
-              footerSocials = document.createElement("div");
-              footerSocials.setAttribute("data-home-footer-socials", "1");
-              if (brandBlurb) {
-                brandBlurb.insertAdjacentElement("afterend", footerSocials);
-              } else {
-                brandColumn.appendChild(footerSocials);
-              }
-            }
-
-            footerSocials.className = "mt-5 flex gap-2 justify-center md:justify-start";
-            setHtml(footerSocials, footerSocialHtml);
-          }
-
-          if (footerContactColumn) {
-            footerContactColumn.className = "";
+          if (footerGrid) {
+            footerGrid.className = "wm-home-footer-layout";
+            footerGrid.setAttribute("style", "display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:40px");
             setHtml(
-              footerContactColumn,
-              '<p class="text-[32px] font-normal leading-[32px] text-center md:text-left" style="color:#00b14c">Contact Info</p>' +
-              '<div class="mt-8 text-center md:text-left text-[#343C6A]" style="display:flex;flex-direction:column;row-gap:18px">' +
-                '<div>' +
-                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Address</p>' +
-                  '<p class="text-sm leading-7" style="margin-top:4px">Plot # 227, Sector 24, Korangi Industrial Area, Karachi-74900, Pakistan.</p>' +
-                '</div>' +
-                '<div>' +
-                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Phone</p>' +
-                  '<p class="text-sm leading-7" style="margin-top:4px">(+92) 3301933319</p>' +
-                '</div>' +
-                '<div>' +
-                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Email</p>' +
-                  '<p class="text-sm leading-7" style="margin-top:4px">info@crestlinepromotion.com</p>' +
-                '</div>' +
-                '<div>' +
-                  '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Working Days/Hours</p>' +
-                  '<p class="text-sm leading-7" style="margin-top:4px">Mon - Sat / 10:00 AM - 6:00 PM</p>' +
+              footerGrid,
+              '<div style="flex:1 1 560px;max-width:760px">' +
+                '<p class="text-[32px] font-normal leading-[32px] text-center md:text-left" style="color:#00b14c">Contact Info</p>' +
+                '<div class="mt-8 text-center md:text-left text-[#343C6A]" style="display:flex;flex-direction:column;row-gap:18px">' +
+                  '<div>' +
+                    '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Address</p>' +
+                    '<p class="text-sm leading-7" style="margin-top:4px">Plot # 227, Sector 24, Korangi Industrial Area, Karachi-74900, Pakistan.</p>' +
+                  '</div>' +
+                  '<div>' +
+                    '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Phone</p>' +
+                    '<p class="text-sm leading-7" style="margin-top:4px">(+92) 3301933319</p>' +
+                  '</div>' +
+                  '<div>' +
+                    '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Email</p>' +
+                    '<p class="text-sm leading-7" style="margin-top:4px">info@crestlinepromotion.com</p>' +
+                  '</div>' +
+                  '<div>' +
+                    '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Working Days/Hours</p>' +
+                    '<p class="text-sm leading-7" style="margin-top:4px">Mon - Sat / 10:00 AM - 6:00 PM</p>' +
+                  '</div>' +
+                  '<div class="mt-2 flex gap-2 justify-center md:justify-start" data-home-footer-socials>' +
+                    footerSocialHtml +
+                  '</div>' +
                 '</div>' +
               '</div>' +
-              '<p data-home-footer-credit="1" class="mt-16 lg:mt-20 text-sm text-[#343C6A] text-center md:text-left">' +
-                '&copy; ' +
-                currentYear +
-                ' Crestline Promotion - A site by <a href="http://techure.me/portfolio/" target="_blank" rel="noopener noreferrer" style="color:#00b14c;text-decoration:none">Techure</a>.' +
+              '<div style="margin-left:auto;align-self:flex-end;text-align:right">' +
+                '<p data-home-footer-credit="1" class="text-sm text-[#343C6A]" style="text-align:right">' +
+                  "&copy; " +
+                  currentYear +
+                  ' Crestline Promotion - A site by <a href="http://techure.me/portfolio/" target="_blank" rel="noopener noreferrer" style="color:#00b14c;text-decoration:none">Techure</a>.' +
+                '</p>' +
               '</div>'
-            );
-          }
-
-          if (footerLists[0]) {
-            setHtml(
-              footerLists[0],
-              '<li class="mb-4 text-[#343C6A]"><a href="/about">About Us</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/raw-material">Raw Material</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/certifications">Certifications</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/contact-us">Contact Us</a></li>'
-            );
-          }
-
-          if (footerLists[1]) {
-            setHtml(
-              footerLists[1],
-              '<li class="mb-4 text-[#343C6A]"><a href="/general-information">General Information</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/services">Services</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/customer-satisfaction">Customer Satisfaction</a></li>' +
-              '<li class="mb-4 text-[#343C6A]"><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>'
-            );
-          }
-
-          var footerInner = footer.firstElementChild;
-          if (footerInner) {
-            var footerCredit = footerInner.querySelector("[data-home-footer-credit]");
-            if (!footerCredit) {
-              footerCredit = document.createElement("p");
-              footerCredit.setAttribute("data-home-footer-credit", "1");
-              footerInner.appendChild(footerCredit);
-            }
-
-            footerCredit.className = "mt-16 lg:mt-20 text-sm text-[#343C6A] text-center md:text-left";
-            setHtml(
-              footerCredit,
-              "&copy; " +
-                currentYear +
-                ' Crestline Promotion - A site by <a href="http://techure.me/portfolio/" target="_blank" rel="noopener noreferrer" style="color:#00b14c;text-decoration:none">Techure</a>.'
             );
           }
         }
 
         queueHomepageScrollTriggerRefresh(180);
+        queueHomepageRevealCheck(60);
       }
 
       function runHomepageCopy(force) {
@@ -9517,13 +9933,63 @@
         }, 150);
       });
 
+      window.addEventListener("orientationchange", function () {
+        applyMobilePerformanceMode();
+        queueHomepageCopy(true, 120);
+        queueClientSectionPinSetup(240);
+        queueHomepageScrollTriggerRefresh(180);
+        queueClientSectionAlignment(260);
+        window.setTimeout(function () {
+          var featureSection = document.getElementById("featureSection");
+          if (featureSection) {
+            queueFoundedJourneyInit(featureSection, true, true);
+          }
+        }, 260);
+      });
+
+      window.addEventListener("pageshow", function () {
+        var featureSection = document.getElementById("featureSection");
+
+        queueHomepageCopy(true, 90);
+        queueClientSectionPinSetup(220);
+        queueClientSectionAlignment(240);
+        queueHomepageScrollTriggerRefresh(220);
+
+        window.setTimeout(function () {
+          if (featureSection) {
+            queueFoundedJourneyInit(featureSection, true, true);
+          }
+          queueHomepageScrollTriggerRefresh(0);
+        }, 420);
+      });
+
       applyHomepageCopy();
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          var featureSection = document.getElementById("featureSection");
+          if (featureSection) {
+            queueFoundedJourneyInit(featureSection, true, true);
+          }
+          queueHomepageScrollTriggerRefresh(160);
+        }).catch(function () {});
+      }
 
       window.addEventListener("load", function () {
         runHomepageCopy(true);
         queueHomepageCopy(true, 320);
         queueClientSectionPinSetup(420);
         queueClientSectionAlignment(420);
+        queueHomepageScrollTriggerRefresh(220);
+        window.setTimeout(function () {
+          var featureSection = document.getElementById("featureSection");
+          if (featureSection) {
+            queueFoundedJourneyInit(featureSection, true, true);
+          }
+        }, 520);
+        window.setTimeout(function () {
+          queueHomepageScrollTriggerRefresh(0);
+        }, 900);
       }, { once: true });
 
       document.addEventListener("click", function (event) {

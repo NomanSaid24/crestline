@@ -240,14 +240,16 @@
         "<div><dt>Color Options</dt><dd id=\"productModalColors\"></dd></div>" +
         "<div><dt>Representative Styles</dt><dd id=\"productModalFeatures\"></dd></div>" +
         "</dl>" +
-        '<div class="product-modal-actions">' +
-        '<a id="productInquiryLink" class="product-inquiry-button" href="/contact-us">Customer Inquiry</a>' +
-        '<span class="product-modal-note">Need custom branding, quantities, or packaging? Use Customer Inquiry and our team will route you to quotation support.</span>' +
-        "</div>" +
         "</div>" +
         "</div>" +
         "</div>";
       document.body.appendChild(modal);
+    } else {
+      Array.prototype.forEach.call(modal.querySelectorAll(".product-modal-actions"), function (node) {
+        if (node && node.parentNode) {
+          node.parentNode.removeChild(node);
+        }
+      });
     }
 
     return {
@@ -262,8 +264,7 @@
       modalColors: modal.querySelector("#productModalColors"),
       modalFeatures: modal.querySelector("#productModalFeatures"),
       modalImage: modal.querySelector("#productModalImage"),
-      modalThumbs: modal.querySelector("#productModalThumbs"),
-      inquiryLink: modal.querySelector("#productInquiryLink")
+      modalThumbs: modal.querySelector("#productModalThumbs")
     };
   }
 
@@ -380,7 +381,6 @@
     nodes.modalSize.textContent = category.sizeNote;
     nodes.modalColors.textContent = category.colorNote;
     nodes.modalFeatures.textContent = buildRepresentativeStyles(categoryProducts);
-    nodes.inquiryLink.href = "/contact-us?category=" + encodeURIComponent(category.name);
 
     setModalImage(nodes, galleryImages, category.name, 0);
 
