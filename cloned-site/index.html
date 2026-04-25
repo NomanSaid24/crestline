@@ -133,6 +133,46 @@
       margin-bottom: clamp(2.4rem, 1.7rem + 1.9vw, 3.5rem);
     }
 
+    .wm-hero-tagline {
+      margin: 0 0 clamp(2rem, 5vw, 3.75rem);
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem 1rem;
+      width: fit-content;
+      max-width: min(100%, calc(100vw - 2rem));
+      padding: clamp(0.72rem, 0.58rem + 0.4vw, 0.95rem) clamp(1.3rem, 1rem + 1vw, 2rem);
+      margin-left: auto;
+      margin-right: auto;
+      border: 2px solid #26ADE3;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(10px);
+      font-family: 'Neue Haas Display', Arial, sans-serif;
+      font-size: clamp(0.82rem, 0.72rem + 0.38vw, 1.02rem);
+      line-height: 1.2;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-align: center;
+      text-transform: uppercase;
+      color: #00274D;
+    }
+
+    .wm-hero-tagline-item {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .wm-hero-tagline-dot {
+      width: clamp(0.3rem, 0.26rem + 0.08vw, 0.4rem);
+      height: clamp(0.3rem, 0.26rem + 0.08vw, 0.4rem);
+      border-radius: 999px;
+      background: #00b14c;
+      flex-shrink: 0;
+    }
+
     .wm-hero-title {
       margin: 0;
       font-family: 'Neue Haas Display', Arial, sans-serif;
@@ -1024,10 +1064,27 @@
       transform: none !important;
     }
 
+    .UnitTeams {
+      --wm-unitteams-orbit-center-x: 50%;
+      --wm-unitteams-orbit-center-y: 53%;
+      position: relative;
+      background: transparent !important;
+    }
+
+    .UnitTeams::before,
+    .UnitTeams::after {
+      display: none;
+    }
+
+    .UnitTeams #UTBg,
+    .UnitTeams #UTBg + .hidden.rounded-full {
+      display: none !important;
+    }
+
     .UnitTeams .wm-unitteams-center-logo {
       position: absolute !important;
-      left: 50% !important;
-      top: 30% !important;
+      left: var(--wm-unitteams-orbit-center-x) !important;
+      top: var(--wm-unitteams-orbit-center-y) !important;
       width: auto !important;
       display: flex !important;
       flex-direction: column;
@@ -1044,6 +1101,161 @@
       width: clamp(120px, 13vw, 170px);
       height: auto;
       max-width: 100%;
+    }
+
+    .UnitTeams .wm-unitteams-orbit-host {
+      position: relative;
+      isolation: isolate;
+      height: clamp(860px, 74vw, 1040px) !important;
+      min-height: clamp(860px, 74vw, 1040px);
+      overflow: hidden;
+    }
+
+    .UnitTeams .wm-unitteams-orbit-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 22;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .UnitTeams .wm-unitteams-orbit-core {
+      position: absolute;
+      left: var(--wm-unitteams-orbit-center-x);
+      top: var(--wm-unitteams-orbit-center-y);
+      width: clamp(136px, 13vw, 174px);
+      height: clamp(136px, 13vw, 174px);
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-shadow:
+        0 0 0 14px rgba(255, 255, 255, 0.12),
+        0 0 0 34px rgba(82, 191, 240, 0.05);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 56%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    .UnitTeams .wm-unitteams-orbit-track {
+      --wm-unitteams-orbit-render-size: var(--orbit-size);
+      position: absolute;
+      left: var(--wm-unitteams-orbit-center-x);
+      top: var(--wm-unitteams-orbit-center-y);
+      width: var(--wm-unitteams-orbit-render-size);
+      height: var(--wm-unitteams-orbit-render-size);
+      margin-left: calc(var(--wm-unitteams-orbit-render-size) / -2);
+      margin-top: calc(var(--wm-unitteams-orbit-render-size) / -2);
+      border-radius: 999px;
+      border: 1.5px solid rgba(255, 255, 255, 0.54);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      animation: wmUnitTeamsOrbitSpin var(--duration) linear infinite;
+      animation-direction: var(--orbit-direction, normal);
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .UnitTeams .wm-unitteams-orbit-item {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      transform: rotate(var(--angle)) translateY(calc(var(--wm-unitteams-orbit-render-size) / -2));
+      transform-origin: center center;
+    }
+
+    .UnitTeams .wm-unitteams-orbit-badge {
+      display: block;
+      width: var(--badge-size);
+      height: var(--badge-size);
+      line-height: 0;
+      transform: translate(-50%, -50%);
+      animation: wmUnitTeamsOrbitCounter var(--duration) linear infinite;
+      animation-direction: var(--orbit-counter-direction, reverse);
+      will-change: transform;
+    }
+
+    .UnitTeams .wm-unitteams-orbit-badge-shell {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 18px 38px rgba(17, 52, 82, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+
+    .UnitTeams .wm-unitteams-orbit-badge-shell img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 13px;
+    }
+
+    @keyframes wmUnitTeamsOrbitSpin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes wmUnitTeamsOrbitCounter {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+      }
+    }
+
+    @media (max-width: 991px) {
+      .UnitTeams {
+        --wm-unitteams-orbit-center-y: 56%;
+      }
+
+      .UnitTeams .wm-unitteams-orbit-host {
+        height: clamp(760px, 118vw, 940px) !important;
+        min-height: clamp(760px, 118vw, 940px);
+      }
+
+      .UnitTeams .wm-unitteams-orbit-track {
+        --wm-unitteams-orbit-render-size: var(--orbit-size-mobile, var(--orbit-size));
+      }
+
+      .UnitTeams .wm-unitteams-orbit-badge {
+        width: var(--badge-size-mobile, var(--badge-size));
+        height: var(--badge-size-mobile, var(--badge-size));
+      }
+    }
+
+    @media (max-width: 767px) {
+      .UnitTeams {
+        --wm-unitteams-orbit-center-y: 57%;
+      }
+
+      .UnitTeams .wm-unitteams-orbit-stage {
+        inset: 8px -6px 0;
+      }
+
+      .UnitTeams .wm-unitteams-orbit-host {
+        height: clamp(720px, 144vw, 920px) !important;
+        min-height: clamp(720px, 144vw, 920px);
+      }
+
+      .UnitTeams .wm-unitteams-orbit-track {
+        --wm-unitteams-orbit-render-size: var(--orbit-size-mobile, var(--orbit-size));
+      }
+
+      .UnitTeams .wm-unitteams-orbit-badge {
+        width: var(--badge-size-mobile, var(--badge-size));
+        height: var(--badge-size-mobile, var(--badge-size));
+      }
     }
 
     .wm-hero-bg-dark {
@@ -2248,6 +2460,7 @@
       var PHASE = 800;   // ms per transition
       var BG = '#e2eefb';
       var EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';  // aggressive s-curve
+      var IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/i.test(window.location.hostname);
 
       /* -- Loader shell -- */
       var loader = document.createElement('div');
@@ -2341,6 +2554,11 @@
       document.documentElement.appendChild(loader);
       var guardInterval = setInterval(ensureLoader, 50);
 
+      if (IS_LOCAL_PREVIEW) {
+        skipLoaderForLocalPreview();
+        return;
+      }
+
       function finalizeLoaderReveal() {
         done = true;
         classGuard.disconnect();
@@ -2348,6 +2566,19 @@
         loader.style.display = 'none';
         document.documentElement.style.background = '';
         document.documentElement.classList.remove('wm-loading');
+      }
+
+      function skipLoaderForLocalPreview() {
+        done = true;
+        classGuard.disconnect();
+        clearInterval(guardInterval);
+        if (loader.parentNode) {
+          loader.parentNode.removeChild(loader);
+        }
+        document.documentElement.style.background = '';
+        document.documentElement.classList.remove('wm-loading');
+        document.documentElement.classList.remove('wm-home-sync-pending');
+        window.__crestlineHomeSyncPending = false;
       }
 
       function waitForHomepageSyncReveal() {
@@ -3786,12 +4017,7 @@
       </div>
     </section>
     -->
-    <section class="UnitTeams p-6 !pb-0 lg:!pb-[15vh] overflow-hidden lg:!overflow-[initial]"><img alt="bg" id="UTBg"
-        loading="lazy" width="1920" height="1080" decoding="async" data-nimg="1"
-        class=" hidden lg:block absolute h-full w-auto top-[-6%] left-1/2 z-10 transform -translate-x-1/2"
-        style="color: transparent; translate: none; rotate: none; scale: none; transform-origin: 50% 50%; transform: translate(-50%, 0%) translate3d(-0.109px, 0px, 0px) rotate(40.86deg) scale(1.25, 1.25);"
-        src="/images/c-suite-ui/unitteams-bg.webp">
-      <div class="hidden rounded-full right-[8%] opacity-35 absolute h-full w-3/4 top-0 z-30 bg-[#DAEBFF59]"></div>
+    <section class="UnitTeams relative p-6 !pb-[7rem] lg:!pb-[18vh] overflow-hidden">
       <div class="flex flex-col items-center relative z-20">
         <h2
           class="text-[32.9px] leading-[43.51px] md:text-[42.81px] !font-normal lg:!leading-[48.93px] text-[#00274D] text-center"
@@ -3810,7 +4036,8 @@
               <path d="M3 13H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
             </svg></span></a>
       </div>
-      <div class="m-auto max-w-[1000px] h-[638px] flex items-start justify-center relative z-20">
+      <div class="wm-unitteams-orbit-host m-auto w-full max-w-[1140px] h-[638px] flex items-start justify-center relative z-20">
+        <div class="wm-unitteams-orbit-stage" data-unitteams-orbit-stage="1" aria-hidden="true"></div>
         <div class="wm-unitteams-center-logo" id="descUT">
           <img alt="logo" loading="lazy" width="160" height="42" decoding="async" data-nimg="1"
             style="color:transparent" src="/images/branding/crestline-logo.png">
@@ -6747,8 +6974,8 @@
       </div>
     </section>
   </div>
-  <footer class=" bg-[#FFFFFF29] relative mt-[15vh] p-8 pt-[10vh] pb-[4vh] rounded-t-[36px]"
-    style="backdrop-filter:blur(130px);box-shadow:0px -8px 247.3px 0px #29ADE41A">
+  <footer class=" bg-[#FFFFFF29] relative mt-[15vh] p-8 pt-[10vh] rounded-t-[36px]"
+    style="backdrop-filter:blur(130px);box-shadow:0px -8px 247.3px 0px #29ADE41A;padding-bottom:16px">
     <div class=" max-w-[1300px] m-auto relative z-10">
       <div class="wm-home-footer-layout" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:40px">
         <div style="flex:1 1 560px;max-width:760px">
@@ -6769,26 +6996,6 @@
             <div>
               <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Working Days/Hours</p>
               <p class="text-sm leading-7" style="margin-top:4px">Mon - Sat / 10:00 AM - 6:00 PM</p>
-            </div>
-            <div class="mt-2 flex gap-2 justify-center md:justify-start" data-home-footer-socials>
-              <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
-                  stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z">
-                  </path>
-                </svg></div>
-              <a class="rounded-full text-white p-1 inline-flex" style="background-color:#00b14c" href="https://www.linkedin.com/company/crestline-smc-pvt-limited/" target="_blank" rel="noopener noreferrer" aria-label="Crestline LinkedIn"><svg stroke="currentColor" fill="currentColor"
-                  stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
-                  </path>
-                </svg></a>
-              <div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor"
-                  stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-                  </path>
-                </svg></div>
             </div>
           </div>
         </div>
@@ -7816,6 +8023,20 @@
         return rect.top <= viewportHeight * 1.65 && rect.bottom >= -viewportHeight * 0.4;
       }
 
+      function isFoundedJourneyRefreshSafe(section) {
+        var rect;
+        var viewportHeight;
+
+        if (!section || typeof section.getBoundingClientRect !== "function") {
+          return true;
+        }
+
+        rect = section.getBoundingClientRect();
+        viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+
+        return rect.top <= viewportHeight * 0.75 && rect.bottom >= -viewportHeight * 0.75;
+      }
+
       function getFoundedJourneyLayoutSignature(section) {
         var previousLayoutNode = getFoundedJourneyPreviousLayoutNode(section);
         var sticky = section && section.querySelector ? section.querySelector("[data-founded-pin]") : null;
@@ -7876,10 +8097,20 @@
             }
 
             section._foundedJourneyHasEntered = true;
-            queueFoundedJourneyInit(section, true, true);
+
+            if (section._foundedJourneyPendingLayout || section._foundedJourneyRefreshDeferred) {
+              section._foundedJourneyPendingLayout = false;
+              section._foundedJourneyRefreshDeferred = false;
+              queueHomepageScrollTriggerRefresh(0, true);
+              return;
+            }
+
+            if (!section._foundedJourneyMedia) {
+              queueFoundedJourneyInit(section, true, true);
+            }
           });
         }, {
-          rootMargin: "140% 0px 140% 0px",
+          rootMargin: "55% 0px 55% 0px",
           threshold: [0, 0.01]
         });
 
@@ -7892,8 +8123,24 @@
         }
 
         var observer = new ResizeObserver(function () {
+          var signature = getFoundedJourneyLayoutSignature(section);
+
+          if (section._foundedJourneyObservedSignature === signature) {
+            return;
+          }
+
+          section._foundedJourneyObservedSignature = signature;
+          section._foundedJourneyPendingLayout = true;
+
           if (section._foundedJourneyMedia) {
-            queueHomepageScrollTriggerRefresh(120);
+            if (!isFoundedJourneyRefreshSafe(section)) {
+              section._foundedJourneyRefreshDeferred = true;
+              return;
+            }
+
+            section._foundedJourneyPendingLayout = false;
+            section._foundedJourneyRefreshDeferred = false;
+            queueHomepageScrollTriggerRefresh(120, true);
           } else {
             queueFoundedJourneyInit(section);
           }
@@ -7949,7 +8196,14 @@
           section._foundedJourneyMode === getFoundedJourneyMode() &&
           section.getAttribute("data-founded-journey-version") === FOUNDED_JOURNEY_VERSION
         ) {
-          queueHomepageScrollTriggerRefresh(0);
+          if (!isFoundedJourneyRefreshSafe(section)) {
+            section._foundedJourneyRefreshDeferred = true;
+            return;
+          }
+
+          section._foundedJourneyPendingLayout = false;
+          section._foundedJourneyRefreshDeferred = false;
+          queueHomepageScrollTriggerRefresh(0, true);
           return;
         }
 
@@ -8086,7 +8340,14 @@
           section._foundedJourneyMode === currentMode &&
           section.getAttribute("data-founded-journey-version") === FOUNDED_JOURNEY_VERSION
         ) {
-          queueHomepageScrollTriggerRefresh(0);
+          if (!isFoundedJourneyRefreshSafe(section)) {
+            section._foundedJourneyRefreshDeferred = true;
+            return;
+          }
+
+          section._foundedJourneyPendingLayout = false;
+          section._foundedJourneyRefreshDeferred = false;
+          queueHomepageScrollTriggerRefresh(0, true);
           return;
         }
 
@@ -8096,7 +8357,10 @@
         section._foundedJourneyRetryCount = 0;
         section._foundedJourneyStablePasses = 0;
         section._foundedJourneyLastSignature = "";
+        section._foundedJourneyObservedSignature = "";
         section._foundedJourneyMode = currentMode;
+        section._foundedJourneyPendingLayout = false;
+        section._foundedJourneyRefreshDeferred = false;
 
         var gsapInstance = gsapRuntime.gsap;
         var ScrollTriggerInstance = gsapRuntime.ScrollTrigger;
@@ -8309,6 +8573,7 @@
       var homepageRevealCheckTimer = 0;
       var homepageRevealStablePasses = 0;
       var homepageRevealDeadline = 0;
+      var homepageStabilizeTimers = [];
 
       function isMobilePerformanceMode() {
         return window.innerWidth <= MOBILE_PERFORMANCE_BREAKPOINT;
@@ -8386,6 +8651,26 @@
         }, delay || 0);
       }
 
+      function scheduleHomepageStabilization() {
+        homepageStabilizeTimers.forEach(function (timerId) {
+          window.clearTimeout(timerId);
+        });
+        homepageStabilizeTimers = [];
+
+        [0, 180, 700, 1800].forEach(function (delay) {
+          homepageStabilizeTimers.push(
+            window.setTimeout(function () {
+              var unitTeamsSection = document.querySelector(".UnitTeams");
+              ensureHomepageHeroContent();
+              ensureHomepageSectionOrder();
+              if (unitTeamsSection) {
+                ensureUnitTeamsOrbitImages(unitTeamsSection);
+              }
+            }, delay)
+          );
+        });
+      }
+
       function getPinSpacer(node) {
         if (!node) {
           return null;
@@ -8406,15 +8691,26 @@
         }
       }
 
-      function queueHomepageScrollTriggerRefresh(delay) {
+      function queueHomepageScrollTriggerRefresh(delay, force) {
         window.clearTimeout(homepageScrollTriggerRefreshTimer);
         homepageScrollTriggerRefreshTimer = window.setTimeout(function () {
           var runtime = getFoundedJourneyGsapRuntime();
           var scrollTrigger = runtime && runtime.ScrollTrigger;
+          var featureSection = document.getElementById("featureSection");
 
           homepageScrollTriggerRefreshTimer = 0;
 
           if (!scrollTrigger || typeof scrollTrigger.refresh !== "function") {
+            return;
+          }
+
+          if (
+            !force &&
+            featureSection &&
+            featureSection._foundedJourneyMedia &&
+            !isFoundedJourneyRefreshSafe(featureSection)
+          ) {
+            featureSection._foundedJourneyRefreshDeferred = true;
             return;
           }
 
@@ -8514,10 +8810,16 @@
       }
 
       function ensureHomepageSectionOrder() {
+        var aboutSection = document.querySelector('[data-crestline-home-about="1"]');
+        var valuesSection = ensureHomepageValuesSection();
         var languagesSection = document.querySelector(".LanguagesSection");
         var clientContainer;
         var clientSection;
         var clientHolder;
+
+        if (aboutSection && valuesSection && aboutSection.parentNode && aboutSection.nextElementSibling !== valuesSection) {
+          aboutSection.insertAdjacentElement("afterend", valuesSection);
+        }
 
         if (!languagesSection || !languagesSection.parentNode) {
           return;
@@ -8535,6 +8837,40 @@
 
         if (clientHolder.nextElementSibling !== languagesSection) {
           clientHolder.insertAdjacentElement("afterend", languagesSection);
+        }
+      }
+
+      function ensureHomepageHeroContent() {
+        var heroTitleWrap = document.querySelector(".wm-hero-title-wrap");
+        var heroMainTitle = heroTitleWrap && heroTitleWrap.querySelector(".wm-hero-main-title");
+        var heroCopy = heroTitleWrap && heroTitleWrap.querySelector(".wm-hero-copy");
+        var taglineMarkup =
+          '<p class="wm-hero-tagline" aria-label="Quality, Consistency, Sustainability">' +
+            '<span class="wm-hero-tagline-item">Quality</span>' +
+            '<span class="wm-hero-tagline-dot" aria-hidden="true"></span>' +
+            '<span class="wm-hero-tagline-item">Consistency</span>' +
+            '<span class="wm-hero-tagline-dot" aria-hidden="true"></span>' +
+            '<span class="wm-hero-tagline-item">Sustainability</span>' +
+          '</p>';
+        var titleMarkup = '<h1 class="wm-hero-title" aria-label="Crestline">Crestline</h1>';
+        var copyMarkup =
+          '<span class="wm-hero-split-mask">' +
+            '<span class="wm-hero-split-line">Trusted exporter of custom promotional textile products</span>' +
+          '</span>' +
+          '<span class="wm-hero-split-mask">' +
+            '<span class="wm-hero-split-line">backed by over 40 years of manufacturing excellence.</span>' +
+          '</span>';
+
+        if (heroMainTitle) {
+          setHtml(heroMainTitle, taglineMarkup + titleMarkup);
+        }
+
+        if (heroCopy) {
+          heroCopy.setAttribute(
+            "aria-label",
+            "Trusted exporter of custom promotional textile products, backed by over 40 years of manufacturing excellence."
+          );
+          setHtml(heroCopy, copyMarkup);
         }
       }
 
@@ -9172,6 +9508,144 @@
         setHtml(button, buttonHtml);
       }
 
+      function ensureUnitTeamsOrbitImages(section) {
+        var centerLogo = section && section.querySelector ? section.querySelector("#descUT") : null;
+        var orbitHost = centerLogo && centerLogo.parentNode ? centerLogo.parentNode : null;
+        var orbitStage = orbitHost && orbitHost.querySelector ? orbitHost.querySelector("[data-unitteams-orbit-stage]") : null;
+        var rings;
+        var legacyOrbitObserver;
+
+        function removeLegacyOrbitNodes() {
+          var legacyOrbitImage = section.querySelector("#UTBg");
+          var legacyOrbitGlow = legacyOrbitImage && legacyOrbitImage.nextElementSibling;
+
+          if (legacyOrbitImage && legacyOrbitImage.parentNode) {
+            legacyOrbitImage.parentNode.removeChild(legacyOrbitImage);
+          }
+
+          if (
+            legacyOrbitGlow &&
+            legacyOrbitGlow.classList &&
+            legacyOrbitGlow.classList.contains("hidden") &&
+            legacyOrbitGlow.classList.contains("rounded-full")
+          ) {
+            legacyOrbitGlow.parentNode.removeChild(legacyOrbitGlow);
+          }
+        }
+
+        function renderItem(item, ring, angle) {
+          return (
+            '<span class="wm-unitteams-orbit-item" style="--angle:' + angle + 'deg;">' +
+              '<span class="wm-unitteams-orbit-badge" style="--badge-size:' + ring.badgeSize + ';--badge-size-mobile:' + ring.badgeSizeMobile + ';--duration:' + ring.duration + ';--orbit-counter-direction:' + ring.counterDirection + ';">' +
+                '<span class="wm-unitteams-orbit-badge-shell">' +
+                  '<img src="' + item.image + '" alt="' + item.alt + '" loading="lazy">' +
+                '</span>' +
+              '</span>' +
+            '</span>'
+          );
+        }
+
+        function renderRing(ring) {
+          var step = 360 / ring.items.length;
+
+          return (
+            '<div class="wm-unitteams-orbit-track" style="--orbit-size:' + ring.size + ';--orbit-size-mobile:' + ring.sizeMobile + ';--duration:' + ring.duration + ';--orbit-direction:' + ring.direction + ';">' +
+              ring.items.map(function (item, index) {
+                return renderItem(item, ring, ring.startAngle + (step * index));
+              }).join("") +
+            '</div>'
+          );
+        }
+
+        if (!orbitHost) {
+          return;
+        }
+
+        removeLegacyOrbitNodes();
+
+        if (!section.__crestlineUnitTeamsLegacyOrbitObserver && "MutationObserver" in window) {
+          legacyOrbitObserver = new MutationObserver(function () {
+            removeLegacyOrbitNodes();
+          });
+          legacyOrbitObserver.observe(section, { childList: true, subtree: true });
+          section.__crestlineUnitTeamsLegacyOrbitObserver = legacyOrbitObserver;
+        }
+
+        orbitHost.classList.add("wm-unitteams-orbit-host");
+        section.style.overflow = "hidden";
+
+        rings = [
+          {
+            size: "clamp(440px, 36vw, 510px)",
+            sizeMobile: "260px",
+            badgeSize: "clamp(58px, 5vw, 72px)",
+            badgeSizeMobile: "46px",
+            duration: "24s",
+            direction: "normal",
+            counterDirection: "normal",
+            startAngle: -90,
+            items: [
+              { image: "/images/products/categories/bag.jpeg", alt: "Crestline cotton tote bag" },
+              { image: "/images/products/categories/laptop-bag.jpeg", alt: "Crestline laptop bag" },
+              { image: "/images/products/categories/large-bag.jpeg", alt: "Crestline large bag" },
+              { image: "/images/products/categories/24e39cdb-5ee2-43c1-90fa-f6e5fd23b24c.JPG", alt: "Crestline backpack product" },
+              { image: "/images/products/categories/26652ece-a17b-40b6-8b43-e929ce8ab209.JPG", alt: "Crestline drawstring bag product" }
+            ]
+          },
+          {
+            size: "clamp(560px, 46vw, 660px)",
+            sizeMobile: "420px",
+            badgeSize: "clamp(54px, 4.6vw, 68px)",
+            badgeSizeMobile: "42px",
+            duration: "32s",
+            direction: "normal",
+            counterDirection: "normal",
+            startAngle: -60,
+            items: [
+              { image: "/images/products/categories/44868946-17ab-4f85-b715-06b0cef9bd49.JPG", alt: "Crestline promotional bag product" },
+              { image: "/images/products/categories/55d22b40-78b4-4f7a-9054-dcc591af1907.JPG", alt: "Crestline boat tote product" },
+              { image: "/images/products/categories/63b66388-c058-421b-b129-28dc757fe839.JPG", alt: "Crestline utility bag product" },
+              { image: "/images/products/categories/164b8942-4ad2-403d-bf48-b7d6c22fec20.JPG", alt: "Crestline category product" },
+              { image: "/images/products/categories/223f0cc6-b415-4ccd-829e-41d2482dbdb4.JPG", alt: "Crestline category product" },
+              { image: "/images/products/categories/68d1dc92-8913-4360-bb32-3fc51892a4e3.JPG", alt: "Crestline category product" }
+            ]
+          },
+          {
+            size: "clamp(800px, 65vw, 920px)",
+            sizeMobile: "600px",
+            badgeSize: "clamp(50px, 4.2vw, 62px)",
+            badgeSizeMobile: "40px",
+            duration: "40s",
+            direction: "normal",
+            counterDirection: "normal",
+            startAngle: -90,
+            items: [
+              { image: "/images/products/categories/72b9b179-dc0b-4987-82de-5c4d35f80454.JPG", alt: "Crestline category product" },
+              { image: "/images/products/categories/8ec28988-3e83-479c-af24-962609c1e76a.JPG", alt: "Crestline category product" },
+              { image: "/images/products/categories/a4f0bbf2-16d1-414e-8e8b-95a87c05f418.JPG", alt: "Crestline category product" },
+              { image: "/images/products/categories/aaa56673-8f10-4d16-8e9d-1f728a0d32e4.JPG", alt: "Crestline category product" },
+              { image: "/images/products/categories/e45cda8e-30c0-44fb-bf89-903bca7d4b6a.JPG", alt: "Crestline category product" },
+              { image: "/images/products/categories/e8943eff-b843-4952-89df-cee5559c61a3.JPG", alt: "Crestline category product" }
+            ]
+          }
+        ];
+
+        if (!orbitStage) {
+          orbitStage = document.createElement("div");
+          orbitStage.setAttribute("data-unitteams-orbit-stage", "1");
+          orbitHost.appendChild(orbitStage);
+        }
+
+        orbitStage.className = "wm-unitteams-orbit-stage";
+        setHtml(
+          orbitStage,
+          '<span class="wm-unitteams-orbit-core"></span>' +
+          rings.map(function (ring) {
+            return renderRing(ring);
+          }).join("")
+        );
+      }
+
       function getHomeValuesCardIcon(iconName) {
         if (iconName === "globe") {
           return '<i class="fas fa-globe-americas" aria-hidden="true"></i>';
@@ -9225,6 +9699,58 @@
             '</div>' +
           '</div>'
         );
+      }
+
+      function ensureHomepageValuesSection() {
+        var valuesSection = document.querySelector('[data-home-values-static="1"]');
+        var languagesSection;
+        var footer;
+
+        if (!valuesSection) {
+          valuesSection = document.createElement("section");
+          valuesSection.setAttribute("data-home-values-static", "1");
+        }
+
+        valuesSection.className = "wm-home-values-section";
+        setHtml(valuesSection, getHomeValuesMarkup());
+
+        if (!valuesSection.parentNode) {
+          languagesSection = document.querySelector(".LanguagesSection");
+          footer = document.querySelector("footer");
+
+          if (languagesSection && languagesSection.parentNode) {
+            languagesSection.parentNode.insertBefore(valuesSection, languagesSection);
+          } else if (footer && footer.parentNode) {
+            footer.parentNode.insertBefore(valuesSection, footer);
+          }
+        }
+
+        return valuesSection;
+      }
+
+      function preserveLegacyAddonsSection() {
+        var legacyValues = document.getElementById("addons");
+        var legacySection = legacyValues && legacyValues.closest ? (legacyValues.closest("section") || legacyValues) : legacyValues;
+
+        if (!legacySection) {
+          return null;
+        }
+
+        legacySection.setAttribute("data-home-values-legacy", "1");
+        legacySection.setAttribute("aria-hidden", "true");
+        legacySection.style.position = "absolute";
+        legacySection.style.left = "-200vw";
+        legacySection.style.top = "0";
+        legacySection.style.width = "1px";
+        legacySection.style.height = "1px";
+        legacySection.style.margin = "0";
+        legacySection.style.padding = "0";
+        legacySection.style.overflow = "hidden";
+        legacySection.style.opacity = "0";
+        legacySection.style.pointerEvents = "none";
+        legacySection.style.zIndex = "-1";
+
+        return legacySection;
       }
 
       function getHomeCertificationsMarkup() {
@@ -9390,6 +9916,7 @@
         var heroImageVersion = "/images/hero/crestline-hero-bg.png?v=hero20260314c";
         applyMobilePerformanceMode();
         ensureLegacyIntegrationsRemoved();
+        ensureHomepageHeroContent();
         Array.from(document.querySelectorAll(".wm-hero-bg-image")).forEach(function (imageNode) {
           if (imageNode.getAttribute("src") !== heroImageVersion) {
             imageNode.setAttribute("src", heroImageVersion);
@@ -9464,6 +9991,21 @@
           var unitLoader = unitTeams.querySelector("#loaderLikeUTANIM");
           var unitRibbonNodes = unitTeams.querySelectorAll("#btnComp1, #btnComp2, #btnComp3");
           var unitLogoImage = unitTeams.querySelector("#descUT img");
+          var unitLegacyBg = unitTeams.querySelector("#UTBg");
+          var unitLegacyGlow = unitLegacyBg && unitLegacyBg.nextElementSibling;
+
+          if (unitLegacyBg && unitLegacyBg.parentNode) {
+            unitLegacyBg.parentNode.removeChild(unitLegacyBg);
+          }
+
+          if (
+            unitLegacyGlow &&
+            unitLegacyGlow.classList &&
+            unitLegacyGlow.classList.contains("hidden") &&
+            unitLegacyGlow.classList.contains("rounded-full")
+          ) {
+            unitLegacyGlow.parentNode.removeChild(unitLegacyGlow);
+          }
 
           setText(unitHeadings[0], "An Overview of");
           setText(unitHeadings[1], "Our Products Range.");
@@ -9518,6 +10060,7 @@
             unitLogoImage.setAttribute("height", "42");
           }
 
+          ensureUnitTeamsOrbitImages(unitTeams);
           ensureUnitTeamsCatalogueButton(unitTeams);
         }
 
@@ -9723,12 +10266,8 @@
           inquirySection.parentNode.removeChild(inquirySection);
         }
 
-        var valuesSection = document.getElementById("addons");
-        if (valuesSection) {
-          valuesSection.className = "wm-home-values-section";
-          valuesSection.setAttribute("data-home-values-static", "1");
-          setHtml(valuesSection, getHomeValuesMarkup());
-        }
+        preserveLegacyAddonsSection();
+        ensureHomepageValuesSection();
 
         var languagesSection = document.querySelector(".LanguagesSection");
         if (languagesSection) {
@@ -9851,10 +10390,7 @@
         var footer = document.querySelector("footer");
         if (footer) {
           var currentYear = new Date().getFullYear();
-          var footerSocialHtml =
-            '<div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></div>' +
-            '<a class="rounded-full text-white p-1 inline-flex" style="background-color:#00b14c" href="https://www.linkedin.com/company/crestline-smc-pvt-limited/" target="_blank" rel="noopener noreferrer" aria-label="Crestline LinkedIn"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg></a>' +
-            '<div class="rounded-full text-white p-1" style="background-color:#00b14c"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" height="21.09" width="21.09" xmlns="http://www.w3.org/2000/svg"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path></svg></div>';
+          footer.style.paddingBottom = "16px";
 
           var footerGrid = footer.querySelector(".grid");
           if (footerGrid) {
@@ -9881,9 +10417,6 @@
                     '<p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#00274D]">Working Days/Hours</p>' +
                     '<p class="text-sm leading-7" style="margin-top:4px">Mon - Sat / 10:00 AM - 6:00 PM</p>' +
                   '</div>' +
-                  '<div class="mt-2 flex gap-2 justify-center md:justify-start" data-home-footer-socials>' +
-                    footerSocialHtml +
-                  '</div>' +
                 '</div>' +
               '</div>' +
               '<div style="margin-left:auto;align-self:flex-end;text-align:right">' +
@@ -9898,6 +10431,7 @@
         }
 
         queueHomepageScrollTriggerRefresh(180);
+        scheduleHomepageStabilization();
         queueHomepageRevealCheck(60);
       }
 
@@ -9962,8 +10496,6 @@
           queueHomepageScrollTriggerRefresh(0);
         }, 420);
       });
-
-      applyHomepageCopy();
 
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(function () {
